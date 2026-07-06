@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAT 2026 Daily Schedule — Manas</title>
-<meta name="description" content="Interactive CAT 2026 preparation schedule with day-by-day planning">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAT 2026 Battle Plan v2 — Manas</title>
+  <meta name="description" content="Interactive CAT 2026 preparation schedule and tracker">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <h1>CAT 2026 <span class="accent">Battle Plan</span></h1>
-      <p class="subtitle">IIM Rohtak → CAT Domination</p>
+      <h1>CAT 2026 <span class="accent">Battle Plan</span> <span style="font-size:.9rem;color:var(--amber);vertical-align:super">v2</span></h1>
+      <p class="subtitle">IIM Rohtak → CAT Domination · Revised July 2026</p>
       <div class="countdown" id="countdown"></div>
       <div class="stats-bar">
-        <div class="stat"><span class="stat-num" id="stat-days">199</span><span class="stat-label">Days Left</span></div>
-        <div class="stat"><span class="stat-num">257</span><span class="stat-label">Mini-Tests</span></div>
-        <div class="stat"><span class="stat-num">48</span><span class="stat-label">Sectionals</span></div>
-        <div class="stat"><span class="stat-num" id="stat-mocks">28</span><span class="stat-label">Mocks</span></div>
+        <div class="stat"><span class="stat-num" id="stat-days">—</span><span class="stat-label">Days Left</span></div>
+        <div class="stat"><span class="stat-num" id="stat-mocks">30</span><span class="stat-label">Mocks Target</span></div>
+        <div class="stat"><span class="stat-num" id="stat-qa">825+</span><span class="stat-label">QA Questions</span></div>
+        <div class="stat"><span class="stat-num" id="stat-lr">33</span><span class="stat-label">LR Lectures</span></div>
+        <div class="stat"><span class="stat-num" id="stat-mini">257</span><span class="stat-label">Mini-Tests</span></div>
       </div>
     </div>
   </header>
 
   <nav class="tab-nav" id="tabNav">
-    <button class="tab active" data-tab="phase1">Phase 1 Schedule</button>
-    <button class="tab" data-tab="phase2">Phase 2 Template</button>
+    <button class="tab active" data-tab="weekly">Weekly Plans</button>
     <button class="tab" data-tab="mocks">Mock Calendar</button>
-    <button class="tab" data-tab="quant">Quant Revision</button>
-    <button class="tab" data-tab="estimates">Completion Estimates</button>
+    <button class="tab" data-tab="qa">QA Tracker</button>
+    <button class="tab" data-tab="lrdi">LRDI & DI</button>
+    <button class="tab" data-tab="varc">VARC Plan</button>
+    <button class="tab" data-tab="milestones">Milestones</button>
   </nav>
 
   <main class="content">
-    <section id="phase1" class="tab-panel active"></section>
-    <section id="phase2" class="tab-panel"></section>
+    <section id="weekly" class="tab-panel active"></section>
     <section id="mocks" class="tab-panel"></section>
-    <section id="quant" class="tab-panel"></section>
-    <section id="estimates" class="tab-panel"></section>
+    <section id="qa" class="tab-panel"></section>
+    <section id="lrdi" class="tab-panel"></section>
+    <section id="varc" class="tab-panel"></section>
+    <section id="milestones" class="tab-panel"></section>
   </main>
 </div>
 <script src="data.js"></script>

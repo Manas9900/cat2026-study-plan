@@ -1,27 +1,74 @@
-// CAT 2026 Schedule App
+// CAT 2026 App v2 — Rendering Logic
 document.addEventListener("DOMContentLoaded", () => {
-  initCountdown();
-  initTabs();
-  renderPhase1();
-  renderPhase2();
-  renderMocks();
-  renderQuant();
-  renderEstimates();
+  initCountdown(); initTabs();
+  renderWeekly(); renderMocks(); renderQA(); renderLRDI(); renderVARC(); renderMilestones();
 });
 
+// ─── PROGRESS TRACKING (localStorage) ───
+function getP(k) { return localStorage.getItem("cat26_"+k) === "1"; }
+function setP(k,v) { localStorage.setItem("cat26_"+k, v?"1":"0"); }
+function toggleP(k) { setP(k, !getP(k)); }
+
+function cb(key, label, extra="") {
+  const checked = getP(key) ? "checked" : "";
+  return `<label class="exercise-row"><input type="checkbox" class="checkbox-custom" data-key="${key}" ${checked} onchange="toggleP('${key}');updateCounts()"><span>${label}</span>${extra}</label>`;
+}
+
+function updateCounts() {
+  // Update QA progress
+  let qaTotal=0, qaDone=0;
+  QA_CHAPTERS.forEach(c => {
+    for(let l=1;l<=c.levels;l++) {
+      qaTotal++; if(getP(c.id+"_l"+l)) qaDone++;
+    }
+  });
+  const qaEl = document.getElementById("qa-progress");
+  if(qaEl) qaEl.textContent = `${qaDone}/${qaTotal} levels done`;
+
+  // LR progress
+  let lrTotal=0, lrDone=0;
+  LR_CHAPTERS.forEach(c => {
+    for(let l=1;l<=c.levels;l++) { lrTotal++; if(getP(c.id+"_l"+l)) lrDone++; }
+  });
+  const lrEl = document.getElementById("lr-progress");
+  if(lrEl) lrEl.textContent = `${lrDone}/${lrTotal} levels done`;
+
+  // DI progress
+  let diTotal=0, diDone=0;
+  DI_CHAPTERS.forEach(c => {
+    for(let l=1;l<=c.levels;l++) { diTotal++; if(getP(c.id+"_l"+l)) diDone++; }
+  });
+  const diEl = document.getElementById("di-progress");
+  if(diEl) diEl.textContent = `${diDone}/${diTotal} levels done`;
+
+  // LR videos
+  let lvTotal=0, lvDone=0;
+  LR_VIDEOS.forEach(v => {
+    for(let i=1;i<=v.count;i++) { lvTotal++; if(getP(v.id+"_"+i)) lvDone++; }
+  });
+  const lvEl = document.getElementById("lv-progress");
+  if(lvEl) lvEl.textContent = `${lvDone}/${lvTotal} lectures done`;
+
+  // Mocks
+  let mockDone = MOCKS.filter(m => getP("mock_"+m.num)).length;
+  const mkEl = document.getElementById("mock-progress");
+  if(mkEl) mkEl.textContent = `${mockDone}/${MOCKS.length} mocks done`;
+  const statMk = document.getElementById("stat-mocks");
+  if(statMk) statMk.textContent = `${mockDone}/${MOCKS.length}`;
+}
+
+// ─── COUNTDOWN ───
 function initCountdown() {
   function update() {
-    const now = new Date();
-    const diff = CAT_DATE - now;
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
+    const diff = CAT_DATE - new Date();
+    const d = Math.floor(diff/864e5), h = Math.floor((diff%864e5)/36e5);
     document.getElementById("countdown").textContent = `${d} days ${h} hours to CAT 2026`;
     document.getElementById("stat-days").textContent = d;
   }
-  update();
-  setInterval(update, 60000);
+  update(); setInterval(update, 60000);
 }
 
+// ─── TABS ───
 function initTabs() {
   document.querySelectorAll(".tab").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -33,274 +80,434 @@ function initTabs() {
   });
 }
 
-function fmt(dateStr) {
-  const d = new Date(dateStr + "T00:00:00");
-  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
-}
+// ─── WEEKLY PLANS ───
+function renderWeekly() {
+  const el = document.getElementById("weekly");
+  const cp = getCurrentPhase();
+  let html = `<h2 class="section-title">Weekly Schedule Templates</h2>
+    <p class="section-desc">Phase-specific templates · Current: <strong style="color:${cp.color}">${cp.name}</strong> (${cp.hrs} hrs/day)</p>`;
 
-function renderPhase1() {
-  const days = generatePhase1();
-  const el = document.getElementById("phase1");
-  let html = `<h2 class="section-title">Phase 1 — Full Intensity</h2>
-    <p class="section-desc">15 May – 20 June 2026 · 37 days · 6–7 hrs/day · Backlog clearance + Topic revision + Practice buildup</p>`;
-
-  // Week grouping
-  let currentWeek = -1;
-  const weekStart = new Date(2026, 4, 15);
-
-  days.forEach((day, i) => {
-    const d = new Date(day.date + "T00:00:00");
-    const weekNum = Math.floor((d - weekStart) / (7 * 86400000));
-    if (weekNum !== currentWeek) {
-      currentWeek = weekNum;
-      const clust = LRDI_CLUSTERS[weekNum] || LRDI_CLUSTERS[LRDI_CLUSTERS.length - 1];
-      html += `<div class="week-header"><h3>Week ${weekNum + 1}</h3><span class="lrdi-tag">LRDI: ${clust.types}</span><div class="line"></div></div>`;
-    }
-
-    const tags = day.tags || [];
-    const tagsHtml = tags.map(t => {
-      let cls = "tag-lecture";
-      if (t === "Revision") cls = "tag-revision";
-      if (t === "Sectional") cls = "tag-sectional";
-      if (t === "Light Day") cls = "tag-rest";
-      if (t === "Advance") cls = "tag-lecture";
-      return `<span class="tag ${cls}">${t}</span>`;
-    }).join("");
-
-    const dotsHtml = `
-      ${day.miniTests.qa ? '<span class="mini-dot qa" title="QA"></span>' : ""}
-      ${day.miniTests.lrdi ? '<span class="mini-dot lrdi" title="LRDI"></span>' : ""}
-      ${day.miniTests.varc ? '<span class="mini-dot varc" title="VARC"></span>' : ""}
-    `;
-
-    let bodyHtml = "";
-    if (day.morning) {
-      bodyHtml += `<div class="time-block"><div class="time-label morning">☀️ ${day.morning.label}</div><ul class="task-list">${day.morning.tasks.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
-    }
-    if (day.afternoon) {
-      bodyHtml += `<div class="time-block"><div class="time-label afternoon">🌤️ ${day.afternoon.label}</div><ul class="task-list">${day.afternoon.tasks.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
-    }
-    if (day.evening) {
-      bodyHtml += `<div class="time-block"><div class="time-label evening">🌙 ${day.evening.label}</div><ul class="task-list">${day.evening.tasks.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
-    }
-
-    html += `<div class="day-card ${day.isSunday ? "sunday" : ""}" id="day-${day.date}">
-      <div class="day-head" onclick="this.parentElement.classList.toggle('open')">
-        <div class="day-date">${fmt(day.date)} <span class="dow">${day.dayName}</span></div>
-        <div class="day-tags">${tagsHtml}</div>
-        <div class="day-mini">${dotsHtml}</div>
-        <span class="chevron">▾</span>
-      </div>
-      <div class="day-body">${bodyHtml}</div>
+  // Phase overview
+  html += `<div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem">`;
+  PHASES.forEach(p => {
+    const isCurrent = p.id === cp.id;
+    html += `<div class="card" style="padding:.6rem 1rem;${isCurrent?'border-color:'+p.color+';box-shadow:0 0 12px '+p.color+'33;':''}display:flex;align-items:center;gap:1rem">
+      <span style="font-size:.7rem;padding:2px 8px;border-radius:999px;background:${p.color}20;color:${p.color};font-weight:700;min-width:90px;text-align:center">${p.hrs} hrs/day</span>
+      <span style="font-weight:${isCurrent?700:500};font-size:.85rem;${isCurrent?'color:var(--text)':'color:var(--text2)'}">${p.name}</span>
+      <span style="font-size:.75rem;color:var(--text2);margin-left:auto">${fmtDate(p.start)} – ${fmtDate(p.end)}</span>
+      ${isCurrent ? '<span style="font-size:.6rem;padding:2px 6px;border-radius:999px;background:var(--green);color:#fff;font-weight:700">NOW</span>' : ''}
     </div>`;
   });
-
-  // Mini-test summary
-  let totalQA = 0, totalLRDI = 0, totalVARC = 0;
-  days.forEach(d => { totalQA += d.miniTests.qa; totalLRDI += d.miniTests.lrdi; totalVARC += d.miniTests.varc; });
-  html += `<div style="margin-top:1.5rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-    <h4 style="margin-bottom:.5rem">Phase 1 Mini-Test Totals</h4>
-    <p style="font-size:.85rem;color:var(--text2)">
-      <span style="color:var(--qa)">■</span> QA: ~${totalQA} of 94 &nbsp;
-      <span style="color:var(--lrdi)">■</span> LRDI: ~${totalLRDI} of 73 &nbsp;
-      <span style="color:var(--varc)">■</span> VARC: ~${totalVARC} of 90 &nbsp;
-      | Total: ~${totalQA+totalLRDI+totalVARC} of 257
-    </p>
-  </div>`;
-
-  el.innerHTML = html;
-}
-
-function renderPhase2() {
-  const el = document.getElementById("phase2");
-  let html = `<h2 class="section-title">Phase 2 — College + CAT</h2>
-    <p class="section-desc">21 June – 29 November 2026 · ~23 weeks · 2–3 hrs/day · Morning (6–8 AM) + Evening (8–10:30 PM)</p>
-    <div style="margin-bottom:1rem;padding:.8rem 1rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-size:.85rem;color:var(--amber)">
-      ⚡ <strong>Hard stop on new content: 25 September 2026.</strong> Oct–Nov = Mocks + Revision only.
-    </div>
-    <div class="template-grid">`;
-
-  PHASE2_TEMPLATE.forEach(day => {
-    html += `<div class="template-card"><h4>${day.day}</h4>`;
-    day.slots.forEach(slot => {
-      html += `<div class="slot"><div class="slot-label">${slot.time}</div><div class="slot-tasks">${slot.tasks}</div></div>`;
-    });
-    html += `</div>`;
-  });
-
   html += `</div>`;
 
-  // Phase 2 weekly summary
-  html += `<div style="margin-top:1.5rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-    <h4 style="margin-bottom:.5rem">Phase 2 Weekly Breakdown</h4>
+  // Exam blocks warning
+  html += `<div class="alert-box" style="border-left-color:var(--red);margin-bottom:1.5rem">
+    <strong>⚠️ College Exam Blocks</strong><br>
+    ${EXAMS.map(e => `<span style="color:var(--text2);font-size:.85rem">• ${e.name}: ${fmtDate(e.start)}–${fmtDate(e.end)} (prep from ${fmtDate(e.prep)})</span>`).join('<br>')}
+  </div>`;
+
+  // Render templates
+  const templates = [
+    { key: "college", applies: "Phases 1, 3 (Jul 6–24, Aug 2–Sep 10)" },
+    { key: "fulltime", applies: "Phases 5, 7 (Sep 22–Nov 10, Nov 19–28)" },
+    { key: "exam", applies: "Phases 2, 4, 6 (Exam weeks)" }
+  ];
+
+  templates.forEach(t => {
+    const tmpl = TEMPLATES[t.key];
+    html += `<div style="margin-bottom:2rem">
+      <div class="week-header"><h3>${tmpl.title}</h3><span class="phase-badge" style="background:var(--surface2);color:var(--text2)">${t.applies}</span><div class="line"></div></div>
+      <p class="section-desc">${tmpl.subtitle}</p>
+      <div class="template-grid">`;
+    tmpl.days.forEach(day => {
+      html += `<div class="template-card"><h4>${day.day}</h4>`;
+      day.slots.forEach(s => {
+        html += `<div class="slot"><div class="slot-label">${s.time}</div><div class="slot-tasks">${s.tasks}</div></div>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  // Daily non-negotiables
+  html += `<div class="card" style="padding:1rem">
+    <h4 style="margin-bottom:.5rem;color:var(--amber)">📌 Daily Non-Negotiables (Every Single Day)</h4>
     <ul style="font-size:.85rem;color:var(--text2);list-style:none;line-height:2">
-      <li>📚 <strong>3 CrackU lectures/week</strong> (Mon, Wed, Fri mornings)</li>
-      <li>📝 <strong>~5 QA + 4 LRDI + 5 VARC mini-tests/week</strong></li>
-      <li>🎯 <strong>2–3 Sectional tests/week</strong> (Wed evening + Sat morning + Sun if no mock)</li>
-      <li>📖 <strong>5–6 RC passages/week</strong> (daily habit)</li>
-      <li>🧪 <strong>1–2 Full mocks/week</strong> (ramping up Oct–Nov)</li>
-      <li>📋 <strong>Daily error log</strong> (15–20 min built into every evening)</li>
+      <li>📖 <strong>1 RC test</strong> (15 min) — build reading habit</li>
+      <li>📰 <strong>The Hindu editorial</strong> (20 min) — vocab + comprehension</li>
+      <li>📰 <strong>ET editorial</strong> (15 min) — when time permits</li>
+      <li>📝 <strong>At least 1 mini-test</strong> from QA/LRDI/VARC bank</li>
+      <li>📋 <strong>Error log</strong> (15–20 min) — review mistakes</li>
     </ul>
   </div>`;
 
-  // Oct-Nov modified template
-  html += `<div style="margin-top:1rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-    <h4 style="margin-bottom:.5rem;color:var(--amber)">🔥 October–November Modified Template</h4>
-    <p style="font-size:.85rem;color:var(--text2);line-height:1.7">
-      No new lectures. Replace lecture slots with: <strong>Weak area revision</strong> (from error logs), 
-      <strong>Formula sheet review</strong>, <strong>Speed drills</strong> (10 Qs in 15 min), 
-      and <strong>Mock analysis deep-dives</strong>. Mock frequency: 2/week (Oct) → 2–3/week (Nov). 
-      Taper final week — last mock on Nov 28 (Saturday).
-    </p>
-  </div>`;
-
   el.innerHTML = html;
 }
 
+// ─── MOCK CALENDAR ───
 function renderMocks() {
-  const { groups, total } = generateMockCalendar();
   const el = document.getElementById("mocks");
-  document.getElementById("stat-mocks").textContent = total;
-
   let html = `<h2 class="section-title">Full Mock Test Calendar</h2>
-    <p class="section-desc">Late June – 28 November 2026 · ${total} Full-Length Mocks · Sunday preferred · 3 hrs + 1.5 hrs review</p>`;
+    <p class="section-desc">30 Full-Length Mocks · Last mock: Nov 25 · 3 hrs + 1.5 hrs review · <strong id="mock-progress">0/${MOCKS.length} mocks done</strong></p>`;
 
-  // Frequency ramp visual
+  // Frequency ramp
   html += `<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
-    <div style="padding:.4rem .8rem;background:rgba(99,102,241,.1);border-radius:6px;font-size:.75rem;color:var(--accent2)">Jun–Jul: 1/2 weeks</div>
-    <div style="padding:.4rem .8rem;background:rgba(6,182,212,.1);border-radius:6px;font-size:.75rem;color:var(--cyan)">Aug: 1/week</div>
-    <div style="padding:.4rem .8rem;background:rgba(16,185,129,.1);border-radius:6px;font-size:.75rem;color:var(--green)">Sep: 1/week</div>
-    <div style="padding:.4rem .8rem;background:rgba(245,158,11,.1);border-radius:6px;font-size:.75rem;color:var(--amber)">Oct: 2/week</div>
-    <div style="padding:.4rem .8rem;background:rgba(239,68,68,.1);border-radius:6px;font-size:.75rem;color:var(--red)">Nov: 2–3/week</div>
+    <span class="phase-badge" style="background:var(--cyan)20;color:var(--cyan)">Jul: 1–2 mocks</span>
+    <span class="phase-badge" style="background:var(--accent)20;color:var(--accent2)">Aug: 1/week</span>
+    <span class="phase-badge" style="background:var(--green)20;color:var(--green)">Sep: 1/week</span>
+    <span class="phase-badge" style="background:var(--amber)20;color:var(--amber)">Oct: 2/week</span>
+    <span class="phase-badge" style="background:var(--red)20;color:var(--red)">Nov: 2–3/week</span>
   </div>`;
 
-  for (const [month, items] of Object.entries(groups)) {
+  // Group by month
+  const groups = {};
+  MOCKS.forEach(m => {
+    const month = new Date(m.date+"T00:00:00").toLocaleString('en-US',{month:'long',year:'numeric'});
+    if(!groups[month]) groups[month] = [];
+    groups[month].push(m);
+  });
+
+  for(const [month, items] of Object.entries(groups)) {
     html += `<div class="mock-month"><h3>${month}</h3><div class="mock-list">`;
     items.forEach(m => {
-      html += `<div class="mock-item">
-        <span class="mock-num">Mock #${m.num}</span>
-        <span class="mock-date">${fmt(m.date)} (${m.day})</span>
-        <span class="mock-type mock-full">${m.freq}</span>
+      const done = getP("mock_"+m.num);
+      const phase = PHASES.find(p=>p.id===m.phase);
+      html += `<div class="mock-item ${done?'done':''}">
+        <label style="display:flex;align-items:center;gap:.75rem;flex:1;cursor:pointer">
+          <input type="checkbox" class="checkbox-custom" data-key="mock_${m.num}" ${done?"checked":""} onchange="toggleP('mock_${m.num}');updateCounts()">
+          <span class="mock-num">Mock #${m.num}</span>
+          <span class="mock-date">${fmtDate(m.date)} (${m.day})</span>
+        </label>
+        <span class="phase-badge" style="background:${phase?phase.color:'var(--accent)'}20;color:${phase?phase.color:'var(--accent)'}">${phase?phase.name.split('—')[0].trim():''}</span>
       </div>`;
     });
     html += `</div></div>`;
   }
 
+  html += `<div class="alert-box" style="border-left-color:var(--amber);margin-top:1rem">
+    <strong>💡 Mock Day Protocol</strong><br>
+    <span style="font-size:.85rem;color:var(--text2)">Morning: Take mock (3 hrs, exam conditions) → Afternoon: Detailed review (1.5 hrs) → Evening: Error log + strategy notes (30 min). No new content on mock days.</span>
+  </div>`;
+
+  el.innerHTML = html;
+  updateCounts();
+}
+
+// ─── QA TRACKER ───
+function renderQA() {
+  const el = document.getElementById("qa");
+  const totalQ = QA_CHAPTERS.reduce((s,c) => s + c.levels*c.qPerLevel, 0);
+
+  let html = `<h2 class="section-title">Quant (QA) Tracker</h2>
+    <p class="section-desc">${QA_CHAPTERS.length} chapters · ${totalQ}+ questions · 3 difficulty levels each · <strong id="qa-progress">0/0 levels done</strong></p>`;
+
+  html += `<div class="alert-box" style="border-left-color:var(--accent);margin-bottom:1rem">
+    <strong>📝 Strategy:</strong> Revise from IPM handwritten notes → Solve CrackU book questions → Watch video ONLY if stuck after notes revision
+  </div>`;
+
+  // Chapters
+  QA_CHAPTERS.forEach(c => {
+    let done = 0;
+    for(let l=1;l<=c.levels;l++) if(getP(c.id+"_l"+l)) done++;
+    const pct = Math.round((done/c.levels)*100);
+
+    html += `<div class="card chapter-card" id="${c.id}">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div style="flex:1">
+          <strong>${c.name}</strong>
+          <span style="font-size:.75rem;color:var(--text2);margin-left:.5rem">${c.levels} levels × ~${c.qPerLevel} Qs = ~${c.levels*c.qPerLevel} Qs</span>
+        </div>
+        <span style="font-size:.8rem;color:${pct===100?'var(--green)':'var(--text2)'}">${done}/${c.levels}</span>
+        <div class="progress-bar" style="width:80px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:.3rem;padding:.5rem 0">`;
+
+    for(let l=1;l<=c.levels;l++) {
+      html += cb(c.id+"_l"+l, `Level ${l} (${c.qPerLevel} questions)`, `<span style="font-size:.7rem;color:var(--text2);margin-left:auto">~${c.qPerLevel} Qs</span>`);
+    }
+
+    html += `</div></div></div>`;
+  });
+
+  // Conditional QA Videos
+  html += `<h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.1rem">📺 QA Video Lectures <span style="font-size:.8rem;color:var(--amber)">(Conditional — watch only if stuck)</span></h3>`;
+  html += `<div class="alert-box" style="border-left-color:var(--amber);margin-bottom:1rem">
+    <span style="font-size:.85rem">Watch these ONLY if you cannot solve questions after revising your IPM notes. Don't watch all — be selective.</span>
+  </div>`;
+
+  QA_VIDEOS.forEach(v => {
+    let done = 0;
+    for(let i=1;i<=v.count;i++) if(getP(v.id+"_"+i)) done++;
+    html += `<div class="card" style="padding:.6rem 1rem;margin-bottom:.3rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <strong style="font-size:.9rem">${v.name}</strong>
+        <span style="font-size:.8rem;color:var(--text2)">${done}/${v.count} watched</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:.2rem;padding:.5rem 0">`;
+    for(let i=1;i<=v.count;i++) {
+      html += cb(v.id+"_"+i, `Lecture ${i}`);
+    }
+    html += `</div></div>`;
+  });
+
+  el.innerHTML = html;
+  updateCounts();
+}
+
+// ─── LRDI & DI TRACKER ───
+function renderLRDI() {
+  const el = document.getElementById("lrdi");
+
+  let html = `<h2 class="section-title">LRDI & DI Tracker</h2>
+    <p class="section-desc">Your weakest section — TOP PRIORITY · LR video lectures + Book exercises + DI practice</p>`;
+
+  // ─ LR VIDEO LECTURES (must watch all) ─
+  html += `<h3 style="margin-bottom:.75rem;font-size:1.1rem">📺 LR Video Lectures <span style="font-size:.8rem;color:var(--red)">(ALL must watch — 33 total)</span> · <span id="lv-progress" style="font-size:.8rem;color:var(--text2)">0/0</span></h3>`;
+  html += `<div class="alert-box" style="border-left-color:var(--red);margin-bottom:1rem">
+    <strong>🔴 Priority:</strong> LR is your weakest. Complete all 33 video lectures by end of August. Watch 1/day during college phase, 2/day if time permits.
+  </div>`;
+
+  LR_VIDEOS.forEach(v => {
+    let done = 0;
+    for(let i=1;i<=v.count;i++) if(getP(v.id+"_"+i)) done++;
+    const pct = Math.round((done/v.count)*100);
+
+    html += `<div class="card" style="margin-bottom:.4rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <strong style="font-size:.9rem">${v.name}</strong>
+        <span style="font-size:.8rem;color:${pct===100?'var(--green)':'var(--text2)'}">${done}/${v.count}</span>
+        <div class="progress-bar" style="width:60px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:.2rem;padding:.5rem 0">`;
+    for(let i=1;i<=v.count;i++) html += cb(v.id+"_"+i, `Lecture ${i} (~1–1.5 hrs)`);
+    html += `</div></div>`;
+  });
+
+  // ─ LR BOOK EXERCISES ─
+  html += `<h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.1rem">📘 LR Book Exercises · <span id="lr-progress" style="font-size:.8rem;color:var(--text2)">0/0</span></h3>`;
+
+  LR_CHAPTERS.forEach(c => {
+    let done = 0;
+    for(let l=1;l<=c.levels;l++) if(getP(c.id+"_l"+l)) done++;
+    const pct = Math.round((done/c.levels)*100);
+    const note = c.sets ? " (set-based, ~8–9 sets per level)" : "";
+
+    html += `<div class="card chapter-card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div style="flex:1">
+          <strong>${c.name}</strong>
+          <span style="font-size:.75rem;color:var(--text2);margin-left:.5rem">${c.levels} level${c.levels>1?'s':''} × ~${c.qPerLevel} Qs${note}</span>
+        </div>
+        <span style="font-size:.8rem;color:${pct===100?'var(--green)':'var(--text2)'}">${done}/${c.levels}</span>
+        <div class="progress-bar" style="width:60px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:.3rem;padding:.5rem 0">`;
+    for(let l=1;l<=c.levels;l++) {
+      html += cb(c.id+"_l"+l, `Level ${l} (~${c.qPerLevel} questions / ~${Math.ceil(c.qPerLevel/5)} sets)`);
+    }
+    html += `</div></div>`;
+  });
+
+  // ─ DI BOOK EXERCISES ─
+  html += `<h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.1rem">📊 DI Book Exercises · <span id="di-progress" style="font-size:.8rem;color:var(--text2)">0/0</span></h3>`;
+
+  DI_CHAPTERS.forEach(c => {
+    let done = 0;
+    for(let l=1;l<=c.levels;l++) if(getP(c.id+"_l"+l)) done++;
+    const pct = Math.round((done/c.levels)*100);
+
+    html += `<div class="card chapter-card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div style="flex:1">
+          <strong>${c.name}</strong>
+          <span style="font-size:.75rem;color:var(--text2);margin-left:.5rem">${c.levels} level${c.levels>1?'s':''} × ~${c.qPerLevel} Qs</span>
+        </div>
+        <span style="font-size:.8rem;color:${pct===100?'var(--green)':'var(--text2)'}">${done}/${c.levels}</span>
+        <div class="progress-bar" style="width:60px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:.3rem;padding:.5rem 0">`;
+    for(let l=1;l<=c.levels;l++) {
+      html += cb(c.id+"_l"+l, `${c.levels>1?'Level '+l:'Exercise'} (~${c.qPerLevel} questions)`);
+    }
+    html += `</div></div>`;
+  });
+
+  // Mini-tests reminder
+  html += `<div class="card" style="padding:1rem;margin-top:1.5rem">
+    <h4 style="margin-bottom:.5rem">📝 LRDI Mini-Tests (from CrackU daily test bank)</h4>
+    <p style="font-size:.85rem;color:var(--text2)">73 LRDI mini-tests pending · 15 min each · Do 1/day minimum · These are SEPARATE from book exercises above</p>
+  </div>`;
+
+  el.innerHTML = html;
+  updateCounts();
+}
+
+// ─── VARC PLAN ───
+function renderVARC() {
+  const el = document.getElementById("varc");
+  let html = `<h2 class="section-title">VARC Plan</h2>
+    <p class="section-desc">Practice-driven · Daily RC habit · Newspaper reading · 90 VARC mini-tests</p>`;
+
+  html += `<div class="alert-box" style="border-left-color:var(--varc);margin-bottom:1.5rem">
+    <strong>📖 Core Strategy:</strong> No formal lectures needed. Build reading speed and comprehension through daily practice.
+  </div>`;
+
+  // Daily habits
+  html += `<div class="card" style="padding:1.2rem;margin-bottom:1rem">
+    <h4 style="margin-bottom:.8rem;color:var(--varc)">📌 Daily VARC Routine (Every Single Day)</h4>
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.6rem .8rem;background:var(--surface2);border-radius:8px">
+        <span style="font-size:1.2rem">📝</span>
+        <div>
+          <strong style="font-size:.9rem">1 RC Test</strong>
+          <div style="font-size:.8rem;color:var(--text2)">15–20 min · From CrackU mini-test bank (90 total) · Build reading + answering speed</div>
+        </div>
+        <span style="font-size:.75rem;color:var(--varc);margin-left:auto">15 min</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.6rem .8rem;background:var(--surface2);border-radius:8px">
+        <span style="font-size:1.2rem">📰</span>
+        <div>
+          <strong style="font-size:.9rem">The Hindu Editorial</strong>
+          <div style="font-size:.8rem;color:var(--text2)">Read 1 editorial daily · Focus on understanding argument structure + vocab</div>
+        </div>
+        <span style="font-size:.75rem;color:var(--amber);margin-left:auto">20 min</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.6rem .8rem;background:var(--surface2);border-radius:8px">
+        <span style="font-size:1.2rem">💼</span>
+        <div>
+          <strong style="font-size:.9rem">Economic Times Editorial</strong>
+          <div style="font-size:.8rem;color:var(--text2)">Read when time permits · Good for business/economy RC passages</div>
+        </div>
+        <span style="font-size:.75rem;color:var(--cyan);margin-left:auto">15 min</span>
+      </div>
+    </div>
+  </div>`;
+
+  // Mini-tests tracker
+  html += `<h3 style="margin-top:1.5rem;margin-bottom:.75rem;font-size:1.1rem">📝 VARC Mini-Tests (90 total)</h3>
+    <p class="section-desc">RC passages (~73) + Non-RC tests (~17 — para jumbles, odd sentence, para summary) · 15 min each</p>`;
+
+  // RC tests in batches of 10
+  html += `<div style="display:flex;flex-direction:column;gap:.3rem">`;
+  for(let batch=1; batch<=9; batch++) {
+    const start = (batch-1)*10+1, end = Math.min(batch*10, 90);
+    let done = 0;
+    for(let i=start;i<=end;i++) if(getP("varc_"+i)) done++;
+    const pct = Math.round((done/(end-start+1))*100);
+
+    html += `<div class="card" style="margin-bottom:.2rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <strong style="font-size:.85rem">${batch<=7?'RC Tests':'Non-RC Tests'} #${start}–${end}</strong>
+        <span style="font-size:.8rem;color:${pct===100?'var(--green)':'var(--text2)'}">${done}/${end-start+1}</span>
+        <div class="progress-bar" style="width:60px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem 0">`;
+    for(let i=start;i<=end;i++) html += cb("varc_"+i, `Test ${i}`);
+    html += `</div></div>`;
+  }
+  html += `</div>`;
+
+  // QA mini-tests
+  html += `<h3 style="margin-top:1.5rem;margin-bottom:.75rem;font-size:1.1rem">📘 QA Mini-Tests (94 total)</h3>`;
+  html += `<div style="display:flex;flex-direction:column;gap:.3rem">`;
+  for(let batch=1; batch<=10; batch++) {
+    const start = (batch-1)*10+1, end = Math.min(batch*10, 94);
+    let done = 0;
+    for(let i=start;i<=end;i++) if(getP("qamt_"+i)) done++;
+    html += `<div class="card" style="margin-bottom:.2rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <strong style="font-size:.85rem">QA Tests #${start}–${end}</strong>
+        <span style="font-size:.8rem;color:var(--text2)">${done}/${end-start+1}</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem 0">`;
+    for(let i=start;i<=end;i++) html += cb("qamt_"+i, `Test ${i}`);
+    html += `</div></div>`;
+  }
+  html += `</div>`;
+
+  // LRDI mini-tests
+  html += `<h3 style="margin-top:1.5rem;margin-bottom:.75rem;font-size:1.1rem">📗 LRDI Mini-Tests (73 total)</h3>`;
+  html += `<div style="display:flex;flex-direction:column;gap:.3rem">`;
+  for(let batch=1; batch<=8; batch++) {
+    const start = (batch-1)*10+1, end = Math.min(batch*10, 73);
+    let done = 0;
+    for(let i=start;i<=end;i++) if(getP("lrmt_"+i)) done++;
+    html += `<div class="card" style="margin-bottom:.2rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <strong style="font-size:.85rem">LRDI Tests #${start}–${end}</strong>
+        <span style="font-size:.8rem;color:var(--text2)">${done}/${end-start+1}</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem 0">`;
+    for(let i=start;i<=end;i++) html += cb("lrmt_"+i, `Test ${i}`);
+    html += `</div></div>`;
+  }
+  html += `</div>`;
+
   el.innerHTML = html;
 }
 
-function renderQuant() {
-  const el = document.getElementById("quant");
-  let html = `<h2 class="section-title">Quant Revision Sequence</h2>
-    <p class="section-desc">Priority order based on CAT frequency · Aligned with CrackU lectures · Use IPM handwritten notes + 2–3 CrackU topic tests per topic</p>`;
+// ─── MILESTONES ───
+function renderMilestones() {
+  const el = document.getElementById("milestones");
+  let html = `<h2 class="section-title">Milestones & Estimates</h2>
+    <p class="section-desc">Key dates and completion targets from July 6 to November 29</p>`;
 
-  html += `<div class="quant-track">`;
-  QUANT_REVISION_SEQ.forEach(t => {
-    const statusColor = t.status === "High Priority" ? "var(--red)" : t.status === "Medium" ? "var(--amber)" : "var(--green)";
-    html += `<div class="quant-topic">
-      <div class="quant-priority">#${t.id}</div>
-      <div style="flex:1">
-        <div class="quant-name">${t.name}</div>
-        <div class="quant-dates">Phase 1: ${t.phase1Dates}</div>
+  html += `<div style="display:flex;flex-direction:column;gap:.3rem">`;
+  MILESTONES.forEach((m, i) => {
+    const isLast = i === MILESTONES.length - 1;
+    const isExam = m.icon === "🎓";
+    html += `<div class="card" style="padding:.6rem 1rem;${isLast?'border-color:var(--amber);box-shadow:0 0 12px rgba(245,158,11,.2)':''}${isExam?'border-left:3px solid var(--red);':''}">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <span style="font-size:1.2rem">${m.icon}</span>
+        <span style="min-width:120px;font-size:.8rem;font-weight:700;color:var(--accent2)">${m.date}</span>
+        <span style="font-size:.85rem">${m.event}</span>
       </div>
-      <span style="font-size:.7rem;padding:2px 8px;border-radius:999px;background:${statusColor}15;color:${statusColor}">${t.status}</span>
     </div>`;
   });
   html += `</div>`;
 
-  // LRDI Clustering
-  html += `<h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.2rem">LRDI Practice Clustering</h3>
-    <p class="section-desc">Cluster by type for pattern recognition — mapped to Phase 1 weeks</p>`;
-  html += `<div style="display:flex;flex-direction:column;gap:.4rem">`;
-  LRDI_CLUSTERS.forEach(c => {
-    html += `<div style="display:flex;align-items:center;gap:1rem;padding:.6rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px">
-      <span style="font-size:.8rem;font-weight:700;color:var(--cyan);min-width:130px">${c.weeks.split("(")[0]}</span>
-      <span style="flex:1;font-size:.85rem">${c.types}</span>
-      <span style="font-size:.75rem;color:var(--text2)">${c.count}</span>
+  // Content completion estimates
+  html += `<h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.1rem">📊 Completion Estimates</h3>`;
+  const estimates = [
+    { title:"33 LR Video Lectures", target:"End of August", detail:"1/day college phase. All done by Aug 31.", color:"var(--red)" },
+    { title:"LR Book Exercises", target:"Mid-October", detail:"2–3 sets/day. Accelerate during term break.", color:"var(--lrdi)" },
+    { title:"DI Book Exercises", target:"Mid-October", detail:"Interleave with LR practice. ~30 min/day.", color:"var(--di)" },
+    { title:"QA Book (825+ Qs)", target:"End of October", detail:"10–15 Qs/day. Notes revision first, then solve.", color:"var(--qa)" },
+    { title:"257 Mini-Tests", target:"Early November", detail:"2–3/day. Mix of QA, LRDI, VARC.", color:"var(--accent)" },
+    { title:"30 Full Mocks", target:"November 25", detail:"Ramp: 1/wk → 2/wk → 3/wk final weeks.", color:"var(--amber)" },
+    { title:"CAT 2026 Exam", target:"November 29", detail:"D-Day. You've got this. 🏆", color:"var(--pink)" }
+  ];
+
+  html += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem">`;
+  estimates.forEach(e => {
+    html += `<div class="card" style="padding:1rem">
+      <h4 style="font-size:.85rem;margin-bottom:.4rem">${e.title}</h4>
+      <div style="font-size:1.1rem;font-weight:800;color:${e.color}">${e.target}</div>
+      <div style="font-size:.8rem;color:var(--text2);margin-top:.3rem">${e.detail}</div>
     </div>`;
   });
   html += `</div>`;
 
-  // Alignment note
-  html += `<div style="margin-top:1.5rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-    <h4 style="margin-bottom:.5rem">🔗 Lecture-Revision Alignment</h4>
-    <ul style="font-size:.82rem;color:var(--text2);line-height:1.8;list-style:none">
-      <li>• <strong>May 15–16:</strong> Linear Equations lecture → Revise Linear Equations from IPM notes</li>
-      <li>• <strong>May 18–19:</strong> Inequalities lecture → Revise Inequalities notes</li>
-      <li>• <strong>May 20:</strong> VARC lecture → Use free revision slot for Geometry (Priority #1)</li>
-      <li>• <strong>May 21–22:</strong> Quadratic Equations lecture → Revise Quadratic Equations</li>
-      <li>• <strong>May 23:</strong> Functions lecture → Revise Functions notes</li>
-      <li>• <strong>May 25–26:</strong> Progressions lecture → Revise Progressions & Series</li>
-      <li>• <strong>May 27–29:</strong> Geometry lectures → Deep Geometry revision (3 days!)</li>
-      <li>• <strong>May 30:</strong> VARC lecture → Use free slot for Profit/Loss/Interest</li>
-      <li>• <strong>June 1–20:</strong> Follow priority sequence for deep/remaining revision</li>
+  // Hard rules
+  html += `<div class="alert-box" style="border-left-color:var(--red);margin-top:1.5rem">
+    <strong>🛑 Hard Rules</strong><br>
+    <ul style="font-size:.85rem;color:var(--text2);margin-top:.3rem;padding-left:1rem;line-height:1.8">
+      <li>No new content after Oct 31 — Nov is mocks + revision ONLY</li>
+      <li>Never skip daily RC test — even during exam weeks</li>
+      <li>Error log every single day — even 15 min counts</li>
+      <li>Mock review is NON-NEGOTIABLE — no mock without full review</li>
+      <li>LR videos are TOP priority — finish before anything else</li>
     </ul>
   </div>`;
 
   el.innerHTML = html;
-}
-
-function renderEstimates() {
-  const el = document.getElementById("estimates");
-  const now = new Date();
-
-  let html = `<h2 class="section-title">Completion Estimates</h2>
-    <p class="section-desc">Projected completion dates for all major milestones — based on the planned pace</p>
-    <div class="est-grid">`;
-
-  ESTIMATES.forEach(e => {
-    const targetDate = parseTargetDate(e.target);
-    const totalDays = Math.max(1, Math.floor((targetDate - new Date(2026, 4, 15)) / 86400000));
-    const elapsed = Math.max(0, Math.floor((now - new Date(2026, 4, 15)) / 86400000));
-    const pct = Math.min(100, Math.round((elapsed / totalDays) * 100));
-
-    html += `<div class="est-card">
-      <h4>${e.title}</h4>
-      <div class="est-date">${e.target}</div>
-      <div class="est-detail">${e.detail}</div>
-      <div class="est-bar"><div class="est-bar-fill" style="width:${pct}%;background:${e.color}"></div></div>
-    </div>`;
-  });
-
-  html += `</div>`;
-
-  // Key milestones timeline
-  html += `<h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.2rem">📅 Key Milestones Timeline</h3>`;
-  const milestones = [
-    { date: "15 May 2026", event: "Phase 1 begins — Full intensity", icon: "🚀" },
-    { date: "30 May 2026", event: "All 14 backlog lectures completed", icon: "✅" },
-    { date: "20 Jun 2026", event: "Phase 1 ends — ~100 mini-tests done", icon: "🏁" },
-    { date: "21 Jun 2026", event: "Phase 2 begins — College + CAT", icon: "🎓" },
-    { date: "28 Jun 2026", event: "First full-length mock test", icon: "🧪" },
-    { date: "~Late Sep 2026", event: "All 48 sectionals + 73 LRDI minis done", icon: "📊" },
-    { date: "25 Sep 2026", event: "HARD STOP — No new content after this", icon: "🛑" },
-    { date: "~Mid Oct 2026", event: "All 257 mini-tests completed", icon: "✨" },
-    { date: "Oct–Nov 2026", event: "Mocks + Weak area revision only", icon: "🔥" },
-    { date: "28 Nov 2026", event: "Last mock test", icon: "🎯" },
-    { date: "29 Nov 2026", event: "CAT 2026 — D-Day", icon: "🏆" }
-  ];
-
-  html += `<div style="display:flex;flex-direction:column;gap:.3rem">`;
-  milestones.forEach((m, i) => {
-    html += `<div style="display:flex;align-items:center;gap:1rem;padding:.6rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;${i === milestones.length-1 ? 'border-color:var(--amber);' : ''}">
-      <span style="font-size:1.2rem">${m.icon}</span>
-      <span style="min-width:130px;font-size:.8rem;font-weight:700;color:var(--accent2)">${m.date}</span>
-      <span style="font-size:.85rem;color:var(--text)">${m.event}</span>
-    </div>`;
-  });
-  html += `</div>`;
-
-  el.innerHTML = html;
-}
-
-function parseTargetDate(str) {
-  const months = { "January":0,"February":1,"March":2,"April":3,"May":4,"June":5,"July":6,"August":7,"September":8,"October":9,"November":10,"December":11 };
-  // Handle formats like "30 May 2026", "Mid-October 2026", "Late September 2026", "25 September 2026"
-  if (str.includes("Mid-October")) return new Date(2026, 9, 15);
-  if (str.includes("Late September")) return new Date(2026, 8, 25);
-  if (str.includes("28 November")) return new Date(2026, 10, 28);
-  if (str.includes("29 November")) return new Date(2026, 10, 29);
-  if (str.includes("25 September")) return new Date(2026, 8, 25);
-  if (str.includes("30 May")) return new Date(2026, 4, 30);
-  return new Date(2026, 10, 29); // default
 }
