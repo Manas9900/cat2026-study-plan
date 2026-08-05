@@ -1,39 +1,110 @@
-// CAT 2026 Schedule Data v2 — Revised July 6, 2026
+// CAT 2026 Schedule v3 — Fresh Start Aug 5, 2026 | Oswaal PYQ Chapter-wise
 const CAT_DATE = new Date(2026, 10, 29);
-const START = new Date(2026, 6, 6);
 
 const PHASES = [
-  { id:"p1", name:"College + Foundation", start:"2026-07-06", end:"2026-07-24", hrs:"3–4", color:"var(--cyan)", desc:"LR videos + QA book start + daily RC" },
-  { id:"p2", name:"Midterm Exam", start:"2026-07-25", end:"2026-08-01", hrs:"1–2", color:"var(--red)", desc:"College midterm — reduced CAT study" },
-  { id:"p3", name:"College + Ramp-up", start:"2026-08-02", end:"2026-09-10", hrs:"3–4", color:"var(--accent)", desc:"Continue LR/QA + mocks begin" },
-  { id:"p4", name:"Endterm Exam", start:"2026-09-11", end:"2026-09-21", hrs:"1–2", color:"var(--red)", desc:"College endterm — reduced CAT study" },
-  { id:"p5", name:"Term Break — Full Throttle", start:"2026-09-22", end:"2026-11-10", hrs:"6–7", color:"var(--green)", desc:"Full-time CAT prep. Complete all content. Heavy mocks." },
-  { id:"p6", name:"Mid-Nov Midterm", start:"2026-11-11", end:"2026-11-18", hrs:"2–3", color:"var(--amber)", desc:"College midterm — still do mocks" },
-  { id:"p7", name:"Final Sprint", start:"2026-11-19", end:"2026-11-28", hrs:"6–7", color:"var(--pink)", desc:"Last mocks + revision only. Taper Nov 27–28." }
+  { id:"p1", name:"College + Foundation", start:"2026-08-05", end:"2026-09-13", hrs:"2–3", color:"var(--cyan)", desc:"Oswaal chapter-wise + LR videos + daily RC. Classes 10:20–17:20." },
+  { id:"p2", name:"Endterm Exams", start:"2026-09-14", end:"2026-09-21", hrs:"1", color:"var(--red)", desc:"College endterms — daily RC + 1 mini-test only" },
+  { id:"p3", name:"Term Break — Full Throttle", start:"2026-09-22", end:"2026-11-10", hrs:"6–7", color:"var(--green)", desc:"Full-time CAT. Finish Oswaal + 2 mocks/week." },
+  { id:"p4", name:"Mid-Nov Midterm", start:"2026-11-11", end:"2026-11-17", hrs:"2–3", color:"var(--amber)", desc:"College midterm — still do weekend mocks" },
+  { id:"p5", name:"Final Sprint", start:"2026-11-18", end:"2026-11-28", hrs:"6–7", color:"var(--pink)", desc:"Last mocks daily + revision. Taper Nov 27–28." }
 ];
 
 const EXAMS = [
-  { name:"College Midterm", start:"2026-07-28", end:"2026-08-01", prep:"2026-07-25" },
-  { name:"College Endterm", start:"2026-09-14", end:"2026-09-19", prep:"2026-09-11" },
+  { name:"College Endterm", start:"2026-09-14", end:"2026-09-21", prep:"2026-09-11" },
   { name:"Mid-Nov Midterm", start:"2026-11-13", end:"2026-11-17", prep:"2026-11-11" }
 ];
 
-// ─── QA BOOK CHAPTERS (11 chapters × 3 levels × ~25 Qs) ───
-const QA_CHAPTERS = [
-  { id:"qa1", name:"Average, Ratio & Proportion", levels:3, qPerLevel:25, priority:1 },
-  { id:"qa2", name:"Profit, Loss & Interest", levels:3, qPerLevel:25, priority:2 },
-  { id:"qa3", name:"Time, Distance & Work", levels:3, qPerLevel:25, priority:3 },
-  { id:"qa4", name:"Linear Equations", levels:3, qPerLevel:25, priority:4 },
-  { id:"qa5", name:"Quadratic Equations", levels:3, qPerLevel:25, priority:5 },
-  { id:"qa6", name:"Inequalities", levels:3, qPerLevel:25, priority:6 },
-  { id:"qa7", name:"Progressions & Series", levels:3, qPerLevel:25, priority:7 },
-  { id:"qa8", name:"Number System", levels:3, qPerLevel:30, priority:8 },
-  { id:"qa9", name:"Logarithm, Surds & Indices", levels:3, qPerLevel:25, priority:9 },
-  { id:"qa10", name:"Probability & P&C", levels:3, qPerLevel:25, priority:10 },
-  { id:"qa11", name:"Functions", levels:3, qPerLevel:20, priority:11 }
+const BLOCKED_DAYS = [
+  { start:"2026-08-12", end:"2026-08-17", label:"GF Trip ❤️", color:"var(--pink)" },
+  { start:"2026-08-15", end:"2026-08-15", label:"Independence Day 🇮🇳", color:"var(--amber)" },
+  { start:"2026-08-26", end:"2026-08-26", label:"Milad-un-Nabi 🟢", color:"var(--green)" },
+  { start:"2026-09-04", end:"2026-09-04", label:"Janmashtami 🟢", color:"var(--green)" },
+  { start:"2026-09-14", end:"2026-09-21", label:"Endterm Exams 🎓", color:"var(--red)" },
+  { start:"2026-09-22", end:"2026-09-28", label:"Term Break 🔥", color:"var(--green)" }
 ];
 
-// ─── QA VIDEO LECTURES (conditional — watch only if stuck) ───
+// ─── OSWAAL BOOK TRACKER ───
+const OSWAAL = {
+  varc: {
+    name: "VARC", color: "var(--varc)", icon: "📕",
+    chapters: [
+      { id:"ov1", name:"Intro to VARC", pages:"1–3", est:"30 min" },
+      { id:"ov2", name:"Para Jumbles — Basics", pages:"4–15", est:"2 hrs" },
+      { id:"ov3", name:"Para Jumbles — Subjective", pages:"15–25", est:"2 hrs" },
+      { id:"ov4", name:"Para Jumbles — Odd Sentence Out", pages:"25–33", est:"1.5 hrs" },
+      { id:"ov5", name:"Summary Type Questions", pages:"34–53", est:"3 hrs" },
+      { id:"ov6", name:"RC — Basics", pages:"54–60", est:"1 hr" },
+      { id:"ov7", name:"RC — Environment & Life Science", pages:"60–80", est:"3 hrs" },
+      { id:"ov8", name:"RC — Science & Technology", pages:"80–95", est:"3 hrs" },
+      { id:"ov9", name:"RC — Economics & Management", pages:"95–110", est:"3 hrs" },
+      { id:"ov10", name:"RC — Social Science & History", pages:"110–125", est:"3 hrs" },
+      { id:"ov11", name:"RC — Literature & Art", pages:"125–140", est:"3 hrs" },
+      { id:"ov12", name:"RC — Philosophy & Psychology", pages:"140–155", est:"3 hrs" },
+      { id:"ov13", name:"RC — Politics & Contemporary", pages:"155–164", est:"2 hrs" }
+    ]
+  },
+  dilr: {
+    name: "DILR", color: "var(--lrdi)", icon: "📗",
+    chapters: [
+      { id:"od1", name:"LR — Mathematical Reasoning", pages:"165–185", est:"3 hrs" },
+      { id:"od2", name:"LR — Set Theory", pages:"185–200", est:"3 hrs" },
+      { id:"od3", name:"LR — Games & Tournaments", pages:"200–220", est:"3 hrs" },
+      { id:"od4", name:"LR — Group Arrangement", pages:"220–240", est:"3 hrs" },
+      { id:"od5", name:"LR — Sitting/Standing Arrangement", pages:"240–260", est:"3 hrs" },
+      { id:"od6", name:"LR — Puzzles", pages:"260–275", est:"3 hrs" },
+      { id:"od7", name:"LR — Order & Ranking", pages:"275–285", est:"2 hrs" },
+      { id:"od8", name:"LR — Analytical Reasoning", pages:"285–300", est:"3 hrs" },
+      { id:"od9", name:"LR — Binary & Conditional Logic", pages:"300–309", est:"2 hrs" },
+      { id:"od10", name:"DI — Line & Bar Charts", pages:"310–340", est:"4 hrs" },
+      { id:"od11", name:"DI — Pie Charts", pages:"340–360", est:"3 hrs" },
+      { id:"od12", name:"DI — Data Tabulation", pages:"360–385", est:"4 hrs" },
+      { id:"od13", name:"DI — Caselets", pages:"385–405", est:"3 hrs" },
+      { id:"od14", name:"DI — Logic Based DI", pages:"405–422", est:"3 hrs" }
+    ]
+  },
+  qa: {
+    name: "QA", color: "var(--qa)", icon: "📘",
+    chapters: [
+      { id:"oq1", name:"Number System — Divisibility & Properties", pages:"423–430", est:"2 hrs" },
+      { id:"oq2", name:"Number System — HCF, LCM & Remainder", pages:"430–440", est:"2 hrs" },
+      { id:"oq3", name:"Number System — Conversion & Misc", pages:"440–446", est:"1.5 hrs" },
+      { id:"oq4", name:"Arithmetic — Percentage & P/L/Discount", pages:"447–470", est:"4 hrs" },
+      { id:"oq5", name:"Arithmetic — SI/CI & Ratio/Proportion", pages:"470–485", est:"3 hrs" },
+      { id:"oq6", name:"Arithmetic — Average & Mixture", pages:"485–495", est:"2 hrs" },
+      { id:"oq7", name:"Arithmetic — Time, Speed & Distance", pages:"495–505", est:"2 hrs" },
+      { id:"oq8", name:"Arithmetic — Time & Work, Pipes, Clocks", pages:"505–519", est:"3 hrs" },
+      { id:"oq9", name:"Geometry — Lines, Angles & Triangles", pages:"520–540", est:"3 hrs" },
+      { id:"oq10", name:"Geometry — Quads, Polygons & Circles", pages:"540–560", est:"3 hrs" },
+      { id:"oq11", name:"Mensuration & Coordinate Geometry", pages:"560–578", est:"3 hrs" },
+      { id:"oq12", name:"Algebra — Equations & Polynomials", pages:"579–600", est:"3 hrs" },
+      { id:"oq13", name:"Algebra — Inequalities & Functions", pages:"600–625", est:"4 hrs" },
+      { id:"oq14", name:"Algebra — Logarithm & Progressions", pages:"625–651", est:"4 hrs" },
+      { id:"oq15", name:"Modern Maths — P&C, Probability & Sets", pages:"652–674", est:"4 hrs" }
+    ]
+  },
+  papers: {
+    name: "Full Papers", color: "var(--amber)", icon: "📄",
+    chapters: [
+      { id:"op1", name:"CAT 2023 Shift-1 (Full Paper)", pages:"17–48", est:"4 hrs" },
+      { id:"op2", name:"CAT 2023 Shift-2 (Full Paper)", pages:"49–60", est:"4 hrs" },
+      { id:"op3", name:"CAT 2023 Shift-3 (Full Paper)", pages:"61–72", est:"4 hrs" },
+      { id:"op4", name:"Sample Paper 1", pages:"675–687", est:"3 hrs" },
+      { id:"op5", name:"Sample Paper 2", pages:"688–699", est:"3 hrs" },
+      { id:"op6", name:"Sample Paper 3", pages:"700–712", est:"3 hrs" }
+    ]
+  }
+};
+
+// ─── LR VIDEO LECTURES (ALL — weakness area) ───
+const LR_VIDEOS = [
+  { id:"lv1", name:"Arrangements & Spatial Reasoning", count:10 },
+  { id:"lv2", name:"Set-based & Complex LR", count:5 },
+  { id:"lv3", name:"Games, Tournaments & Scheduling", count:6 },
+  { id:"lv4", name:"Data Interpretation & Mixed Sets", count:8 },
+  { id:"lv5", name:"Revision Complete Video", count:4 }
+];
+
+// ─── QA VIDEO LECTURES (conditional) ───
 const QA_VIDEOS = [
   { id:"qv1", name:"Geometry", count:20, conditional:true },
   { id:"qv2", name:"Number System", count:13, conditional:true },
@@ -44,199 +115,118 @@ const QA_VIDEOS = [
   { id:"qv7", name:"Functions", count:2, conditional:true }
 ];
 
-// ─── LR BOOK CHAPTERS ───
-const LR_CHAPTERS = [
-  { id:"lr1", name:"Arrangements", levels:3, qPerLevel:42, sets:true },
-  { id:"lr2", name:"Puzzles", levels:3, qPerLevel:42, sets:true },
-  { id:"lr3", name:"Games & Tournaments", levels:3, qPerLevel:42, sets:true },
-  { id:"lr4", name:"Scheduling", levels:1, qPerLevel:45, sets:true },
-  { id:"lr5", name:"Selection with Condition", levels:1, qPerLevel:45, sets:true },
-  { id:"lr6", name:"2D and 3D LR", levels:1, qPerLevel:45, sets:true },
-  { id:"lr7", name:"Quant-Based LR", levels:1, qPerLevel:45, sets:true }
-];
-
-// ─── LR VIDEO LECTURES (ALL to be watched — weakness area) ───
-const LR_VIDEOS = [
-  { id:"lv1", name:"Arrangements & Spatial Reasoning", count:10 },
-  { id:"lv2", name:"Set-based & Complex LR", count:5 },
-  { id:"lv3", name:"Games, Tournaments & Scheduling", count:6 },
-  { id:"lv4", name:"Data Interpretation & Mixed Sets", count:8 },
-  { id:"lv5", name:"Revision Complete Video", count:4 }
-];
-
-// ─── DI BOOK CHAPTERS ───
-const DI_CHAPTERS = [
-  { id:"di1", name:"DI Basics", levels:3, qPerLevel:27 },
-  { id:"di2", name:"Charts", levels:3, qPerLevel:27 },
-  { id:"di3", name:"Table with Missing Values", levels:1, qPerLevel:30 },
-  { id:"di4", name:"Data Change over a Period", levels:1, qPerLevel:30 },
-  { id:"di5", name:"DI with Connected Data Sets", levels:1, qPerLevel:30 },
-  { id:"di6", name:"Quant-Based DI", levels:1, qPerLevel:30 },
-  { id:"di7", name:"Venn Diagrams", levels:1, qPerLevel:30 },
-  { id:"di8", name:"Maxima-Minima", levels:1, qPerLevel:30 }
-];
-
-// ─── MINI-TESTS (carried from May plan) ───
 const MINI_TESTS = { qa:94, lrdi:73, varc:90, total:257 };
 
-// ─── MOCK CALENDAR (30 mocks before Nov 25) ───
+// ─── 30 MOCKS (Aug 9 – Nov 25) ───
 const MOCKS = [
-  { num:1, date:"2026-07-19", day:"Sun", phase:"p1" },
-  { num:2, date:"2026-07-26", day:"Sun", phase:"p2" },
-  { num:3, date:"2026-08-02", day:"Sun", phase:"p3" },
-  { num:4, date:"2026-08-09", day:"Sun", phase:"p3" },
-  { num:5, date:"2026-08-16", day:"Sun", phase:"p3" },
-  { num:6, date:"2026-08-23", day:"Sun", phase:"p3" },
-  { num:7, date:"2026-08-30", day:"Sun", phase:"p3" },
-  { num:8, date:"2026-09-06", day:"Sun", phase:"p3" },
-  { num:9, date:"2026-09-20", day:"Sun", phase:"p4" },
-  { num:10, date:"2026-09-27", day:"Sun", phase:"p5" },
-  { num:11, date:"2026-10-01", day:"Thu", phase:"p5" },
-  { num:12, date:"2026-10-04", day:"Sun", phase:"p5" },
-  { num:13, date:"2026-10-08", day:"Thu", phase:"p5" },
-  { num:14, date:"2026-10-11", day:"Sun", phase:"p5" },
-  { num:15, date:"2026-10-15", day:"Thu", phase:"p5" },
-  { num:16, date:"2026-10-18", day:"Sun", phase:"p5" },
-  { num:17, date:"2026-10-22", day:"Thu", phase:"p5" },
-  { num:18, date:"2026-10-25", day:"Sun", phase:"p5" },
-  { num:19, date:"2026-10-29", day:"Thu", phase:"p5" },
-  { num:20, date:"2026-11-01", day:"Sun", phase:"p5" },
-  { num:21, date:"2026-11-05", day:"Thu", phase:"p5" },
-  { num:22, date:"2026-11-08", day:"Sun", phase:"p5" },
-  { num:23, date:"2026-11-12", day:"Thu", phase:"p6" },
-  { num:24, date:"2026-11-15", day:"Sun", phase:"p6" },
-  { num:25, date:"2026-11-19", day:"Thu", phase:"p7" },
-  { num:26, date:"2026-11-22", day:"Sun", phase:"p7" },
-  { num:29, date:"2026-11-24", day:"Tue", phase:"p7" },
-  { num:30, date:"2026-11-25", day:"Wed", phase:"p7" }
+  { num:1, date:"2026-08-09", day:"Sun" },
+  { num:2, date:"2026-08-23", day:"Sun" },
+  { num:3, date:"2026-08-26", day:"Wed" },
+  { num:4, date:"2026-08-30", day:"Sun" },
+  { num:5, date:"2026-09-04", day:"Fri" },
+  { num:6, date:"2026-09-06", day:"Sun" },
+  { num:7, date:"2026-09-13", day:"Sun" },
+  { num:8, date:"2026-09-27", day:"Sun" },
+  { num:9, date:"2026-10-01", day:"Thu" },
+  { num:10, date:"2026-10-04", day:"Sun" },
+  { num:11, date:"2026-10-08", day:"Thu" },
+  { num:12, date:"2026-10-11", day:"Sun" },
+  { num:13, date:"2026-10-15", day:"Thu" },
+  { num:14, date:"2026-10-18", day:"Sun" },
+  { num:15, date:"2026-10-22", day:"Thu" },
+  { num:16, date:"2026-10-25", day:"Sun" },
+  { num:17, date:"2026-10-29", day:"Thu" },
+  { num:18, date:"2026-10-31", day:"Sat" },
+  { num:19, date:"2026-11-01", day:"Sun" },
+  { num:20, date:"2026-11-05", day:"Thu" },
+  { num:21, date:"2026-11-08", day:"Sun" },
+  { num:22, date:"2026-11-12", day:"Thu" },
+  { num:23, date:"2026-11-15", day:"Sun" },
+  { num:24, date:"2026-11-18", day:"Wed" },
+  { num:25, date:"2026-11-19", day:"Thu" },
+  { num:26, date:"2026-11-20", day:"Fri" },
+  { num:27, date:"2026-11-22", day:"Sun" },
+  { num:28, date:"2026-11-23", day:"Mon" },
+  { num:29, date:"2026-11-24", day:"Tue" },
+  { num:30, date:"2026-11-25", day:"Wed" }
 ];
-// Insert Aug 27 mock and renumber
-MOCKS.splice(6, 0, { num:0, date:"2026-08-27", day:"Thu", phase:"p3" });
-MOCKS.forEach((m,i) => m.num = i+1);
 
 // ─── WEEKLY TEMPLATES ───
 const TEMPLATES = {
   college: {
-    title: "College Phase (3–4 hrs/day)",
-    subtitle: "Morning 6–8 AM + Evening 8–10:30 PM",
-    days: [
-      { day:"Monday", slots:[
-        { time:"Morning 6:00–8:00 AM", tasks:"LR Video Lecture (~1–1.5 hr) + LR book exercise (30 min)" },
-        { time:"Evening 8:00–10:30 PM", tasks:"1 RC test (15 min) + Read The Hindu editorial (20 min) + 1 QA mini-test (15 min) + 1 LRDI mini-test (15 min) + QA book questions L1 (30 min) + Error log (15 min)" }
+    title:"College Phase (2–3 hrs/day)", subtitle:"Classes 10:20–17:20 · CAT: Early AM + Late PM",
+    days:[
+      { day:"Weekday (Classes)", slots:[
+        { time:"6:00–8:00 AM (before class)", tasks:"LR Video Lecture (1–1.5 hr) OR Oswaal chapter solving (1.5 hr)" },
+        { time:"8:30–10:00 PM (after class)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 mini-test (15 min) + Oswaal PYQs (30 min) + Error log (10 min)" }
       ]},
-      { day:"Tuesday", slots:[
-        { time:"Morning 6:00–8:00 AM", tasks:"QA notes revision (30 min) + QA book questions L2 (45 min) + 1 QA mini-test (15 min)" },
-        { time:"Evening 8:00–10:30 PM", tasks:"1 RC test (15 min) + ET editorial (15 min) + LR book exercise (30 min) + 1 LRDI mini-test (15 min) + 1 VARC mini-test (15 min) + DI book exercise (20 min)" }
+      { day:"Free Weekday / Holiday", slots:[
+        { time:"Morning (2.5 hrs)", tasks:"Oswaal PYQ chapter (1.5 hr) + LR Video (1 hr)" },
+        { time:"Afternoon (2 hrs)", tasks:"Oswaal PYQ chapter continued (1 hr) + 2 mini-tests (30 min) + DI practice (30 min)" },
+        { time:"Evening (1.5 hrs)", tasks:"1 RC test (15 min) + Hindu editorial (20 min) + ET editorial (15 min) + Error log (20 min)" }
       ]},
-      { day:"Wednesday", slots:[
-        { time:"Morning 6:00–8:00 AM", tasks:"LR Video Lecture (~1–1.5 hr) + LR book exercise (30 min)" },
-        { time:"Evening 8:00–10:30 PM", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + QA book questions L3 (45 min) + 1 QA mini-test (15 min) + Error log (15 min)" }
-      ]},
-      { day:"Thursday", slots:[
-        { time:"Morning 6:00–8:00 AM", tasks:"QA notes revision (30 min) + QA book questions (45 min) + 1 QA mini-test (15 min)" },
-        { time:"Evening 8:00–10:30 PM", tasks:"1 RC test (15 min) + ET editorial (15 min) + DI book exercise (30 min) + 1 LRDI mini-test (15 min) + 1 VARC mini-test (15 min) + Weak area review (20 min)" }
-      ]},
-      { day:"Friday", slots:[
-        { time:"Morning 6:00–8:00 AM", tasks:"LR Video Lecture (~1–1.5 hr) + LR book exercise (30 min)" },
-        { time:"Evening 8:00–10:30 PM", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 LRDI mini-test (15 min) + 1 VARC mini-test (15 min) + Weekly error log review (30 min)" }
-      ]},
-      { day:"Saturday", slots:[
-        { time:"Morning 6:00–8:00 AM", tasks:"LR Video Lecture (1 hr) + DI book exercise (30 min) + 1 LRDI mini-test (15 min)" },
-        { time:"Evening 8:00–10:30 PM", tasks:"1 RC test (15 min) + QA book questions (45 min) + LR book exercise (30 min) + 1 QA mini-test (15 min) + Error log (15 min)" }
-      ]},
-      { day:"Sunday ☀️", slots:[
-        { time:"Mock Day (when scheduled)", tasks:"Full Mock Test — 3 hrs + Detailed Review — 1.5 hrs + Error log + strategy notes (30 min)" },
-        { time:"Non-mock Sunday", tasks:"LR Video (1.5 hr) + QA book (1 hr) + DI book (30 min) + 1 RC test + The Hindu editorial + 2 mini-tests" }
+      { day:"Sunday ☀️ (Mock Day)", slots:[
+        { time:"Morning (3 hrs)", tasks:"Full Mock Test — strict exam conditions" },
+        { time:"Afternoon (1.5 hrs)", tasks:"Detailed mock review — analyse every wrong answer" },
+        { time:"Evening (30 min)", tasks:"Error log + strategy notes for next mock" }
       ]}
     ]
   },
   fulltime: {
-    title: "Full-Time Phase (6–7 hrs/day)",
-    subtitle: "Term break — Morning + Afternoon + Evening",
-    days: [
-      { day:"Monday", slots:[
-        { time:"Morning (2–2.5 hrs)", tasks:"LR/DI book exercises — 2 sets (1 hr) + QA book questions — 1 chapter level (45 min) + 1 QA mini-test (15 min)" },
-        { time:"Afternoon (2–2.5 hrs)", tasks:"QA notes revision + book questions (1 hr) + DI book exercise (30 min) + 1 LRDI mini-test (15 min) + 1 QA mini-test (15 min)" },
-        { time:"Evening (1.5–2 hrs)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 VARC mini-test (15 min) + Error log (20 min) + Weak area drill (30 min)" }
+    title:"Full-Time Term Break (6–7 hrs/day)", subtitle:"Sep 22 onwards — Morning + Afternoon + Evening",
+    days:[
+      { day:"Mon/Wed/Fri", slots:[
+        { time:"Morning (2.5 hrs)", tasks:"Oswaal DILR chapter (1.5 hr) + 1 LRDI mini-test (15 min) + LR Video if pending (45 min)" },
+        { time:"Afternoon (2 hrs)", tasks:"Oswaal QA chapter (1.5 hr) + 1 QA mini-test (15 min)" },
+        { time:"Evening (1.5 hrs)", tasks:"1 RC test (15 min) + Hindu editorial (20 min) + 1 VARC mini-test (15 min) + Error log (20 min)" }
       ]},
-      { day:"Tuesday", slots:[
-        { time:"Morning (2–2.5 hrs)", tasks:"QA book questions — full chapter level (1.5 hr) + 1 QA mini-test (15 min)" },
-        { time:"Afternoon (2–2.5 hrs)", tasks:"LR book exercises — 3 sets (1.5 hr) + 1 LRDI mini-test (15 min) + DI exercise (30 min)" },
-        { time:"Evening (1.5–2 hrs)", tasks:"1 RC test (15 min) + ET editorial (15 min) + 1 VARC mini-test (15 min) + QA weak area practice (45 min)" }
+      { day:"Tue/Thu/Sat", slots:[
+        { time:"Morning (2.5 hrs)", tasks:"Oswaal QA chapter (1.5 hr) + 1 QA mini-test (15 min) + IPM notes revision (30 min)" },
+        { time:"Afternoon (2 hrs)", tasks:"Oswaal VARC chapter (1 hr) + Oswaal DILR chapter (45 min) + 1 LRDI mini-test (15 min)" },
+        { time:"Evening (1.5 hrs)", tasks:"1 RC test (15 min) + ET editorial (15 min) + 1 VARC mini-test (15 min) + Weak area drill (30 min)" }
       ]},
-      { day:"Wednesday", slots:[
-        { time:"Morning (2–2.5 hrs)", tasks:"LR book exercises — 3 sets (1.5 hr) + 1 LRDI mini-test (15 min) + DI exercise (30 min)" },
-        { time:"Afternoon (2–2.5 hrs)", tasks:"QA book questions (1 hr) + QA notes revision (30 min) + 1 QA mini-test (15 min)" },
-        { time:"Evening (1.5–2 hrs)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 VARC mini-test (15 min) + Error log review (30 min)" }
-      ]},
-      { day:"Thursday", slots:[
-        { time:"Morning (2–2.5 hrs)", tasks:"QA book — complete remaining level of a chapter (1.5 hr) + 1 QA mini-test (15 min)" },
-        { time:"Afternoon (2–2.5 hrs)", tasks:"LR book exercises (1 hr) + DI book exercise (30 min) + 1 LRDI mini-test (15 min) + 1 VARC mini-test (15 min)" },
-        { time:"Evening (1.5–2 hrs)", tasks:"1 RC test (15 min) + ET editorial (15 min) + Mock review if pending (45 min) + Error log (15 min)" }
-      ]},
-      { day:"Friday", slots:[
-        { time:"Morning (2–2.5 hrs)", tasks:"LR book exercises — 3 sets (1.5 hr) + 1 LRDI mini-test (15 min)" },
-        { time:"Afternoon (2–2.5 hrs)", tasks:"QA book questions (1 hr) + DI exercise (30 min) + 1 QA mini-test (15 min) + Weekly review (30 min)" },
-        { time:"Evening (1.5–2 hrs)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 VARC mini-test (15 min) + Error log (20 min)" }
-      ]},
-      { day:"Saturday", slots:[
-        { time:"Morning (2.5 hrs)", tasks:"LR book exercises (1 hr) + QA book questions (1 hr) + DI exercise (30 min)" },
-        { time:"Afternoon (2.5 hrs)", tasks:"QA book — finish chapter (1 hr) + 2 mini-tests (30 min) + Weak area deep dive (1 hr)" },
-        { time:"Evening (1.5 hrs)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 VARC mini-test (15 min) + Error log (20 min)" }
-      ]},
-      { day:"Sunday ☀️", slots:[
-        { time:"Mock Day", tasks:"Full Mock Test — 3 hrs (morning) + Detailed Mock Review — 1.5 hrs (afternoon) + Error log + strategy notes (30 min)" },
-        { time:"Remaining time", tasks:"1 RC test + The Hindu editorial + Light revision of weak areas" }
+      { day:"Mock Day (Thu + Sun)", slots:[
+        { time:"Morning (3 hrs)", tasks:"Full Mock — exam conditions (3 hrs)" },
+        { time:"Afternoon (1.5 hrs)", tasks:"Mock review — error analysis" },
+        { time:"Evening (1.5 hrs)", tasks:"1 RC test + Hindu editorial + Error log + Light Oswaal" }
       ]}
     ]
   },
   exam: {
-    title: "Exam Week (1–2 hrs/day for CAT)",
-    subtitle: "College exams — maintain momentum with minimum viable CAT work",
-    days: [
+    title:"Exam Week (1 hr/day for CAT)", subtitle:"Endterms/Midterms — minimum viable CAT",
+    days:[
       { day:"Every Day", slots:[
-        { time:"Morning or Evening (1–1.5 hrs)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 mini-test of any section (15 min) + Light QA formula review (20 min)" },
-        { time:"If extra time available", tasks:"1 more mini-test + LR set practice (30 min)" }
+        { time:"Any 1 hr window", tasks:"1 RC test (15 min) + Hindu editorial (20 min) + 1 mini-test (15 min) + Formula glance (10 min)" }
       ]}
     ]
   }
 };
 
-// ─── MILESTONES ───
 const MILESTONES = [
-  { date:"6 Jul 2026", event:"Plan v2 begins — fresh start", icon:"🚀" },
-  { date:"24 Jul 2026", event:"Phase 1 ends — ~14 LR videos done", icon:"📺" },
-  { date:"28 Jul–1 Aug", event:"College Midterm Exams", icon:"🎓" },
-  { date:"~End Aug 2026", event:"All 33 LR video lectures completed", icon:"✅" },
-  { date:"~Mid Sep 2026", event:"50% QA book exercises done", icon:"📊" },
-  { date:"14–19 Sep", event:"College Endterm Exams", icon:"🎓" },
-  { date:"22 Sep 2026", event:"Term break starts — FULL THROTTLE", icon:"🔥" },
-  { date:"~Mid Oct 2026", event:"All LR + DI book exercises done", icon:"✅" },
-  { date:"~End Oct 2026", event:"All QA book exercises done", icon:"✅" },
-  { date:"~Early Nov", event:"All 257 mini-tests completed", icon:"✨" },
+  { date:"5 Aug", event:"Plan v3 FRESH START — 116 days to CAT", icon:"🚀" },
+  { date:"9 Aug", event:"First Mock (#1)", icon:"🧪" },
+  { date:"12–17 Aug", event:"GF Trip ❤️ — no CAT, enjoy!", icon:"❤️" },
+  { date:"~10 Sep", event:"All 33 LR videos done (1/day pace)", icon:"📺" },
+  { date:"13 Sep", event:"Mock #7 — last before endterms", icon:"🧪" },
+  { date:"14–21 Sep", event:"College Endterm Exams", icon:"🎓" },
+  { date:"22 Sep", event:"TERM BREAK — Full Throttle begins!", icon:"🔥" },
+  { date:"~15 Oct", event:"Oswaal DILR section complete", icon:"✅" },
+  { date:"~31 Oct", event:"Oswaal QA section complete", icon:"✅" },
+  { date:"~5 Nov", event:"All 257 mini-tests done + Oswaal VARC done", icon:"✨" },
   { date:"11–17 Nov", event:"Mid-Nov College Midterm", icon:"🎓" },
-  { date:"25 Nov 2026", event:"Last mock (#30) — DONE", icon:"🎯" },
-  { date:"26–28 Nov", event:"Light revision + rest + confidence", icon:"🧘" },
-  { date:"29 Nov 2026", event:"CAT 2026 — D-DAY 🏆", icon:"🏆" }
+  { date:"25 Nov", event:"Last mock (#30)", icon:"🎯" },
+  { date:"27–28 Nov", event:"Light revision + formula sheet + rest", icon:"🧘" },
+  { date:"29 Nov", event:"CAT 2026 — D-DAY 🏆", icon:"🏆" }
 ];
 
-// ─── HELPER: get current phase ───
+// ─── HELPERS ───
 function getCurrentPhase() {
   const now = new Date();
   for (const p of PHASES) {
-    const s = new Date(p.start + "T00:00:00");
-    const e = new Date(p.end + "T23:59:59");
-    if (now >= s && now <= e) return p;
+    if (now >= new Date(p.start+"T00:00:00") && now <= new Date(p.end+"T23:59:59")) return p;
   }
   return PHASES[0];
 }
-
-// ─── HELPER: local date string ───
-function localDateStr(d) {
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-function fmtDate(dateStr) {
-  const d = new Date(dateStr + "T00:00:00");
-  return d.toLocaleDateString("en-IN", { day:"numeric", month:"short" });
+function fmtDate(s) {
+  return new Date(s+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short"});
 }
