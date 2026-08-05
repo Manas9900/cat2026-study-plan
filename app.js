@@ -1,4 +1,4 @@
-// CAT 2026 App v3 — Oswaal PYQ + College Schedule
+// CAT 2026 App v3.1 — Oswaal PYQ + Sectionals + Topic Tests + Revision Strategy
 document.addEventListener("DOMContentLoaded", () => {
   initCountdown(); initTabs();
   renderWeekly(); renderOswaal(); renderMocks(); renderVideos(); renderVARC(); renderMilestones();
@@ -27,6 +27,14 @@ function updateAllCounts() {
   let lvT=0,lvD=0;
   LR_VIDEOS.forEach(v => { for(let i=1;i<=v.count;i++){lvT++;if(getP(v.id+"_"+i))lvD++;} });
   const lv=document.getElementById("lv-prog"); if(lv) lv.textContent=`${lvD}/${lvT}`;
+
+  // Sectionals
+  let secD=0;
+  ["qa","dilr","varc"].forEach(s => {
+    for(let i=1;i<=SECTIONAL_TESTS[s];i++) if(getP("sec_"+s+"_"+i)) secD++;
+  });
+  const secEl=document.getElementById("sec-prog"); if(secEl) secEl.textContent=`${secD}/45 sectionals done`;
+
   // Mocks
   let mD=MOCKS.filter(m=>getP("mock_"+m.num)).length;
   const mk=document.getElementById("mock-prog"); if(mk) mk.textContent=`${mD}/${MOCKS.length} done`;
@@ -57,6 +65,16 @@ function renderWeekly() {
   const el=document.getElementById("weekly"), cp=getCurrentPhase();
   let h=`<h2 class="section-title">Schedule & Weekly Templates</h2>
     <p class="section-desc">Current: <strong style="color:${cp.color}">${cp.name}</strong> (${cp.hrs} hrs/day)</p>`;
+
+  // Strategy Alert Box
+  h+=`<div class="alert-box" style="border-left-color:var(--qa);margin-bottom:1.2rem">
+    <strong>⚡ High-Scoring Engine Strategy (QA Focus):</strong><br>
+    <span style="font-size:.84rem;color:var(--text2)">
+      • <strong>QA Priority:</strong> High potential to score maximum marks! Revise IPM notes → High-volume Oswaal PYQs + Topic Tests + Sectionals. Watch 1.5–2h revision videos ONLY if facing difficulty.<br>
+      • <strong>LR Priority:</strong> MANDATORY 1.5–2h topic revision video for EVERY LR topic + Oswaal DILR set practice.<br>
+      • <strong>VARC Priority:</strong> Daily 1 RC test + The Hindu editorial + Sectionals.
+    </span>
+  </div>`;
 
   // Phase timeline
   h+=`<div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.5rem">`;
@@ -101,7 +119,7 @@ function renderWeekly() {
   h+=`<div class="card" style="padding:1rem"><h4 style="margin-bottom:.5rem;color:var(--amber)">📌 Daily Non-Negotiables</h4>
     <ul style="font-size:.83rem;color:var(--text2);list-style:none;line-height:2">
       <li>📖 1 RC test (15 min)</li><li>📰 The Hindu editorial (20 min)</li>
-      <li>📰 ET editorial (15 min, when time permits)</li><li>📝 At least 1 mini-test (15 min)</li>
+      <li>📰 ET editorial (15 min, when time permits)</li><li>📝 1 Topic Test / Mini-Test (15–20 min)</li>
       <li>📋 Error log (15 min)</li></ul></div>`;
 
   el.innerHTML=h;
@@ -109,11 +127,11 @@ function renderWeekly() {
 
 // ─── TAB 2: OSWAAL BOOK TRACKER ───
 function renderOswaal() {
-  const el=document.getElementById("lrdi"); // reusing lrdi tab for Oswaal
+  const el=document.getElementById("lrdi");
   let h=`<h2 class="section-title">Oswaal CAT PYQ Book — Chapter Tracker</h2>
-    <p class="section-desc">784 pages · 25 years PYQs · Chapter-wise & Topic-wise · Solve → Review → Error Log</p>`;
+    <p class="section-desc">784 pages · 25 years PYQs · Chapter-wise & Topic-wise · High-volume practice engine</p>`;
 
-  ["varc","dilr","qa","papers"].forEach(sec => {
+  ["qa","dilr","varc","papers"].forEach(sec => {
     const s=OSWAAL[sec];
     let done=0; s.chapters.forEach(c=>{if(getP(c.id))done++;});
     const pct=Math.round((done/s.chapters.length)*100);
@@ -138,7 +156,7 @@ function renderOswaal() {
   });
 
   h+=`<div class="alert-box" style="border-left-color:var(--accent)">
-    <strong>📖 Strategy:</strong> For QA — revise IPM handwritten notes first, then solve Oswaal PYQs. Watch CrackU video ONLY if stuck even after notes.
+    <strong>📖 QA Revision Protocol:</strong> Revise IPM handwritten notes → Solve Oswaal PYQ chapter → Solve Topic Test. Watch 1.5–2h revision video ONLY if stuck after attempting questions.
   </div>`;
 
   el.innerHTML=h;
@@ -184,16 +202,75 @@ function renderMocks() {
   el.innerHTML=h;
 }
 
-// ─── TAB 4: VIDEOS & MINI-TESTS ───
+// ─── TAB 4: VIDEOS, SECTIONALS & TESTS ───
 function renderVideos() {
-  const el=document.getElementById("qa"); // reusing qa tab
-  let h=`<h2 class="section-title">Video Lectures & Mini-Tests</h2>`;
+  const el=document.getElementById("qa");
+  let h=`<h2 class="section-title">Sectional Tests, Topic Tests & Videos</h2>`;
 
-  // LR Videos
-  h+=`<h3 style="margin-bottom:.75rem">📺 LR Video Lectures <span style="font-size:.8rem;color:var(--red)">(ALL 33 — top priority)</span> · <span id="lv-prog" style="font-size:.8rem;color:var(--text2)">0/33</span></h3>`;
-  h+=`<div class="alert-box" style="border-left-color:var(--red);margin-bottom:1rem">
-    <strong>🔴 LR is weakest.</strong> Watch 1/day. Finish all 33 by ~Sep 10. Pair each video with Oswaal LR chapter practice.
-  </div>`;
+  // 1. SECTIONAL TESTS (45 Total)
+  h+=`<div style="margin-bottom:2rem">
+    <div class="week-header">
+      <h3>🎯 Sectional Tests (45 Total — 15 per section)</h3>
+      <span id="sec-prog" style="font-size:.82rem;color:var(--text2)">0/45 sectionals done</span>
+      <div class="line"></div>
+    </div>
+    <p class="section-desc">40 mins each under timed exam conditions · Take 2–3 per week during term break</p>`;
+
+  [{name:"QA Sectionals (15)",prefix:"sec_qa",count:15,color:"var(--qa)"},
+   {name:"DILR Sectionals (15)",prefix:"sec_dilr",count:15,color:"var(--lrdi)"},
+   {name:"VARC Sectionals (15)",prefix:"sec_varc",count:15,color:"var(--varc)"}
+  ].forEach(s => {
+    let d=0; for(let i=1;i<=s.count;i++) if(getP(s.prefix+"_"+i)) d++;
+    h+=`<div class="card" style="margin-bottom:.4rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${s.color};margin-right:.5rem"></span>
+        <strong style="font-size:.85rem">${s.name}</strong>
+        <span style="font-size:.78rem;color:var(--text2);margin-left:auto">${d}/${s.count}</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem 0">`;
+    for(let i=1;i<=s.count;i++) h+=cb(s.prefix+"_"+i,`Sectional ${i}`);
+    h+=`</div></div>`;
+  });
+  h+=`</div>`;
+
+  // 2. TOPIC TESTS TRACKER
+  h+=`<div style="margin-bottom:2rem">
+    <div class="week-header">
+      <h3>📚 Topic Tests (37 Total across all chapters)</h3>
+      <div class="line"></div>
+    </div>
+    <p class="section-desc">Timed tests after finishing each Oswaal chapter to test concept accuracy</p>`;
+
+  [{name:"QA Topic Tests (15)",key:"qa",color:"var(--qa)"},
+   {name:"DILR Topic Tests (13)",key:"dilr",color:"var(--lrdi)"},
+   {name:"VARC Topic Tests (9)",key:"varc",color:"var(--varc)"}
+  ].forEach(tGroup => {
+    const tests = TOPIC_TESTS[tGroup.key];
+    let d=0; tests.forEach(t => { if(getP(t.id)) d++; });
+    h+=`<div class="card" style="margin-bottom:.4rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${tGroup.color};margin-right:.5rem"></span>
+        <strong style="font-size:.85rem">${tGroup.name}</strong>
+        <span style="font-size:.78rem;color:var(--text2);margin-left:auto">${d}/${tests.length}</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:.2rem;padding:.5rem 0">`;
+    tests.forEach(t => { h+=cb(t.id, t.name); });
+    h+=`</div></div>`;
+  });
+  h+=`</div>`;
+
+  // 3. LR REVISION VIDEOS (MANDATORY)
+  h+=`<div style="margin-bottom:2rem">
+    <div class="week-header">
+      <h3>📺 LR Topic Revision Videos <span style="font-size:.8rem;color:var(--red)">(MANDATORY 1.5–2h for each LR topic)</span></h3>
+      <span id="lv-prog" style="font-size:.8rem;color:var(--text2)">0/33</span>
+      <div class="line"></div>
+    </div>
+    <div class="alert-box" style="border-left-color:var(--red);margin-bottom:1rem">
+      <strong>🔴 Mandatory LR Revision:</strong> Watch 1.5–2h revision video for EVERY LR topic! Pair each video with Oswaal LR chapter solving.
+    </div>`;
 
   LR_VIDEOS.forEach(v => {
     let d=0; for(let i=1;i<=v.count;i++) if(getP(v.id+"_"+i)) d++;
@@ -206,12 +283,21 @@ function renderVideos() {
         <span class="chevron">▾</span>
       </div>
       <div class="card-body" style="display:flex;flex-direction:column;gap:.2rem;padding:.5rem 0">`;
-    for(let i=1;i<=v.count;i++) h+=cb(v.id+"_"+i,`Lecture ${i} (~1–1.5 hrs)`);
+    for(let i=1;i<=v.count;i++) h+=cb(v.id+"_"+i,`Revision Lecture ${i} (~1.5–2 hrs)`);
     h+=`</div></div>`;
   });
+  h+=`</div>`;
 
-  // QA Videos (conditional)
-  h+=`<h3 style="margin-top:2rem;margin-bottom:.75rem">📺 QA Video Lectures <span style="font-size:.8rem;color:var(--amber)">(Conditional — watch only if stuck)</span></h3>`;
+  // 4. QA REVISION VIDEOS (CONDITIONAL)
+  h+=`<div style="margin-bottom:2rem">
+    <div class="week-header">
+      <h3>📺 QA Revision Videos <span style="font-size:.8rem;color:var(--amber)">(CONDITIONAL — watch 1.5–2h ONLY if facing difficulty)</span></h3>
+      <div class="line"></div>
+    </div>
+    <div class="alert-box" style="border-left-color:var(--amber);margin-bottom:1rem">
+      <strong>💡 Optional for QA:</strong> Do NOT watch by default. Revise handwritten notes first → solve Oswaal. Watch video ONLY if stuck!
+    </div>`;
+
   QA_VIDEOS.forEach(v => {
     let d=0; for(let i=1;i<=v.count;i++) if(getP(v.id+"_"+i)) d++;
     h+=`<div class="card" style="margin-bottom:.3rem">
@@ -221,13 +307,18 @@ function renderVideos() {
         <span class="chevron">▾</span>
       </div>
       <div class="card-body" style="display:flex;flex-direction:column;gap:.2rem;padding:.5rem 0">`;
-    for(let i=1;i<=v.count;i++) h+=cb(v.id+"_"+i,`Lecture ${i}`);
+    for(let i=1;i<=v.count;i++) h+=cb(v.id+"_"+i,`Lecture ${i} (~1.5–2 hrs)`);
     h+=`</div></div>`;
   });
+  h+=`</div>`;
 
-  // Mini-tests
-  h+=`<h3 style="margin-top:2rem;margin-bottom:.75rem">📝 Mini-Tests (257 total)</h3>
-    <p class="section-desc">QA (94) + LRDI (73) + VARC (90) · 15 min each · 2–3 per day</p>`;
+  // 5. MINI-TESTS (257 total)
+  h+=`<div>
+    <div class="week-header">
+      <h3>📝 Daily Mini-Tests (257 Total)</h3>
+      <div class="line"></div>
+    </div>
+    <p class="section-desc">QA (94) + LRDI (73) + VARC (90) · 15 min each · 1–2 per day</p>`;
 
   [{label:"QA",prefix:"qamt",count:94,color:"var(--qa)"},
    {label:"LRDI",prefix:"lrmt",count:73,color:"var(--lrdi)"},
@@ -249,6 +340,7 @@ function renderVideos() {
       h+=`</div></div>`;
     }
   });
+  h+=`</div>`;
 
   el.innerHTML=h;
 }
@@ -257,7 +349,7 @@ function renderVideos() {
 function renderVARC() {
   const el=document.getElementById("varc");
   let h=`<h2 class="section-title">VARC Daily Plan</h2>
-    <p class="section-desc">Practice-driven · No lectures needed · Build reading speed through daily habit</p>`;
+    <p class="section-desc">Practice-driven · Build reading speed & comprehension through daily habit</p>`;
 
   h+=`<div class="card" style="padding:1.2rem;margin-bottom:1.5rem">
     <h4 style="margin-bottom:.8rem;color:var(--varc)">📌 Daily VARC Routine (Every Single Day)</h4>
@@ -276,8 +368,8 @@ function renderVARC() {
   h+=`</div></div>`;
 
   h+=`<div class="card" style="padding:1rem">
-    <h4 style="margin-bottom:.5rem">📘 Oswaal VARC Chapters</h4>
-    <p style="font-size:.82rem;color:var(--text2)">Track your Oswaal VARC progress in the <strong>Oswaal Tracker</strong> tab (LRDI & DI tab). It has all 13 VARC chapters with checkboxes.</p>
+    <h4 style="margin-bottom:.5rem">📘 Oswaal VARC Chapters & Sectionals</h4>
+    <p style="font-size:.82rem;color:var(--text2)">Track Oswaal VARC in <strong>Oswaal Book</strong> tab, and 15 VARC Sectionals in <strong>Sectionals & Tests</strong> tab.</p>
   </div>`;
 
   el.innerHTML=h;
@@ -304,11 +396,12 @@ function renderMilestones() {
   h+=`<div class="alert-box" style="border-left-color:var(--red);margin-top:1.5rem">
     <strong>🛑 Hard Rules</strong>
     <ul style="font-size:.83rem;color:var(--text2);margin-top:.3rem;padding-left:1rem;line-height:1.8">
-      <li>No new Oswaal chapters after Nov 10 — Nov is mocks + revision ONLY</li>
+      <li>No new Oswaal chapters after Nov 10 — Nov is mocks + sectionals + revision ONLY</li>
       <li>Never skip daily RC test — even during exams</li>
       <li>Error log every day — even 10 min counts</li>
-      <li>Mock review is NON-NEGOTIABLE — no mock without full review</li>
-      <li>LR videos = TOP priority until done</li></ul></div>`;
+      <li>Mock & Sectional review is NON-NEGOTIABLE — deep error analysis after every test</li>
+      <li>LR Revision videos = MANDATORY for every topic</li>
+      <li>QA = High-scoring priority (Maximize Oswaal + Topic Tests + Sectionals)</li></ul></div>`;
 
   el.innerHTML=h;
 }
