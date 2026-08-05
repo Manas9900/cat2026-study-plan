@@ -1,9 +1,23 @@
-// CAT 2026 App v3.1 — Oswaal PYQ + Sectionals + Topic Tests + Revision Strategy
+// CAT 2026 App v3.2 — Professional Mentor Plan | CrackU Portal Sync & Class Schedule
 document.addEventListener("DOMContentLoaded", () => {
+  initLRProgress();
   initCountdown(); initTabs();
   renderWeekly(); renderOswaal(); renderMocks(); renderVideos(); renderVARC(); renderMilestones();
   updateAllCounts();
 });
+
+// Initialize pre-completed items (Games & Tournaments 5/6 done from CrackU portal)
+function initLRProgress() {
+  if (localStorage.getItem("cat26_lv3_init") !== "1") {
+    // Pre-check first 5 lectures of Games, Tournaments & Scheduling
+    for (let i = 1; i <= 5; i++) {
+      if (localStorage.getItem("cat26_lv3_" + i) === null) {
+        localStorage.setItem("cat26_lv3_" + i, "1");
+      }
+    }
+    localStorage.setItem("cat26_lv3_init", "1");
+  }
+}
 
 // ─── PROGRESS (localStorage) ───
 function getP(k) { return localStorage.getItem("cat26_"+k)==="1"; }
@@ -26,7 +40,7 @@ function updateAllCounts() {
   // LR vids
   let lvT=0,lvD=0;
   LR_VIDEOS.forEach(v => { for(let i=1;i<=v.count;i++){lvT++;if(getP(v.id+"_"+i))lvD++;} });
-  const lv=document.getElementById("lv-prog"); if(lv) lv.textContent=`${lvD}/${lvT}`;
+  const lv=document.getElementById("lv-prog"); if(lv) lv.textContent=`${lvD}/${lvT} done (${lvT-lvD} remaining)`;
 
   // Sectionals
   let secD=0;
@@ -64,15 +78,17 @@ function initTabs() {
 function renderWeekly() {
   const el=document.getElementById("weekly"), cp=getCurrentPhase();
   let h=`<h2 class="section-title">Schedule & Weekly Templates</h2>
-    <p class="section-desc">Current: <strong style="color:${cp.color}">${cp.name}</strong> (${cp.hrs} hrs/day)</p>`;
+    <p class="section-desc">Current: <strong style="color:${cp.color}">${cp.name}</strong> (${cp.hrs})</p>`;
 
-  // Strategy Alert Box
+  // Mentor Strategy Alert Box
   h+=`<div class="alert-box" style="border-left-color:var(--qa);margin-bottom:1.2rem">
-    <strong>⚡ High-Scoring Engine Strategy (QA Focus):</strong><br>
+    <strong>🎯 Mentor Strategy & Daily Allocations:</strong><br>
     <span style="font-size:.84rem;color:var(--text2)">
-      • <strong>QA Priority:</strong> High potential to score maximum marks! Revise IPM notes → High-volume Oswaal PYQs + Topic Tests + Sectionals. Watch 1.5–2h revision videos ONLY if facing difficulty.<br>
-      • <strong>LR Priority:</strong> MANDATORY 1.5–2h topic revision video for EVERY LR topic + Oswaal DILR set practice.<br>
-      • <strong>VARC Priority:</strong> Daily 1 RC test + The Hindu editorial + Sectionals.
+      • <strong>Class Day Schedule:</strong> Classes 10:20–17:20. Morning (1.5h: 6:30–8:00 AM) + Evening (Strict 1.5h: 8:30–10:00 PM).<br>
+      • <strong>Freed LR Time Reallocated:</strong> 5 lectures of Games & Tournaments ALREADY completed (saved ~7.5 hrs!). Time reallocated to High-Volume QA PYQs & Sectionals.<br>
+      • <strong>QA Priority:</strong> Your top scoring potential! Solve Oswaal PYQs + Topic Tests + Sectionals. Watch 1.5–2h revision video ONLY if stuck after notes.<br>
+      • <strong>LR Revision:</strong> MANDATORY 1.5–2h revision video for every remaining LR topic + Oswaal DILR set practice.<br>
+      • <strong>VARC:</strong> Daily 1 RC test (15m) + The Hindu editorial (20m).
     </span>
   </div>`;
 
@@ -81,7 +97,7 @@ function renderWeekly() {
   PHASES.forEach(p => {
     const cur=p.id===cp.id;
     h+=`<div class="card" style="padding:.55rem 1rem;${cur?'border-color:'+p.color+';box-shadow:0 0 10px '+p.color+'30;':''}display:flex;align-items:center;gap:.8rem">
-      <span style="font-size:.68rem;padding:2px 8px;border-radius:99px;background:${p.color}20;color:${p.color};font-weight:700;min-width:80px;text-align:center">${p.hrs} hrs</span>
+      <span style="font-size:.68rem;padding:2px 8px;border-radius:99px;background:${p.color}20;color:${p.color};font-weight:700;min-width:80px;text-align:center">${p.hrs}</span>
       <span style="font-weight:${cur?700:500};font-size:.82rem">${p.name}</span>
       <span style="font-size:.72rem;color:var(--text2);margin-left:auto">${fmtDate(p.start)} – ${fmtDate(p.end)}</span>
       ${cur?'<span style="font-size:.6rem;padding:2px 6px;border-radius:99px;background:var(--green);color:#fff;font-weight:700">NOW</span>':''}
@@ -156,7 +172,7 @@ function renderOswaal() {
   });
 
   h+=`<div class="alert-box" style="border-left-color:var(--accent)">
-    <strong>📖 QA Revision Protocol:</strong> Revise IPM handwritten notes → Solve Oswaal PYQ chapter → Solve Topic Test. Watch 1.5–2h revision video ONLY if stuck after attempting questions.
+    <strong>📖 QA Revision Protocol:</strong> Revise IPM handwritten notes first → Solve Oswaal PYQ chapter → Solve Topic Test. Watch 1.5–2h revision video ONLY if stuck after attempting questions.
   </div>`;
 
   el.innerHTML=h;
@@ -205,7 +221,7 @@ function renderMocks() {
 // ─── TAB 4: VIDEOS, SECTIONALS & TESTS ───
 function renderVideos() {
   const el=document.getElementById("qa");
-  let h=`<h2 class="section-title">Sectional Tests, Topic Tests & Videos</h2>`;
+  let h=`<h2 class="section-title">Sectional Tests, Topic Tests & CrackU Videos</h2>`;
 
   // 1. SECTIONAL TESTS (45 Total)
   h+=`<div style="margin-bottom:2rem">
@@ -261,29 +277,30 @@ function renderVideos() {
   });
   h+=`</div>`;
 
-  // 3. LR REVISION VIDEOS (MANDATORY)
+  // 3. LR REVISION VIDEOS (EXACT CRACKU PORTAL SYNC)
   h+=`<div style="margin-bottom:2rem">
     <div class="week-header">
-      <h3>📺 LR Topic Revision Videos <span style="font-size:.8rem;color:var(--red)">(MANDATORY 1.5–2h for each LR topic)</span></h3>
-      <span id="lv-prog" style="font-size:.8rem;color:var(--text2)">0/33</span>
+      <h3>📺 LR Topic Revision Videos <span style="font-size:.8rem;color:var(--red)">(CRACKU PORTAL SYNCED)</span></h3>
+      <span id="lv-prog" style="font-size:.8rem;color:var(--text2)">5/38 completed</span>
       <div class="line"></div>
     </div>
-    <div class="alert-box" style="border-left-color:var(--red);margin-bottom:1rem">
-      <strong>🔴 Mandatory LR Revision:</strong> Watch 1.5–2h revision video for EVERY LR topic! Pair each video with Oswaal LR chapter solving.
+    <div class="alert-box" style="border-left-color:var(--green);margin-bottom:1rem">
+      <strong>✅ Portal Sync:</strong> 5 lectures of <em>Games, Tournaments & Scheduling</em> are ALREADY completed on CrackU! Freed up ~7.5 hours reallocated to extra QA & Sectionals.
     </div>`;
 
   LR_VIDEOS.forEach(v => {
     let d=0; for(let i=1;i<=v.count;i++) if(getP(v.id+"_"+i)) d++;
     const pct=Math.round((d/v.count)*100);
+    const badge = v.note ? `<span style="font-size:.72rem;color:var(--green);margin-left:.5rem">(${v.note})</span>` : "";
     h+=`<div class="card" style="margin-bottom:.35rem">
       <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
-        <strong style="font-size:.85rem">${v.name}</strong>
-        <span style="font-size:.78rem;color:${pct===100?'var(--green)':'var(--text2)'}">${d}/${v.count}</span>
+        <strong style="font-size:.85rem">${v.name}</strong> ${badge}
+        <span style="font-size:.78rem;color:${pct===100?'var(--green)':'var(--text2)'};margin-left:auto;margin-right:.5rem">${d}/${v.count} completed</span>
         <div class="progress-bar" style="width:60px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
         <span class="chevron">▾</span>
       </div>
       <div class="card-body" style="display:flex;flex-direction:column;gap:.2rem;padding:.5rem 0">`;
-    for(let i=1;i<=v.count;i++) h+=cb(v.id+"_"+i,`Revision Lecture ${i} (~1.5–2 hrs)`);
+    for(let i=1;i<=v.count;i++) h+=cb(v.id+"_"+i,`Lecture ${i} (~1.5–2 hrs)`);
     h+=`</div></div>`;
   });
   h+=`</div>`;

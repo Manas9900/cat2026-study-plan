@@ -1,8 +1,8 @@
-// CAT 2026 Schedule v3.1 — Fresh Start Aug 5, 2026 | Oswaal + Sectionals + Topic Tests
+// CAT 2026 Schedule v3.2 — Professional Mentor Plan | CrackU Portal Sync & Class Schedule
 const CAT_DATE = new Date(2026, 10, 29);
 
 const PHASES = [
-  { id:"p1", name:"College + Foundation", start:"2026-08-05", end:"2026-09-13", hrs:"2–3", color:"var(--cyan)", desc:"Oswaal chapter-wise + LR videos + Topic Tests + daily RC. Classes 10:20–17:20." },
+  { id:"p1", name:"College + Foundation", start:"2026-08-05", end:"2026-09-13", hrs:"3 (1.5h AM + 1.5h Evening)", color:"var(--cyan)", desc:"Oswaal chapter-wise + LR videos + Topic Tests + daily RC. Classes 10:20–17:20." },
   { id:"p2", name:"Endterm Exams", start:"2026-09-14", end:"2026-09-21", hrs:"1", color:"var(--red)", desc:"College endterms — daily RC + 1 mini-test only" },
   { id:"p3", name:"Term Break — Full Throttle", start:"2026-09-22", end:"2026-11-10", hrs:"6–7", color:"var(--green)", desc:"Full-time CAT. Complete Oswaal + Sectionals + 2 Mocks/week." },
   { id:"p4", name:"Mid-Nov Midterm", start:"2026-11-11", end:"2026-11-17", hrs:"2–3", color:"var(--amber)", desc:"College midterm — weekend mocks + sectionals" },
@@ -63,7 +63,7 @@ const OSWAAL = {
     ]
   },
   qa: {
-    name: "QA PYQs (High Priority)", color: "var(--qa)", icon: "📘",
+    name: "QA PYQs (High Scoring Engine)", color: "var(--qa)", icon: "📘",
     chapters: [
       { id:"oq1", name:"Number System — Divisibility & Properties", pages:"423–430", est:"2 hrs" },
       { id:"oq2", name:"Number System — HCF, LCM & Remainder", pages:"430–440", est:"2 hrs" },
@@ -150,13 +150,15 @@ const TOPIC_TESTS = {
   ]
 };
 
-// ─── LR REVISION VIDEOS (MANDATORY for each LR topic) ───
+// ─── LR LECTURES (EXACT SYNC WITH CRACKU PORTAL SCREENSHOT) ───
+// Games, Tournaments & Scheduling has 5/6 already completed!
 const LR_VIDEOS = [
-  { id:"lv1", name:"Arrangements & Spatial Reasoning (Topic Revision)", count:10, mandatory:true },
-  { id:"lv2", name:"Set-based & Complex LR (Topic Revision)", count:5, mandatory:true },
-  { id:"lv3", name:"Games, Tournaments & Scheduling (Topic Revision)", count:6, mandatory:true },
-  { id:"lv4", name:"Data Interpretation & Mixed Sets (Topic Revision)", count:8, mandatory:true },
-  { id:"lv5", name:"Complete LRDI Final Revision", count:4, mandatory:true }
+  { id:"lv0", name:"Basics of Logical Reasoning", count:5, doneCount:0, mandatory:true },
+  { id:"lv1", name:"Arrangements & Spatial Reasoning", count:10, doneCount:0, mandatory:true },
+  { id:"lv2", name:"Set-based and Complex Logical Reasoning", count:5, doneCount:0, mandatory:true },
+  { id:"lv3", name:"Games, Tournaments & Scheduling", count:6, doneCount:5, mandatory:true, note:"5/6 Completed on Portal! Only 1 Left!" },
+  { id:"lv4", name:"Data Interpretation (DI) & Mixed Sets", count:8, doneCount:0, mandatory:true },
+  { id:"lv5", name:"Revision Complete", count:4, doneCount:0, mandatory:true }
 ];
 
 // ─── QA REVISION VIDEOS (CONDITIONAL — watch 1.5–2h ONLY if facing difficulty) ───
@@ -209,28 +211,28 @@ const MOCKS = [
 // ─── WEEKLY TEMPLATES ───
 const TEMPLATES = {
   college: {
-    title:"College Phase (2–3 hrs/day)", subtitle:"Classes 10:20–17:20 · High QA Volume + LR Revision + Daily RC",
+    title:"College Phase (3 hrs/day — 1.5h AM + 1.5h PM)", subtitle:"Classes 10:20–17:20 · Strict 1.5h Evening Limit · Freed LR Time -> Extra QA Practice",
     days:[
-      { day:"Weekday (Classes)", slots:[
-        { time:"6:00–8:00 AM (before class)", tasks:"LR Topic Revision Video (1.5 hr) OR High-Volume QA Oswaal PYQs (1.5 hr)" },
-        { time:"8:30–10:00 PM (after class)", tasks:"1 RC test (15 min) + The Hindu editorial (20 min) + 1 Topic Test / Sectional (30 min) + QA Error Log (15 min)" }
+      { day:"Weekday (Class Days)", slots:[
+        { time:"Morning 6:30–8:00 AM (1.5 hrs)", tasks:"LR Topic Revision Video (1.5 hr) OR QA Notes Revision + Oswaal PYQs" },
+        { time:"Evening 8:30–10:00 PM (STRICT 1.5 hrs)", tasks:"1 RC test (15m) + Hindu editorial (20m) + QA/DILR Oswaal PYQs or Topic Test (40m) + Error log (15m)" }
       ]},
       { day:"Free Weekday / Holiday", slots:[
-        { time:"Morning (2.5 hrs)", tasks:"QA Notes Revision + Oswaal QA PYQs (1.5 hr) + LR Topic Video (1 hr)" },
-        { time:"Afternoon (2 hrs)", tasks:"1 QA/DILR Sectional Test (40 min) + Sectional Review (30 min) + Topic Test (30 min)" },
-        { time:"Evening (1.5 hrs)", tasks:"1 RC test (15 min) + Hindu editorial (20 min) + ET editorial (15 min) + Error log (20 min)" }
+        { time:"Morning (2.5 hrs)", tasks:"QA Notes Revision + High-Volume Oswaal QA PYQs (1.5 hr) + LR Topic Video (1 hr)" },
+        { time:"Afternoon (2 hrs)", tasks:"1 QA/DILR Sectional Test (40m) + Sectional Review (30m) + Topic Test (30m) + Extra QA Practice (20m)" },
+        { time:"Evening (1.5 hrs)", tasks:"1 RC test (15m) + Hindu editorial (20m) + ET editorial (15m) + Error log (25m)" }
       ]},
       { day:"Sunday ☀️ (Mock Day)", slots:[
-        { time:"Morning (3 hrs)", tasks:"Full Mock Test — strict exam conditions (CAT 2-hour pattern)" },
+        { time:"Morning (3 hrs)", tasks:"Full Mock Test — strict exam conditions (CAT pattern)" },
         { time:"Afternoon (1.5 hrs)", tasks:"Detailed mock review — deep analyze QA & DILR errors" },
         { time:"Evening (30 min)", tasks:"Error log + strategy notes for next mock" }
       ]}
     ]
   },
   fulltime: {
-    title:"Full-Time Term Break (6–7 hrs/day)", subtitle:"Sep 22 onwards — Heavy QA & DILR Practice + Sectionals",
+    title:"Full-Time Term Break (6–7 hrs/day)", subtitle:"Sep 22 onwards — Reallocated 7.5h Freed LR Time to Extra QA & Sectionals",
     days:[
-      { day:"Mon/Wed/Fri (QA Priority & DILR)", slots:[
+      { day:"Mon/Wed/Fri (QA Focus & DILR)", slots:[
         { time:"Morning (2.5 hrs)", tasks:"QA Oswaal PYQs + Topic Tests (1.5 hr) + QA Sectional Test (40 min) + Review (20 min)" },
         { time:"Afternoon (2 hrs)", tasks:"Oswaal DILR chapter / sets (1.5 hr) + 1 DILR Topic Test (30 min)" },
         { time:"Evening (1.5 hrs)", tasks:"1 RC test (15 min) + Hindu editorial (20 min) + 1 VARC Sectional/Mini-Test (30 min) + Error log (25 min)" }
@@ -258,10 +260,10 @@ const TEMPLATES = {
 };
 
 const MILESTONES = [
-  { date:"5 Aug", event:"Plan v3.1 FRESH START — 116 days to CAT", icon:"🚀" },
+  { date:"5 Aug", event:"Plan v3.2 FRESH START — CrackU Portal Synced!", icon:"🚀" },
   { date:"9 Aug", event:"First Mock (#1)", icon:"🧪" },
   { date:"12–17 Aug", event:"GF Trip ❤️ — no CAT, enjoy!", icon:"❤️" },
-  { date:"~10 Sep", event:"All 33 LR Topic Revision Videos Done (1/day pace)", icon:"📺" },
+  { date:"~10 Sep", event:"All Remaining 33 LR Topic Videos Completed", icon:"📺" },
   { date:"13 Sep", event:"Mock #7 — last before endterms", icon:"🧪" },
   { date:"14–21 Sep", event:"College Endterm Exams", icon:"🎓" },
   { date:"22 Sep", event:"TERM BREAK — Full Throttle (6-7 hrs/day)", icon:"🔥" },
