@@ -1,320 +1,423 @@
-// CAT 2026 App v4.0 — Final 40-Day Sprint (25 Mocks, 46 Sectionals, QA Short Notes, Midterm Sync)
+// CAT 2026 War Room App v5.0 — 98+ Percentile | 20 Mocks | 30 Sectionals
 document.addEventListener("DOMContentLoaded", () => {
   initDefaults();
   initCountdown();
   initTabs();
-  renderWeekly();
+  renderPlan();
   renderMocks();
   renderSectionals();
-  renderQAShortNotes();
-  renderBoosters();
+  renderShortNotes();
+  renderVARC();
+  renderDILR();
   renderMilestones();
-  updateAllCounts();
+  updateCounts();
 });
 
-// Initialize sequence and series as done by default
+// ─── DEFAULTS ───────────────────────────────────────────────────────────────
 function initDefaults() {
-  if (localStorage.getItem("cat26_sn_seq") === null) {
-    localStorage.setItem("cat26_sn_seq", "1");
-  }
+  // Sequence & Series already done
+  if (localStorage.getItem("cat26_sn_seq") === null) localStorage.setItem("cat26_sn_seq", "1");
 }
 
-// ─── PROGRESS (localStorage) ───
-function getP(k) { return localStorage.getItem("cat26_" + k) === "1"; }
-function setP(k, v) { localStorage.setItem("cat26_" + k, v ? "1" : "0"); }
-function toggleP(k) { setP(k, !getP(k)); updateAllCounts(); }
+// ─── PERSISTENCE ────────────────────────────────────────────────────────────
+const getP = k => localStorage.getItem("cat26_" + k) === "1";
+const setP = (k, v) => localStorage.setItem("cat26_" + k, v ? "1" : "0");
+function toggleP(k) { setP(k, !getP(k)); updateCounts(); }
 
-function cb(key, label, extra = "") {
+function cb(key, label, cls = "") {
   const c = getP(key) ? "checked" : "";
-  return `<label class="exercise-row"><input type="checkbox" class="checkbox-custom" data-key="${key}" ${c} onchange="toggleP('${key}')"><span>${label}</span>${extra}</label>`;
+  const s = getP(key) ? "text-decoration:line-through;color:var(--text2)" : "";
+  return `<label class="exercise-row ${cls}"><input type="checkbox" class="checkbox-custom" ${c} onchange="toggleP('${key}')"><span style="${s}">${label}</span></label>`;
 }
 
-function updateAllCounts() {
+// ─── COUNT UPDATES ───────────────────────────────────────────────────────────
+function updateCounts() {
   // Mocks
-  let mD = MOCKS.filter(m => getP("mock_" + m.num)).length;
-  const mk = document.getElementById("mock-prog"); if (mk) mk.textContent = `${mD}/${MOCKS.length} done`;
-  const sm = document.getElementById("stat-mocks"); if (sm) sm.textContent = `${mD}/${MOCKS.length}`;
+  const mDone = MOCKS.filter(m => getP("mock_" + m.num)).length;
+  el("mock-prog", `${mDone}/${MOCKS.length}`);
+  el("stat-mocks", `${mDone}/${MOCKS.length}`);
 
   // Sectionals
-  let secD = 0;
-  ["varc", "dilr", "qa"].forEach(s => {
-    for (let i = 1; i <= SECTIONAL_TESTS[s]; i++) if (getP("sec_" + s + "_" + i)) secD++;
-  });
-  const secEl = document.getElementById("sec-prog"); if (secEl) secEl.textContent = `${secD}/${SECTIONAL_TESTS.total} done`;
-  const sSec = document.getElementById("stat-sectionals"); if (sSec) sSec.textContent = `${secD}/${SECTIONAL_TESTS.total}`;
+  let secDone = 0;
+  ["varc","dilr","qa"].forEach(s => { for (let i = 1; i <= SECTIONAL_TESTS[s]; i++) if (getP("sec_"+s+"_"+i)) secDone++; });
+  el("sec-prog", `${secDone}/${SECTIONAL_TESTS.total}`);
+  el("stat-sec", `${secDone}/${SECTIONAL_TESTS.total}`);
 
-  // QA Short Notes
-  let snD = QA_SHORT_NOTES.filter(s => getP(s.id)).length;
-  const snEl = document.getElementById("sn-prog"); if (snEl) snEl.textContent = `${snD}/${QA_SHORT_NOTES.length} chapters done`;
-  const sSn = document.getElementById("stat-sn"); if (sSn) sSn.textContent = `${snD}/${QA_SHORT_NOTES.length}`;
+  // Short Notes
+  const snDone = QA_SHORT_NOTES.filter(s => getP(s.id)).length;
+  el("sn-prog", `${snDone}/${QA_SHORT_NOTES.length}`);
+  el("stat-sn", `${snDone}/${QA_SHORT_NOTES.length}`);
+
+  // VARC days
+  const vDone = VARC_DAYS.filter(d => getP(d.id)).length;
+  el("varc-prog", `${vDone}/${VARC_DAYS.length} days logged`);
 }
 
-// ─── COUNTDOWN ───
+function el(id, txt) { const e = document.getElementById(id); if (e) e.textContent = txt; }
+
+// ─── COUNTDOWN ───────────────────────────────────────────────────────────────
 function initCountdown() {
-  function u() {
-    const diff = CAT_DATE - new Date(), d = Math.floor(diff / 864e5), h = Math.floor((diff % 864e5) / 36e5);
-    document.getElementById("countdown").textContent = `${d} days ${h} hours to CAT 2026 (Nov 29)`;
+  function upd() {
+    const diff = CAT_DATE - new Date();
+    const d = Math.floor(diff / 864e5), h = Math.floor((diff % 864e5) / 36e5), m = Math.floor((diff % 36e5) / 6e4);
+    document.getElementById("countdown").textContent = `${d} days, ${h} hours, ${m} mins to CAT 2026`;
     document.getElementById("stat-days").textContent = d;
   }
-  u();
-  setInterval(u, 60000);
+  upd(); setInterval(upd, 60000);
 }
 
-// ─── TABS ───
+// ─── TABS ────────────────────────────────────────────────────────────────────
 function initTabs() {
   document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".tab,.tab-panel").forEach(x => x.classList.remove("active"));
     b.classList.add("active");
     document.getElementById(b.dataset.tab).classList.add("active");
   }));
 }
 
-// ─── TAB 1: WEEKLY & SPRINT PLANS ───
-function renderWeekly() {
-  const el = document.getElementById("weekly"), cp = getCurrentPhase();
-  let h = `<h2 class="section-title">40-Day Final Sprint & Midterm Strategy</h2>
-    <p class="section-desc">Current Phase: <strong style="color:${cp.color}">${cp.name}</strong> (${cp.hrs})</p>`;
+// ─── TAB 1: BATTLE PLAN ──────────────────────────────────────────────────────
+function renderPlan() {
+  const cp = getCurrentPhase();
+  let h = `<h2 class="section-title">⚔️ 40-Day War Room — 98+ Percentile Battle Plan</h2>
+    <p class="section-desc">Active Phase: <strong style="color:${cp.color}">${cp.name}</strong> · ${cp.hrs}</p>`;
 
-  // Strategic Mentor Alert Box
-  h += `<div class="alert-box" style="border-left-color:var(--accent);margin-bottom:1.5rem">
-    <strong>🧠 Mentor Strategy for the Final 40 Days (Oct 20 – Nov 29):</strong><br>
-    <span style="font-size:.85rem;color:var(--text2);line-height:1.7">
-      • <strong>Your Advantage (PwD + EWS + Strong Academics):</strong> You do <em>not</em> need to score 99 percentile. 85+ percentile guarantees converts for top IIMs + FMS. In raw score terms, that is roughly <strong>45–55 raw marks</strong> out of 198! That means solving only <strong>5-6 Qs in VARC, 4-5 Qs (1 solid set) in DILR, and 8-10 Qs in QA</strong> accurately.<br>
-      • <strong>Pre-Exam Surge (Oct 20 – Nov 4):</strong> Boost your pace now so during your college midterm exams (Nov 9–15), your only job is taking 1 maintenance mock/sectional daily.<br>
-      • <strong>Logical Reasoning Confidence:</strong> Focus on <em>Set Selection</em> (First 4 mins rule). Solving just ONE 5-question set completely guarantees 90+ percentile in DILR for PwD!<br>
-      • <strong>VARC Accuracy Fix:</strong> Shift from 'selection' to rigorous 'elimination'. Read with mental paragraph summaries.<br>
-      • <strong>QA Short-Notes:</strong> Complete quick formula & shortcut sheets for every chapter (Sequence & Series already done!).
-    </span>
-  </div>`;
-
-  // Phases Roadmap
-  h += `<div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.8rem">`;
-  PHASES.forEach(p => {
-    const cur = p.id === cp.id;
-    h += `<div class="card" style="padding:.65rem 1rem;${cur ? 'border-color:' + p.color + ';box-shadow:0 0 12px ' + p.color + '30;' : ''}display:flex;align-items:center;gap:.9rem">
-      <span style="font-size:.7rem;padding:3px 10px;border-radius:99px;background:${p.color}20;color:${p.color};font-weight:700;min-width:95px;text-align:center">${p.hrs}</span>
-      <div style="flex:1">
-        <div style="font-weight:${cur ? 700 : 600};font-size:.86rem">${p.name}</div>
-        <div style="font-size:.74rem;color:var(--text2)">${p.desc}</div>
-      </div>
-      <span style="font-size:.75rem;color:var(--text2);margin-left:auto;white-space:nowrap">${fmtDate(p.start)} – ${fmtDate(p.end)}</span>
-      ${cur ? '<span style="font-size:.65rem;padding:2px 8px;border-radius:99px;background:var(--green);color:#fff;font-weight:700">ACTIVE</span>' : ''}
+  // Score Target Box
+  h += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.5rem">`;
+  [
+    { label:"Overall Target", val:"98+ Percentile", sub:"~110–120 raw / 198", c:"var(--accent)" },
+    { label:"QA Target", val:"20–22 Correct", sub:"85%+ acc · Sub-90s per easy Q", c:"var(--qa)" },
+    { label:"DILR Target", val:"12–14 Correct", sub:"80%+ acc · 2.5 sets complete", c:"var(--lrdi)" },
+    { label:"VARC Target", val:"16–18 Correct", sub:"78%+ acc · Eliminate don't select", c:"var(--varc)" }
+  ].forEach(t => {
+    h += `<div class="card" style="padding:1rem;border-color:${t.c};text-align:center">
+      <div style="font-size:.72rem;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.05em">${t.label}</div>
+      <div style="font-size:1.4rem;font-weight:800;color:${t.c};margin:.3rem 0">${t.val}</div>
+      <div style="font-size:.72rem;color:var(--text2)">${t.sub}</div>
     </div>`;
   });
   h += `</div>`;
 
-  // Blocked & Exam Days
-  h += `<div class="alert-box" style="border-left-color:var(--amber);margin-bottom:1.8rem">
-    <strong>📅 Key Milestones & Exam Dates (from your Midterm Schedule):</strong><br>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.5rem;margin-top:.4rem">
-      ${BLOCKED_DAYS.map(d => `<div style="font-size:.82rem;color:var(--text2);background:var(--surface2);padding:.4rem .6rem;border-radius:6px">• <strong style="color:var(--text)">${d.label}</strong>: ${fmtDate(d.start)}${d.start !== d.end ? ' – ' + fmtDate(d.end) : ''}</div>`).join('')}
+  // Phase Roadmap
+  h += `<div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem">`;
+  PHASES.forEach(p => {
+    const cur = p.id === cp.id;
+    h += `<div class="card" style="padding:.7rem 1.1rem;${cur ? `border-color:${p.color};box-shadow:0 0 14px ${p.color}30;` : ''}display:flex;align-items:flex-start;gap:.9rem">
+      <span style="font-size:.68rem;padding:3px 10px;border-radius:99px;background:${p.color}20;color:${p.color};font-weight:700;min-width:100px;text-align:center;white-space:nowrap;margin-top:.15rem">${p.hrs}</span>
+      <div style="flex:1">
+        <div style="font-weight:${cur?700:600};font-size:.86rem">${p.name} ${cur?'<span style="font-size:.62rem;padding:2px 7px;border-radius:99px;background:var(--green);color:#fff;margin-left:.3rem">ACTIVE NOW</span>':''}</div>
+        <div style="font-size:.75rem;color:var(--text2);margin-top:.15rem">${p.desc}</div>
+      </div>
+      <span style="font-size:.74rem;color:var(--text2);white-space:nowrap">${fmtDate(p.start)} – ${fmtDate(p.end)}</span>
+    </div>`;
+  });
+  h += `</div>`;
+
+  // Blocked days
+  h += `<div class="alert-box" style="border-left-color:var(--amber);margin-bottom:1.5rem">
+    <strong>📅 Key Dates & Blocked Days:</strong>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.4rem;margin-top:.5rem">
+      ${BLOCKED.map(b => `<div style="font-size:.8rem;background:var(--surface2);padding:.35rem .6rem;border-radius:6px;border-left:3px solid ${b.color}"><strong>${fmtDate(b.start)}</strong> ${b.start!==b.end?'–'+fmtDate(b.end):''}: ${b.label}</div>`).join("")}
     </div>
   </div>`;
 
-  // Detailed Daily Templates
-  [
-    { tmpl: TEMPLATES.pre_midterm, badge: "Oct 20 – Nov 4 (Now Active)", c: "var(--cyan)" },
-    { tmpl: TEMPLATES.midterm_window, badge: "Nov 5 – Nov 15 (Midterm & Diwali)", c: "var(--amber)" },
-    { tmpl: TEMPLATES.peak_sprint, badge: "Nov 16 – Nov 26 (Peak Final Sprint)", c: "var(--green)" }
-  ].forEach(t => {
-    h += `<div style="margin-bottom:2rem">
-      <div class="week-header">
-        <h3>${t.tmpl.title}</h3>
-        <span class="phase-badge" style="background:${t.c}20;color:${t.c};font-weight:700">${t.badge}</span>
-        <div class="line"></div>
-      </div>
-      <p class="section-desc">${t.tmpl.subtitle}</p>
-      <div class="card" style="padding:1rem;display:flex;flex-direction:column;gap:.7rem">`;
-    t.tmpl.slots.forEach(s => {
-      h += `<div style="display:flex;gap:.9rem;padding:.5rem .7rem;background:var(--surface2);border-radius:8px;align-items:flex-start">
-        <div style="min-width:160px;font-size:.78rem;font-weight:700;color:var(--accent2)">${s.time}</div>
+  // Daily Templates
+  const templates = [
+    {
+      title: "🏫 College Day (Class: 10:20–17:20)",
+      color: "var(--cyan)",
+      phase: "Phase 1 & 2",
+      slots: [
+        { t:"5:45–7:30 AM (1.75h)", c:"var(--qa)", task:"QA Short-Notes (1 chapter) + Speed Drill: 20 Qs of that chapter in 25 min timer" },
+        { t:"7:30–8:00 AM (30 min)", c:"var(--varc)", task:"1 RC passage (Aeon/Economist) — read actively, no questions. Just comprehension training." },
+        { t:"10:20–17:20", c:"var(--text2)", task:"College classes. Formula flashcards during breaks." },
+        { t:"6:00–7:30 PM (1.5h)", c:"var(--lrdi)", task:"3 DILR sets under 35-min timer + 20-min review of errors" },
+        { t:"8:30–10:00 PM (1.5h)", c:"var(--varc)", task:"2nd RC passage with FULL ANNOTATION (why wrong options are wrong) + Hindu/Aeon editorial" }
+      ]
+    },
+    {
+      title: "🔥 Free Day / Holiday",
+      color: "var(--green)",
+      phase: "Phase 1 (Max Output)",
+      slots: [
+        { t:"6:30–9:30 AM (3h)", c:"var(--accent)", task:"FULL MOCK under strict exam conditions (8:30 AM is CAT slot — start at that time)" },
+        { t:"10:00 AM–12:30 PM (2.5h)", c:"var(--accent)", task:"DEEP MOCK REVIEW — 5-step protocol (VARC annotation → DILR re-solve → QA trap audit → Pattern analysis → Next-mock strategy note)" },
+        { t:"2:00–4:00 PM (2h)", c:"var(--lrdi)", task:"QA Short-Notes (2 chapters) + speed drills (20 Qs each under 25-min timer)" },
+        { t:"5:00–6:30 PM (1.5h)", c:"var(--lrdi)", task:"3 DILR sets (35-min timed) — focus on weakest set-type identified in today's mock" },
+        { t:"8:00–9:00 PM (1h)", c:"var(--varc)", task:"1 RC passage annotation + error log update + tomorrow's plan (3 specific improvement targets)" }
+      ]
+    },
+    {
+      title: "🎓 Midterm Exam Days (Nov 9–15)",
+      color: "var(--amber)",
+      phase: "Phase 2 (Maintenance)",
+      slots: [
+        { t:"6:30–8:00 AM (1.5h)", c:"var(--accent)", task:"1 VARC sectional (40 min) + review OR 2 DILR sets (35 min). Alternate days." },
+        { t:"College / Midterm exams", c:"var(--text2)", task:"Focus on your IIM Rohtak exams. Zero guilt." },
+        { t:"9:30–10:00 PM (30 min)", c:"var(--qa)", task:"QA formula sheet review (1 chapter, 5 min each). Error log update." }
+      ]
+    },
+    {
+      title: "⚡ Peak Sprint Days (Nov 16–26)",
+      color: "var(--green)",
+      phase: "Phase 3 (Daily Mock)",
+      slots: [
+        { t:"8:00–10:30 AM (2.5h)", c:"var(--accent)", task:"FULL MOCK at 8:30 AM sharp — CAT exam slot simulation" },
+        { t:"11:00 AM–1:30 PM (2.5h)", c:"var(--accent)", task:"Immediate mock review — all 5 steps. No exceptions." },
+        { t:"3:00–5:00 PM (2h)", c:"var(--lrdi)", task:"DILR cold re-solve (yesterday's wrong sets) + 2 fresh sets" },
+        { t:"6:00–7:30 PM (1.5h)", c:"var(--qa)", task:"QA speed round: 30 questions mixed from short-notes chapters. Timer on." },
+        { t:"8:30–9:30 PM (1h)", c:"var(--varc)", task:"2 RC passages (annotation) + error pattern note for tomorrow's mock improvement" }
+      ]
+    }
+  ];
+
+  templates.forEach(t => {
+    h += `<div style="margin-bottom:1.8rem">
+      <div class="week-header"><h3>${t.title}</h3>
+        <span class="phase-badge" style="background:${t.color}20;color:${t.color}">${t.phase}</span>
+        <div class="line"></div></div>
+      <div class="card" style="padding:.8rem;display:flex;flex-direction:column;gap:.5rem">`;
+    t.slots.forEach(s => {
+      h += `<div style="display:flex;gap:.9rem;padding:.55rem .7rem;background:var(--surface2);border-radius:8px;align-items:flex-start">
+        <div style="min-width:155px;font-size:.76rem;font-weight:700;color:${s.c};flex-shrink:0">${s.t}</div>
         <div style="font-size:.82rem;color:var(--text);line-height:1.5">${s.task}</div>
       </div>`;
     });
     h += `</div></div>`;
   });
 
-  el.innerHTML = h;
+  document.getElementById("weekly").innerHTML = h;
 }
 
-// ─── TAB 2: MOCKS CALENDAR (25 FULL MOCKS) ───
+// ─── TAB 2: 20 MOCKS ─────────────────────────────────────────────────────────
 function renderMocks() {
-  const el = document.getElementById("mocks");
-  let h = `<h2 class="section-title">25 Full-Length Mocks Calendar (Oct 21 – Nov 26)</h2>
-    <p class="section-desc">Strict 2-hour exam timer + 1.5-hour deep post-mock analysis · <strong id="mock-prog">0/25 done</strong></p>`;
+  const pColors = { p1:"var(--cyan)", p2:"var(--amber)", p3:"var(--green)" };
+  let h = `<h2 class="section-title">20 Full-Length Mocks Calendar</h2>
+    <p class="section-desc">Quality > Quantity · 2h exam + 2.5h deep review = 4.5h total per mock · Completed: <strong id="mock-prog">0/20</strong></p>`;
 
-  h += `<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
-    <span class="phase-badge" style="background:var(--cyan)20;color:var(--cyan)">Pre-Midterm: 10 Mocks (Alternate Days)</span>
-    <span class="phase-badge" style="background:var(--amber)20;color:var(--amber)">Midterm Window: 4 Mocks (Maintenance)</span>
-    <span class="phase-badge" style="background:var(--green)20;color:var(--green)">Peak Sprint: 11 Mocks (Daily Rhythm)</span>
+  h += `<div class="alert-box" style="border-left-color:var(--red);margin-bottom:1.5rem">
+    <strong>🛑 The 5-Step Review Protocol (mandatory after EVERY mock):</strong>
+    <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem">
+    ${REVIEW_PROTOCOL.map(r => `<div style="font-size:.8rem;background:var(--surface2);padding:.4rem .6rem;border-radius:6px">
+      <strong style="color:var(--accent2)">${r.step}:</strong> <span style="color:var(--text2)">${r.detail}</span></div>`).join("")}
+    </div>
   </div>`;
 
-  h += `<div class="card" style="padding:0;overflow:hidden">`;
-  MOCKS.forEach(m => {
-    const d = getP("mock_" + m.num);
-    h += `<div class="mock-item ${d ? 'done' : ''}" style="border-bottom:1px solid var(--border);padding:.75rem 1rem">
-      <label style="display:flex;align-items:center;gap:.9rem;flex:1;cursor:pointer">
-        <input type="checkbox" class="checkbox-custom" data-key="mock_${m.num}" ${d ? "checked" : ""} onchange="toggleP('mock_${m.num}')">
-        <span class="mock-num" style="min-width:55px">#${m.num}</span>
-        <div style="flex:1">
-          <div style="font-size:.85rem;font-weight:600;${d ? 'text-decoration:line-through;color:var(--text2)' : ''}">${fmtDate(m.date)} (${m.day}) — <span style="color:var(--accent2)">${m.phase}</span></div>
-          <div style="font-size:.74rem;color:var(--text2)">${m.target}</div>
-        </div>
-        <span style="font-size:.75rem;padding:3px 8px;border-radius:6px;background:var(--surface2);color:var(--text2)">CAT Slot Simulation</span>
-      </label>
-    </div>`;
-  });
-  h += `</div>`;
-
-  h += `<div class="alert-box" style="border-left-color:var(--amber);margin-top:1.5rem">
-    <strong>💡 The Golden 3-Step Mock Review Protocol:</strong><br>
-    1. <strong>Unattempted Analysis:</strong> Solve every unattempted question without timer. If you can solve it easily, mark it as 'Selection Error' (you missed an easy question).<br>
-    2. <strong>Incorrect Analysis:</strong> Categorize errors into Conceptual, Calculation, or Panic/Rush. Write the exact fix in your Error Log.<br>
-    3. <strong>Correct Analysis:</strong> Did you take >3 mins on any correct question? Look at solution for a faster shortcut or option elimination.
-  </div>`;
-
-  el.innerHTML = h;
-}
-
-// ─── TAB 3: 45+ SECTIONAL TESTS ───
-function renderSectionals() {
-  const el = document.getElementById("qa");
-  let h = `<h2 class="section-title">45+ Sectional Tests Tracker (15 VARC, 15 DILR, 16 QA)</h2>
-    <p class="section-desc">40 minutes each · Targeted speed, set selection & accuracy building · <strong id="sec-prog">0/46 done</strong></p>`;
-
-  h += `<div class="alert-box" style="border-left-color:var(--green);margin-bottom:1.5rem">
-    <strong>🎯 Sectional Goal:</strong> Sectionals are the fastest way to fix section-specific issues without taking a 2-hour full test. Take at least 1-2 sectionals on non-mock days and during college exam weeks!
-  </div>`;
-
-  [
-    { name: "VARC Sectionals (15 Tests)", prefix: "sec_varc", count: 15, color: "var(--varc)", tip: "Focus: Test 3-pass elimination and accuracy > 80% with zero negative marks." },
-    { name: "DILR Sectionals (15 Tests)", prefix: "sec_dilr", count: 15, color: "var(--lrdi)", tip: "Focus: Practice the 4-minute scan. Ensure at least 1 set is 100% correct in 18-20 mins." },
-    { name: "QA Sectionals (16 Tests)", prefix: "sec_qa", count: 16, color: "var(--qa)", tip: "Focus: Round 1 (easy Qs, <1.5 min each) then Round 2 (moderate Qs). Target 9-11 correct." }
-  ].forEach(s => {
-    let d = 0; for (let i = 1; i <= s.count; i++) if (getP(s.prefix + "_" + i)) d++;
-    const pct = Math.round((d / s.count) * 100);
-
-    h += `<div style="margin-bottom:1.5rem">
-      <div class="week-header">
-        <h3 style="color:${s.color}">${s.name}</h3>
-        <span style="font-size:.82rem;color:${pct === 100 ? 'var(--green)' : 'var(--text2)'};margin-left:auto">${d}/${s.count} done</span>
-        <div class="progress-bar" style="width:100px;margin:0 .8rem"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
-        <div class="line"></div>
-      </div>
-      <p style="font-size:.76rem;color:var(--text2);margin-bottom:.6rem">${s.tip}</p>
-      <div class="card" style="padding:.8rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.4rem">`;
-    for (let i = 1; i <= s.count; i++) {
-      h += cb(s.prefix + "_" + i, `Test #${i}`);
-    }
+  // Group by phase
+  const groups = { p1:"Pre-Midterm Surge (Oct 21 – Nov 8)", p2:"Midterm Window (Nov 9–15)", p3:"Peak Sprint (Nov 16–26)" };
+  ["p1","p2","p3"].forEach(ph => {
+    const mocks = MOCKS.filter(m => m.phase === ph);
+    h += `<div style="margin-bottom:1.5rem"><h3 style="font-size:.95rem;margin-bottom:.6rem;color:${pColors[ph]}">${groups[ph]}</h3>
+      <div class="card" style="padding:0;overflow:hidden">`;
+    mocks.forEach(m => {
+      const done = getP("mock_" + m.num);
+      h += `<div style="border-bottom:1px solid var(--border);padding:.7rem 1rem;background:${done?'var(--surface2)':'transparent'}">
+        <label style="display:flex;align-items:center;gap:.9rem;cursor:pointer">
+          <input type="checkbox" class="checkbox-custom" ${done?"checked":""} onchange="toggleP('mock_${m.num}')">
+          <span style="font-size:.8rem;font-weight:700;color:${pColors[ph]};min-width:45px">#${m.num}</span>
+          <div style="flex:1">
+            <div style="font-size:.86rem;font-weight:600;${done?'text-decoration:line-through;color:var(--text2)':''}">${fmtDate(m.date)} (${m.day})</div>
+            <div style="font-size:.74rem;color:var(--text2)">${m.focus}</div>
+          </div>
+        </label>
+      </div>`;
+    });
     h += `</div></div>`;
   });
 
-  el.innerHTML = h;
+  document.getElementById("mocks").innerHTML = h;
 }
 
-// ─── TAB 4: QA SHORT NOTES (FORMULAS & SHORT TRICKS) ───
-function renderQAShortNotes() {
-  const el = document.getElementById("lrdi");
-  let h = `<h2 class="section-title">QA Short Notes & Formula Master Sheets</h2>
-    <p class="section-desc">Consolidate formulas, short tricks, and trap alerts chapter-wise from your notes · <strong id="sn-prog">1/16 chapters done</strong></p>`;
+// ─── TAB 3: 30 SECTIONALS ────────────────────────────────────────────────────
+function renderSectionals() {
+  let h = `<h2 class="section-title">30 Sectional Tests Tracker</h2>
+    <p class="section-desc">VARC (12) + DILR (10) + QA (8) · 40 min each · <span id="sec-prog">0/30</span> done · On non-mock days only</p>`;
 
-  h += `<div class="alert-box" style="border-left-color:var(--qa);margin-bottom:1.5rem">
-    <strong>📝 Short Notes Rule of Thumb:</strong><br>
-    Keep each chapter to <strong>1 to 2 pages maximum</strong>. Include: (1) Core formulas & conditions of validity, (2) Special shortcut tricks (e.g., faulty balance ratio method, AM-GM inequalities, remainder theorem shortcuts), (3) Mistakes you frequently make in mocks. Sequence & Series is already done!
+  h += `<div class="alert-box" style="border-left-color:var(--green);margin-bottom:1.5rem">
+    <strong>🎯 Sectional Discipline:</strong> Each sectional is a <em>targeted problem</em>, not a score hunt. Before starting, write 1 specific thing you want to fix (e.g., "I will not pick extreme-tone options in RC"). After finishing, check if you fixed it.
   </div>`;
 
-  h += `<div class="card" style="padding:0;overflow:hidden">`;
-  QA_SHORT_NOTES.forEach((sn, idx) => {
-    const d = getP(sn.id);
-    const badgeColor = d ? 'var(--green)' : (sn.status === 'done' ? 'var(--green)' : 'var(--accent)');
-
-    h += `<div class="card-header" style="padding:.85rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.9rem;background:${d ? 'var(--surface2)' : 'transparent'}">
-      <input type="checkbox" class="checkbox-custom" data-key="${sn.id}" ${d ? "checked" : ""} onchange="toggleP('${sn.id}')">
-      <div style="flex:1">
-        <div style="font-size:.88rem;font-weight:600;${d ? 'text-decoration:line-through;color:var(--text2)' : ''}">${idx + 1}. ${sn.name}</div>
+  [
+    { name:"VARC Sectionals (12)", prefix:"sec_varc", count:12, color:"var(--varc)",
+      tips:["Tests 1–4: Focus on RC only. 2 passages, time-box each to 12 min.", "Tests 5–8: Mix RC + VA. Aim for 78%+ accuracy.", "Tests 9–12: Full simulation. Check option elimination discipline."] },
+    { name:"DILR Sectionals (10)", prefix:"sec_dilr", count:10, color:"var(--lrdi)",
+      tips:["Tests 1–3: Scan + pick 2 sets. Do NOT touch a 3rd set.", "Tests 4–7: Mix set types. Aim for 1 full set (5 Qs) completed perfectly.", "Tests 8–10: Full simulation. Track scan-time (must be ≤4 min)."] },
+    { name:"QA Sectionals (8)", prefix:"sec_qa", count:8, color:"var(--qa)",
+      tips:["Tests 1–3: Easy+Medium only. Speed drill – sub-90s per easy Q.", "Tests 4–6: Mixed difficulty. 2-round strategy.", "Tests 7–8: Full simulation. Track question skipping discipline."] }
+  ].forEach(s => {
+    let done = 0; for (let i = 1; i <= s.count; i++) if (getP(s.prefix+"_"+i)) done++;
+    const pct = Math.round((done/s.count)*100);
+    h += `<div style="margin-bottom:1.8rem">
+      <div class="week-header"><h3 style="color:${s.color}">${s.name}</h3>
+        <span style="font-size:.8rem;color:${done===s.count?'var(--green)':'var(--text2)'}">${done}/${s.count} done</span>
+        <div class="progress-bar" style="width:100px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <div class="line"></div></div>
+      <div style="display:flex;flex-direction:column;gap:.2rem;margin-bottom:.7rem">
+        ${s.tips.map(t=>`<div style="font-size:.75rem;color:var(--text2);background:var(--surface2);padding:.3rem .6rem;border-radius:5px">• ${t}</div>`).join("")}
       </div>
-      <span style="font-size:.72rem;padding:3px 9px;border-radius:99px;background:${badgeColor}20;color:${badgeColor};font-weight:700">
-        ${d ? 'Completed ✅' : sn.badge}
-      </span>
+      <div class="card" style="padding:.7rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.35rem">
+        ${Array.from({length:s.count},(_,i)=>cb(s.prefix+"_"+(i+1),`Test #${i+1}`)).join("")}
+      </div></div>`;
+  });
+
+  document.getElementById("qa").innerHTML = h;
+}
+
+// ─── TAB 4: QA SHORT NOTES ───────────────────────────────────────────────────
+function renderShortNotes() {
+  let h = `<h2 class="section-title">QA Formula Short-Notes (All 16 Chapters)</h2>
+    <p class="section-desc">1–2 pages per chapter · Formula + Shortcut + Trap Alert · After writing: 20-Q speed drill in 25 min · Done: <span id="sn-prog">1/16</span></p>`;
+
+  h += `<div class="alert-box" style="border-left-color:var(--qa);margin-bottom:1.5rem">
+    <strong>📝 Short-Notes Protocol:</strong> Each chapter note must include: <br>
+    <span style="font-size:.8rem;color:var(--text2)">(1) Core formulas with conditions of validity &nbsp;|&nbsp; (2) 3–5 shortcut tricks with example &nbsp;|&nbsp; (3) Top 2 traps you fall for in mocks &nbsp;|&nbsp; (4) One line mnemonics to recall on exam day</span>
+  </div>`;
+
+  // Speed drill tracker alongside
+  h += `<div style="display:flex;flex-direction:column;gap:.45rem">`;
+  QA_SHORT_NOTES.forEach((sn, i) => {
+    const done = getP(sn.id);
+    const drillDone = getP("drill_" + sn.id);
+    const badgeColor = sn.priority === "high" ? "var(--red)" : sn.priority === "med" ? "var(--amber)" : "var(--green)";
+
+    h += `<div class="card" style="padding:0;border-color:${done?'var(--green)':'var(--border)'}">
+      <div style="display:flex;align-items:center;gap:.8rem;padding:.75rem 1.1rem">
+        <input type="checkbox" class="checkbox-custom" ${done?"checked":""} onchange="toggleP('${sn.id}')">
+        <div style="flex:1">
+          <div style="font-size:.85rem;font-weight:600;${done?'text-decoration:line-through;color:var(--text2)':''}">${i+1}. ${sn.name}</div>
+        </div>
+        <span style="font-size:.7rem;padding:2px 8px;border-radius:99px;background:${done?'var(--green)20':'var(--surface2)'};color:${done?'var(--green)':badgeColor};font-weight:700">${done?'Done ✅':sn.badge}</span>
+        <div style="display:flex;align-items:center;gap:.4rem;margin-left:.5rem">
+          <input type="checkbox" class="checkbox-custom" ${drillDone?"checked":""} onchange="toggleP('drill_${sn.id}')">
+          <span style="font-size:.72rem;color:${drillDone?'var(--green)':'var(--text2)'}">${drillDone?'Drill ✅':'Speed Drill'}</span>
+        </div>
+      </div>
     </div>`;
   });
   h += `</div>`;
 
-  el.innerHTML = h;
+  document.getElementById("lrdi").innerHTML = h;
 }
 
-// ─── TAB 5: LR & VARC BOOSTERS ───
-function renderBoosters() {
-  const el = document.getElementById("varc");
-  let h = `<h2 class="section-title">DILR Confidence & VARC Accuracy Boosters</h2>
-    <p class="section-desc">Tested exam-hall mental models to overcome lack of confidence in LR and low accuracy in VARC</p>`;
+// ─── TAB 5: VARC SYSTEM ─────────────────────────────────────────────────────
+function renderVARC() {
+  let h = `<h2 class="section-title">VARC Accuracy System — 16+ Correct</h2>
+    <p class="section-desc">Elimination over selection · 2 annotated RC passages daily · Aeon / Economist / HBR level reading</p>`;
 
-  // 1. DILR Booster
-  h += `<div style="margin-bottom:2rem">
-    <div class="week-header">
-      <h3 style="color:var(--lrdi)">🧩 DILR Confidence Playbook (How to Crack 90+ %ile in PwD)</h3>
-      <div class="line"></div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:.75rem">`;
-  DILR_FRAMEWORKS.forEach(f => {
-    h += `<div class="card" style="padding:1rem;border-left:4px solid var(--lrdi)">
-      <strong style="font-size:.9rem;color:var(--text)">${f.type}</strong>
-      <p style="font-size:.82rem;color:var(--text2);margin:.4rem 0">${f.principle}</p>
-      <div style="font-size:.8rem;color:var(--cyan);background:var(--surface2);padding:.4rem .6rem;border-radius:6px">⚡ <strong>Action:</strong> ${f.action}</div>
-    </div>`;
+  // RC Protocol
+  h += `<div class="card" style="padding:1.1rem;margin-bottom:1.2rem;border-color:var(--varc)">
+    <h4 style="color:var(--varc);margin-bottom:.7rem">📖 ${VARC_SYSTEM.rc.title}</h4>
+    ${VARC_SYSTEM.rc.steps.map((s,i)=>`<div style="display:flex;gap:.7rem;padding:.4rem 0;border-bottom:${i<VARC_SYSTEM.rc.steps.length-1?'1px solid var(--border)':'none'}"><span style="color:var(--accent2);font-weight:700;min-width:16px">${i+1}.</span><span style="font-size:.83rem;color:var(--text)">${s}</span></div>`).join("")}
+  </div>`;
+
+  // VA Protocol
+  h += `<div class="card" style="padding:1.1rem;margin-bottom:1.2rem;border-color:var(--varc)">
+    <h4 style="color:var(--varc);margin-bottom:.7rem">⚡ ${VARC_SYSTEM.va.title}</h4>
+    ${VARC_SYSTEM.va.steps.map((s,i)=>`<div style="display:flex;gap:.7rem;padding:.4rem 0;border-bottom:${i<VARC_SYSTEM.va.steps.length-1?'1px solid var(--border)':'none'}"><span style="color:var(--accent2);font-weight:700;min-width:16px">${i+1}.</span><span style="font-size:.83rem;color:var(--text)">${s}</span></div>`).join("")}
+  </div>`;
+
+  // Reading list
+  h += `<div class="card" style="padding:1.1rem;margin-bottom:1.5rem">
+    <h4 style="color:var(--amber);margin-bottom:.6rem">📚 ${VARC_SYSTEM.reading.title}</h4>
+    ${VARC_SYSTEM.reading.items.map(r=>`<div style="font-size:.82rem;color:var(--text2);padding:.3rem 0;border-bottom:1px solid var(--border)">→ ${r}</div>`).join("")}
+  </div>`;
+
+  // Daily RC log
+  h += `<div class="week-header"><h3>✅ Daily RC Annotation Log (2 passages/day)</h3>
+    <span style="font-size:.8rem;color:var(--text2)" id="varc-prog">0 days logged</span>
+    <div class="line"></div></div>
+    <p class="section-desc">Check off each day when you've done BOTH RC passages with full annotation. Even midterm days — at least 1 passage.</p>
+    <div class="card" style="padding:.8rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:.3rem">`;
+  VARC_DAYS.forEach(d => {
+    const done = getP(d.id);
+    h += `<label style="display:flex;align-items:center;gap:.35rem;cursor:pointer;font-size:.75rem;padding:.3rem .4rem;border-radius:6px;background:${done?'var(--green)20':'var(--surface2)'};border:1px solid ${done?'var(--green)':'var(--border)'}">
+      <input type="checkbox" class="checkbox-custom" ${done?"checked":""} onchange="toggleP('${d.id}')">
+      <span style="color:${done?'var(--green)':'var(--text2)'}">${fmtDate(d.date)}</span>
+    </label>`;
   });
-  h += `</div></div>`;
+  h += `</div>`;
 
-  // 2. VARC Booster
-  h += `<div>
-    <div class="week-header">
-      <h3 style="color:var(--varc)">🎯 VARC High-Accuracy Protocol (Elimination over Selection)</h3>
-      <div class="line"></div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:.75rem">`;
-  VARC_ACCURACY_RULES.forEach(r => {
-    h += `<div class="card" style="padding:1rem;border-left:4px solid var(--varc)">
-      <strong style="font-size:.9rem;color:var(--text)">${r.rule}</strong>
-      <p style="font-size:.82rem;color:var(--text2);margin-top:.4rem;line-height:1.6">${r.detail}</p>
-    </div>`;
-  });
-  h += `</div></div>`;
-
-  el.innerHTML = h;
+  document.getElementById("varc").innerHTML = h;
 }
 
-// ─── TAB 6: MILESTONES ───
+// ─── TAB 6: DILR + MILESTONES ────────────────────────────────────────────────
+function renderDILR() {
+  let h = `<h2 class="section-title">DILR Confidence System — 12+ Correct</h2>
+    <p class="section-desc">The 4-Minute Scan Rule + 2 Set Mastery + Daily Timed Drills</p>`;
+
+  // Scan rule
+  h += `<div class="card" style="padding:1.1rem;margin-bottom:1.2rem;border-color:var(--lrdi)">
+    <h4 style="color:var(--lrdi);margin-bottom:.7rem">⚡ ${DILR_SYSTEM.scan.title}</h4>
+    ${DILR_SYSTEM.scan.steps.map((s,i)=>`<div style="display:flex;gap:.7rem;padding:.4rem 0;border-bottom:${i<DILR_SYSTEM.scan.steps.length-1?'1px solid var(--border)':'none'}"><span style="color:var(--accent2);font-weight:700;min-width:16px">${i+1}.</span><span style="font-size:.83rem">${s}</span></div>`).join("")}
+  </div>`;
+
+  // Priority sets
+  h += `<div class="card" style="padding:1.1rem;margin-bottom:1.2rem">
+    <h4 style="margin-bottom:.7rem">🎯 ${DILR_SYSTEM.sets.title}</h4>
+    ${DILR_SYSTEM.sets.items.map(s=>`<div style="font-size:.82rem;padding:.35rem 0;border-bottom:1px solid var(--border)">${s}</div>`).join("")}
+  </div>`;
+
+  // Daily drill batches tracker
+  h += `<div class="week-header"><h3>📊 Daily DILR Timed Drill Batches</h3><div class="line"></div></div>
+    <p class="section-desc">3 sets/day under 35-min timer · Mark done when batch complete</p>
+    <div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem">`;
+  DILR_BATCHES.forEach(b => {
+    let done = 0;
+    for (let i = 1; i <= b.sets; i++) if (getP("db_"+b.id+"_"+i)) done++;
+    const pct = Math.round((done/b.sets)*100);
+    h += `<div class="card" style="padding:.7rem 1rem">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')" style="display:flex;align-items:center;gap:.7rem;cursor:pointer">
+        <strong style="flex:1;font-size:.84rem">${b.label}</strong>
+        <span style="font-size:.78rem;color:var(--text2)">${done}/${b.sets}</span>
+        <div class="progress-bar" style="width:70px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(85px,1fr));gap:.3rem;padding:.5rem 0">
+        ${Array.from({length:b.sets},(_,i)=>cb("db_"+b.id+"_"+(i+1),`Set ${i+1}`)).join("")}
+      </div></div>`;
+  });
+  h += `</div>`;
+
+  // QA speed system
+  h += `<div class="card" style="padding:1.1rem;margin-bottom:1.2rem;border-color:var(--qa)">
+    <h4 style="color:var(--qa);margin-bottom:.7rem">⚡ ${QA_SYSTEM.speed.title}</h4>
+    <p style="font-size:.83rem;color:var(--text2);margin-bottom:.6rem">${QA_SYSTEM.speed.detail}</p>
+    <h5 style="margin-bottom:.5rem">${QA_SYSTEM.rounds.title}</h5>
+    ${QA_SYSTEM.rounds.rounds.map((r,i)=>`<div style="font-size:.82rem;padding:.35rem 0;border-bottom:${i<QA_SYSTEM.rounds.rounds.length-1?'1px solid var(--border)':'none'}"><strong>Round ${i+1}:</strong> ${r}</div>`).join("")}
+  </div>`;
+
+  document.getElementById("qa-system").innerHTML = h;
+}
+
+// ─── TAB 7: MILESTONES ───────────────────────────────────────────────────────
 function renderMilestones() {
-  const el = document.getElementById("milestones");
-  let h = `<h2 class="section-title">40-Day Road to CAT 2026 Domination</h2>
-    <p class="section-desc">Key milestones from today (Oct 20) to D-Day (Nov 29)</p>`;
-
-  h += `<div style="display:flex;flex-direction:column;gap:.35rem">`;
+  let h = `<h2 class="section-title">🏆 Road to CAT Domination — 40-Day Milestones</h2>
+    <p class="section-desc">Oct 20 → Nov 29 · Trust the process. Execute the system.</p>
+    <div style="display:flex;flex-direction:column;gap:.35rem">`;
+  const today = new Date().toISOString().split("T")[0];
   MILESTONES.forEach((m, i) => {
-    const last = i === MILESTONES.length - 1;
-    const exam = m.icon === "🎓" || m.icon === "🪔";
-    h += `<div class="card" style="padding:.7rem 1.1rem;${last ? 'border-color:var(--amber);box-shadow:0 0 15px rgba(245,158,11,.25)' : ''}${exam ? 'border-left:3px solid var(--amber);' : ''}">
+    const isLast = i === MILESTONES.length - 1;
+    h += `<div class="card" style="padding:.75rem 1.1rem;${isLast?'border-color:var(--amber);box-shadow:0 0 16px rgba(245,158,11,.25)':''}">
       <div style="display:flex;align-items:center;gap:1.1rem">
-        <span style="font-size:1.25rem">${m.icon}</span>
-        <span style="min-width:110px;font-size:.82rem;font-weight:700;color:var(--accent2)">${m.date}</span>
-        <span style="font-size:.85rem">${m.event}</span>
+        <span style="font-size:1.3rem">${m.icon}</span>
+        <span style="min-width:85px;font-size:.8rem;font-weight:700;color:var(--accent2)">${m.date}</span>
+        <span style="font-size:.86rem;line-height:1.4">${m.event}</span>
       </div>
     </div>`;
   });
   h += `</div>`;
 
-  // Hard rules
+  // Hard Rules
   h += `<div class="alert-box" style="border-left-color:var(--red);margin-top:1.5rem">
-    <strong>🛑 The 5 Golden Mentor Rules for the Last 40 Days:</strong>
-    <ul style="font-size:.83rem;color:var(--text2);margin-top:.4rem;padding-left:1rem;line-height:1.8">
-      <li><strong>No new ground-up theory:</strong> Syllabus is already complete. Your score will come from high-speed execution, accurate set selection, and elimination discipline.</li>
-      <li><strong>Never take a mock without 1.5 hours of review:</strong> A mock without analysis is a total waste of 2 hours.</li>
-      <li><strong>Never guess in VARC:</strong> 4 genuine correct questions > 12 attempts with 6 negatives.</li>
-      <li><strong>Daily Formula Sheet Audit:</strong> 15 minutes before sleeping, flip through your self-made QA short notes.</li>
-      <li><strong>Mental Frame:</strong> You are aiming for ~45–55 marks for a dream 85–90+ percentile in PwD category. Stay composed!</li>
+    <strong>🛑 The 6 Non-Negotiable Laws of 98+ Percentile:</strong>
+    <ul style="font-size:.83rem;color:var(--text2);margin-top:.4rem;padding-left:1rem;line-height:1.9">
+      <li><strong>No new theory learning from today.</strong> Syllabus is done. Only execution, analysis, and pattern recognition.</li>
+      <li><strong>Every mock MUST have a 2.5-hour review.</strong> A mock without review is a $200 ticket thrown in the trash.</li>
+      <li><strong>Never guess in VARC.</strong> 4 accurate answers beat 12 guesses with 6 negatives. Always.</li>
+      <li><strong>DILR: 2 sets completed > 3 sets half-done.</strong> Deep accuracy, not wide coverage.</li>
+      <li><strong>QA Speed Drills are mandatory after each short-note chapter.</strong> Knowledge without speed is useless in CAT.</li>
+      <li><strong>Sleep by 10:30 PM on exam week (Nov 16–28).</strong> Your circadian rhythm must match the 8:30 AM CAT slot.</li>
     </ul>
   </div>`;
 
-  el.innerHTML = h;
+  document.getElementById("milestones").innerHTML = h;
 }
