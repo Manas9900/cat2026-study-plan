@@ -24,13 +24,13 @@ const DAILY_PLAN = [
       "7:00 AM — Review yesterday's errors (if any) before leaving for college"
     ],
     evening: [
-      "6:00 PM — DILR Sectional Test #1 (40 min): Arrangement sets × 2 (timed, 20 min each) — Linear & Circular seating",
+      "6:00 PM — 🎯 DILR Sectional Test #1 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "7:00 PM — Annotate 1 RC passage from The Hindu — practice elimination on VA questions",
       "8:00 PM — Number System: factor-counting + unit-digit tricks (30 min)",
       "8:30 PM — Log DILR performance: sets attempted, accuracy, time management"
     ],
     eod: [
-      "✅ DILR Sectional Test #1 completed (2 Arrangement sets timed)",
+      "✅ DILR Sectional Test #1 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated (Aeon + The Hindu)",
       "✅ Number System notes page drafted",
       "✅ Morning QA slot protected (5:45–7:00 AM done)"
@@ -81,19 +81,19 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "5:45 AM — VA Sectional Test #1 (40 min): 2 RC passages (Economist) timed 12 min each — full annotation",
+      "5:45 AM — 🎯 VA Sectional Test #1 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
       "6:30 AM — Percentages quick notes: base change, successive % shortcuts",
-      "7:15 AM — QA Sectional Test #1 (40 min): 10 Percentages + P&L problems (mixed difficulty)"
+      "7:15 AM — 🎯 QA Sectional Test #1 (Complete 40-Min Timed Mock Section — 22 Qs across domains)"
     ],
     evening: [
-      "6:00 PM — QA Sectional Test #1 continued: P&L advanced — CP/SP manipulation problems (30 min)",
+      "6:00 PM — QA Sectional Test #1 In-Depth Review (25 min): Error analysis, formula traps & shortcut check",
       "6:30 PM — DILR: 1 Tournament set timed (25 min) — log accuracy",
       "7:30 PM — Review Mock #1 VARC section in depth — annotate eliminated wrong answers",
       "8:30 PM — Percentages error log: write all wrong Q types with correct method"
     ],
     eod: [
-      "✅ VA Sectional Test #1 completed (2 RC passages annotated, Economist)",
-      "✅ QA Sectional Test #1 completed (Percentages + P&L chapter)",
+      "✅ VA Sectional Test #1 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #1 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated (morning session)",
       "✅ Percentages shortcut sheet updated",
       "✅ Full Mock Test #1 VARC errors reviewed"
@@ -149,7 +149,7 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: all 3 sections, 5-step process (1.5h)"
     ],
     evening: [
-      "12:30 PM — QA Sectional Test #2 (40 min): Ratio + Mixtures chapter — alligation shortcut + ratio chain (1h)",
+      "12:30 PM — 🎯 QA Sectional Test #2 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "2:00 PM — 10 Ratio/Mixtures problems timed — log wrong ones",
       "3:00 PM — Free time (Dussehra) — light reading or family time",
       "6:00 PM — Write 3 improvements for Mock #4 + review error log"
@@ -157,7 +157,7 @@ const DAILY_PLAN = [
     eod: [
       "✅ Full Mock Test #3 (Dussehra Power Day) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ QA Sectional Test #2 completed (Ratio + Mixtures)",
+      "✅ QA Sectional Test #2 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #4",
       "✅ Dussehra energy channeled — 2 mocks in 2 days 🔥"
     ],
@@ -181,16 +181,16 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: 5-step process, focus on DILR set selection"
     ],
     evening: [
-      "1:00 PM — VA Sectional Test #2 (40 min): 2 RC passages (Aeon + HBR) — annotate with timer",
-      "2:00 PM — DILR Sectional Test #2 (40 min): Quant-Based sets × 2 (Profit-Sharing / Grid puzzles) — timed",
+      "1:00 PM — 🎯 VA Sectional Test #2 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "2:00 PM — 🎯 DILR Sectional Test #2 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "3:30 PM — Consolidate: 3 improvements for Mock #5 (DILR Scan Discipline)",
       "4:30 PM — Rest — prep for college week ahead"
     ],
     eod: [
       "✅ Full Mock Test #4 (Weekend Sprint) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ VA Sectional Test #2 completed (2 RC passages annotated)",
-      "✅ DILR Sectional Test #2 completed (2 Quant-Based sets timed)",
+      "✅ VA Sectional Test #2 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #2 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #5"
     ],
     mock: 4,
@@ -240,19 +240,19 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "5:45 AM — VA Sectional Test #3 (40 min): 2 RC passages (Economist) — annotation + inference question focus",
+      "5:45 AM — 🎯 VA Sectional Test #3 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
       "6:30 AM — TSD: boat & stream problems + circular track (30 min)",
       "7:15 AM — Quick review of Mock #5 VARC errors (15 min)"
     ],
     evening: [
-      "6:00 PM — DILR Sectional Test #3 (40 min): Scheduling sets × 2 (timed 20 min each) — Class timetable / Shift roster",
+      "6:00 PM — 🎯 DILR Sectional Test #3 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "7:00 PM — TSD: relative speed + races — 10 problems timed",
       "8:00 PM — Annotate 1 additional RC passage (Aeon) — tone + structure map",
       "8:30 PM — Log DILR Sectional Test #3 performance: accuracy + time"
     ],
     eod: [
-      "✅ VA Sectional Test #3 completed (2 RC passages, Economist)",
-      "✅ DILR Sectional Test #3 completed (2 Scheduling sets timed)",
+      "✅ VA Sectional Test #3 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #3 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated (morning + evening)",
       "✅ TSD chapter notes updated (boat/stream + races)",
       "✅ 3 DILR sets timed this week — momentum building"
@@ -303,19 +303,19 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "5:45 AM — QA Sectional Test #3 (40 min): Time & Work — work equivalence + pipe & cistern (30 min)",
-      "6:15 AM — DILR Sectional Test #4 (40 min): Tournament bracket sets × 1 timed (25 min) — single-elimination format",
+      "5:45 AM — 🎯 QA Sectional Test #3 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
+      "6:15 AM — 🎯 DILR Sectional Test #4 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "7:00 AM — Read 1 RC passage (The Hindu) — 5-min timer, then answer questions"
     ],
     evening: [
-      "6:00 PM — QA Sectional Test #3 continued: Time & Work advanced — efficiency ratios + variable workforce",
-      "7:00 PM — DILR Sectional Test #4 continued: 1 more Tournament set (round-robin format, 25 min timed)",
+      "6:00 PM — QA Sectional Test #3 In-Depth Review (25 min): Error analysis, formula traps & shortcut check",
+      "7:00 PM — DILR Sectional Test #4 In-Depth Review (25 min): 4-min scan audit & re-solve wrong sets",
       "8:00 PM — Annotate 1 RC passage (Economist) — underline contrast markers",
       "8:30 PM — QA error log: re-do all wrong Time & Work Qs using correct method"
     ],
     eod: [
-      "✅ QA Sectional Test #3 completed (Time & Work — both basic and advanced)",
-      "✅ DILR Sectional Test #4 completed (2 Tournament sets timed: single-elim + round-robin)",
+      "✅ QA Sectional Test #3 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #4 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated",
       "✅ QA error log updated",
       "✅ Work efficiency shortcut sheet created"
@@ -335,19 +335,19 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "5:45 AM — VA Sectional Test #4 (40 min): 2 RC passages (Aeon + HBR) — paraphrase main idea after each",
+      "5:45 AM — 🎯 VA Sectional Test #4 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
       "6:30 AM — Time & Work: 10 quick Qs (pipe & cistern) — sub-60 sec each",
       "7:10 AM — VA: 1 para-jumble set (5 sentences) — practice fixed point method"
     ],
     evening: [
-      "6:00 PM — DILR Sectional Test #5 (40 min): Arrangement + Quant hybrid set × 2 (25 min each) — mixed constraint",
+      "6:00 PM — 🎯 DILR Sectional Test #5 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "7:00 PM — VARC: 2 more RC passages (The Hindu editorial) with full annotation",
       "8:00 PM — Time & Work revision: redo all errors from Day 10",
       "8:30 PM — Prep mock #7 strategy card: Full Simulation targets"
     ],
     eod: [
-      "✅ VA Sectional Test #4 completed (2 RC passages annotated, Aeon + HBR)",
-      "✅ DILR Sectional Test #5 completed (2 Arrangement-Quant hybrid sets timed)",
+      "✅ VA Sectional Test #4 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #5 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated (evening)",
       "✅ Para-jumble fixed-point method practiced",
       "✅ Full Mock Test #7 strategy card ready"
@@ -372,7 +372,7 @@ const DAILY_PLAN = [
       "10:30 AM — Full mock review: all 3 sections, 5-step process (1.5h)"
     ],
     evening: [
-      "12:30 PM — QA Sectional Test #4 (40 min): Time & Work + TSD revision sprint (mix of both chapters, 20 Qs timed)",
+      "12:30 PM — 🎯 QA Sectional Test #4 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "1:30 PM — Write 3 improvements for Mock #8 (VARC Focus)",
       "2:30 PM — Review cumulative mock score trend (Mocks 1–7) — spot pattern",
       "3:30 PM — Rest / family time"
@@ -380,7 +380,7 @@ const DAILY_PLAN = [
     eod: [
       "✅ Full Mock Test #7 (Full Simulation) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ QA Sectional Test #4 completed (TSD + Time & Work combined sprint)",
+      "✅ QA Sectional Test #4 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #8",
       "✅ Cumulative score trend logged (Mocks 1–7)"
     ],
@@ -404,16 +404,16 @@ const DAILY_PLAN = [
       "10:30 AM — VARC section deep review (90 min): passage-by-passage elimination analysis"
     ],
     evening: [
-      "12:30 PM — VA Sectional Test #5 (40 min): 2 RC passages (Economist + Aeon) — annotation + 3-wrong-option map",
-      "1:30 PM — DILR Sectional Test #6 (40 min): Scheduling sets × 2 (exam seating + event scheduling, timed)",
+      "12:30 PM — 🎯 VA Sectional Test #5 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "1:30 PM — 🎯 DILR Sectional Test #6 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "2:30 PM — Write 3 improvements for Mock #9 (Attempt Discipline 55+)",
       "3:30 PM — Rest — back to college week tomorrow"
     ],
     eod: [
       "✅ Full Mock Test #8 (VARC Focus Mock) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ VA Sectional Test #5 completed (2 RC passages annotated)",
-      "✅ DILR Sectional Test #6 completed (2 Scheduling sets timed)",
+      "✅ VA Sectional Test #5 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #6 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #9"
     ],
     mock: 8,
@@ -463,20 +463,20 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "5:45 AM — VA Sectional Test #6 (40 min): 2 RC passages (The Hindu + Aeon) — full annotation, no shortcuts",
-      "6:30 AM — QA Sectional Test #5 (40 min): Averages + Weighted Mean — 15 problems timed (sub-75 sec each)",
-      "7:15 AM — DILR Sectional Test #7 (40 min): 1 Quant-Based set (data table, timed 20 min)"
+      "5:45 AM — 🎯 VA Sectional Test #6 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "6:30 AM — 🎯 QA Sectional Test #5 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
+      "7:15 AM — 🎯 DILR Sectional Test #7 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)"
     ],
     evening: [
-      "6:00 PM — QA Sectional Test #5 continued: Averages error drill — redo all wrong Qs",
-      "7:00 PM — DILR Sectional Test #7 continued: 1 Linear Arrangement timed (25 min)",
+      "6:00 PM — QA Sectional Test #5 In-Depth Review (25 min): Error analysis, formula traps & shortcut check",
+      "7:00 PM — DILR Sectional Test #7 In-Depth Review (25 min): 4-min scan audit & re-solve wrong sets",
       "8:00 PM — Annotate 1 RC passage (Economist) — author's argument structure",
       "8:30 PM — Write Mock #10 strategy: Pre-Midterm — target a personal best"
     ],
     eod: [
-      "✅ VA Sectional Test #6 completed (2 RC passages annotated)",
-      "✅ DILR Sectional Test #7 completed (Quant-Based + Linear Arrangement sets)",
-      "✅ QA Sectional Test #5 completed (Averages + Weighted Mean)",
+      "✅ VA Sectional Test #6 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #7 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #5 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated (evening)",
       "✅ Full Mock Test #10 strategy card written"
     ],
@@ -527,8 +527,8 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "8:00 AM — VA Sectional Test #7 (40 min): 2 RC passages (Aeon + Economist) — annotation with emotion/tone mapping",
-      "9:00 AM — QA Sectional Test #6 (40 min): Linear Equations + Quadratics — formula sheet + 15 Qs timed",
+      "8:00 AM — 🎯 VA Sectional Test #7 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "9:00 AM — 🎯 QA Sectional Test #6 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "10:00 AM — Review error log from Mock #10 QA section (30 min)"
     ],
     evening: [
@@ -537,8 +537,8 @@ const DAILY_PLAN = [
       "6:00 PM — Deepawali family time 🪔 — total study break from 6 PM onwards"
     ],
     eod: [
-      "✅ VA Sectional Test #7 completed (2 RC passages annotated)",
-      "✅ QA Sectional Test #6 completed (Equations chapter — formula sheet ready)",
+      "✅ VA Sectional Test #7 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #6 completed (complete 40-min test) + analysis",
       "✅ Full Mock Test #10 QA errors reviewed",
       "✅ 2 RC passages annotated",
       "✅ Deepawali observed — balance maintained 🪔"
@@ -590,8 +590,8 @@ const DAILY_PLAN = [
     phase: "p1",
     phaseLabel: "Phase 1",
     morning: [
-      "9:00 AM — DILR Sectional Test #8 (40 min): Arrangement sets × 2 (Circular + Linear hybrid, timed 25 min each)",
-      "10:00 AM — QA Sectional Test #7 (40 min): Inequalities — sign reversal rules + modulus equations (30 min)",
+      "9:00 AM — 🎯 DILR Sectional Test #8 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
+      "10:00 AM — 🎯 QA Sectional Test #7 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "10:30 AM — 10 Inequalities Qs timed (sub-75 sec each)"
     ],
     evening: [
@@ -601,8 +601,8 @@ const DAILY_PLAN = [
       "6:00 PM — Deepawali family time 🪔"
     ],
     eod: [
-      "✅ DILR Sectional Test #8 completed (2 Arrangement sets — circular + linear hybrid)",
-      "✅ QA Sectional Test #7 completed (Inequalities chapter)",
+      "✅ DILR Sectional Test #8 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #7 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated",
       "✅ Inequalities shortcut card updated",
       "✅ Pre-midterm content coverage confirmed"
@@ -627,7 +627,7 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: 5-step process for all 3 sections (1.5h)"
     ],
     evening: [
-      "12:30 PM — QA Sectional Test #8 (40 min): Comprehensive QA review — all chapters Day 1–20 (speed round, 20 Qs mixed)",
+      "12:30 PM — 🎯 QA Sectional Test #8 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "1:30 PM — Write 3 improvements for Mock #13 (Midterm Window Mock)",
       "2:00 PM — Prep midterm study schedule: lighter load, 1.5h max per day",
       "3:00 PM — Rest and mental reset before midterms"
@@ -635,7 +635,7 @@ const DAILY_PLAN = [
     eod: [
       "✅ Full Mock Test #12 (Final Pre-Midterm Mock) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ QA Sectional Test #8 completed (all-chapter speed round)",
+      "✅ QA Sectional Test #8 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #13",
       "✅ Midterm schedule confirmed — lighter load ahead"
     ],
@@ -659,18 +659,18 @@ const DAILY_PLAN = [
     phase: "p2",
     phaseLabel: "Phase 2",
     morning: [
-      "6:00 AM — VA Sectional Test #8 (40 min): 1 RC passage (Economist) — gentle start, annotation only (30 min)",
+      "6:00 AM — 🎯 VA Sectional Test #8 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
       "6:30 AM — QA: skim Equations + Inequalities notes (15 min)",
       "7:00 AM — College midterm prep"
     ],
     evening: [
-      "7:00 PM — DILR Sectional Test #9 (40 min): 1 Scheduling set (timed, 20 min) — low intensity",
-      "7:30 PM — VA Sectional Test #8 continued: 1 more RC passage (HBR) + 3 VA questions",
+      "7:00 PM — 🎯 DILR Sectional Test #9 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
+      "7:30 PM — VA Sectional Test #8 In-Depth Review (25 min): 3-pass elimination check & wrong answer trap log",
       "8:30 PM — Light review: Mock #12 patterns + error log (30 min)"
     ],
     eod: [
-      "✅ VA Sectional Test #8 completed (2 RC passages — midterm-mode pacing)",
-      "✅ DILR Sectional Test #9 completed (1 Scheduling set timed)",
+      "✅ VA Sectional Test #8 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #9 completed (complete 40-min test) + analysis",
       "✅ QA notes skimmed (Equations + Inequalities)",
       "✅ Midterm exam handled",
       "✅ Max 1.5h CAT study — quality over quantity today"
@@ -690,18 +690,18 @@ const DAILY_PLAN = [
     phase: "p2",
     phaseLabel: "Phase 2",
     morning: [
-      "6:00 AM — QA Sectional Test #9 (40 min): Number System + Percentages revision (20 Q speed round, 20 min)",
+      "6:00 AM — 🎯 QA Sectional Test #9 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "6:30 AM — 1 RC passage (Aeon) — 10 min read + answer all Qs",
       "7:00 AM — Midterm exam prep"
     ],
     evening: [
-      "7:00 PM — VA Sectional Test #9 (40 min): 1 RC passage (The Hindu) + 2 para-jumble questions",
-      "7:45 PM — QA Sectional Test #9 continued: TSD + Time & Work speed drill (10 Qs)",
+      "7:00 PM — 🎯 VA Sectional Test #9 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "7:45 PM — QA Sectional Test #9 In-Depth Review (25 min): Error analysis, formula traps & shortcut check",
       "8:30 PM — Error log review: top 3 QA mistakes from Mocks 9–12"
     ],
     eod: [
-      "✅ QA Sectional Test #9 completed (Number System + Percentages revision)",
-      "✅ VA Sectional Test #9 completed (2 RC passages + para-jumble)",
+      "✅ QA Sectional Test #9 completed (complete 40-min test) + analysis",
+      "✅ VA Sectional Test #9 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated",
       "✅ QA error log reviewed (Mocks 9–12)",
       "✅ Midterm handled — CAT rhythm preserved ✅"
@@ -753,18 +753,18 @@ const DAILY_PLAN = [
     phase: "p2",
     phaseLabel: "Phase 2",
     morning: [
-      "6:00 AM — DILR Sectional Test #10 (40 min): 1 Quant-Based set timed (data sufficiency style, 20 min)",
-      "6:30 AM — QA Sectional Test #10 (40 min): Ratio + Averages combined drill (15 Qs, 20 min)",
+      "6:00 AM — 🎯 DILR Sectional Test #10 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
+      "6:30 AM — 🎯 QA Sectional Test #10 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "7:00 AM — Midterm exam prep"
     ],
     evening: [
       "7:00 PM — Complete Mock #13 deep review (all 5 steps — postponed from yesterday)",
       "8:00 PM — DILR Sectional Test #10 log: accuracy + time for this morning's set",
-      "8:30 PM — QA Sectional Test #10 (40 min): redo all wrong Qs from morning drill"
+      "8:30 PM — 🎯 QA Sectional Test #10 (Complete 40-Min Timed Mock Section — 22 Qs across domains)"
     ],
     eod: [
-      "✅ DILR Sectional Test #10 completed (Quant-Based set timed)",
-      "✅ QA Sectional Test #10 completed (Ratio + Averages combined drill)",
+      "✅ DILR Sectional Test #10 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #10 completed (complete 40-min test) + analysis",
       "✅ Full Mock Test #13 fully reviewed (5-step process complete)",
       "✅ Midterm exam handled",
       "✅ DILR + QA sectionals done in midterm crunch week 💪"
@@ -784,18 +784,18 @@ const DAILY_PLAN = [
     phase: "p2",
     phaseLabel: "Phase 2",
     morning: [
-      "6:00 AM — VA Sectional Test #10 (40 min): 2 RC passages (Aeon + Economist) — full annotation",
-      "6:45 AM — QA Sectional Test #11 (40 min): Equations + Inequalities combined sprint (15 Qs, 20 min)",
+      "6:00 AM — 🎯 VA Sectional Test #10 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "6:45 AM — 🎯 QA Sectional Test #11 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "7:15 AM — Midterm exam prep"
     ],
     evening: [
-      "7:00 PM — QA Sectional Test #11 continued: redo wrong Qs + add to shortcut sheet",
+      "7:00 PM — QA Sectional Test #11 In-Depth Review (25 min): Error analysis, formula traps & shortcut check",
       "7:30 PM — 1 RC passage (HBR) — VA question focus",
       "8:15 PM — Mock #14 strategy card: Weekend Midterm Mock targets"
     ],
     eod: [
-      "✅ VA Sectional Test #10 completed (2 RC passages annotated)",
-      "✅ QA Sectional Test #11 completed (Equations + Inequalities sprint)",
+      "✅ VA Sectional Test #10 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #11 completed (complete 40-min test) + analysis",
       "✅ 2 RC passages annotated",
       "✅ Shortcut sheet updated (Equations + Inequalities)",
       "✅ Full Mock Test #14 strategy ready for tomorrow"
@@ -820,14 +820,14 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: 5-step process (1.5h)"
     ],
     evening: [
-      "12:30 PM — DILR Sectional Test #11 (40 min): 2 Arrangement sets timed (Circular seating, 25 min each)",
+      "12:30 PM — 🎯 DILR Sectional Test #11 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "1:30 PM — Write 3 improvements for Mock #15 (Midterm Last Day)",
       "2:30 PM — Rest — midterms almost over"
     ],
     eod: [
       "✅ Full Mock Test #14 (Weekend Midterm Mock) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ DILR Sectional Test #11 completed (2 Circular Arrangement sets)",
+      "✅ DILR Sectional Test #11 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #15",
       "✅ 14 mocks in 26 days — extraordinary consistency 🔥"
     ],
@@ -851,7 +851,7 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: 5-step process (1.5h)"
     ],
     evening: [
-      "12:30 PM — VA Sectional Test #11 (40 min): 2 RC passages (The Hindu + HBR) — post-mock annotation drill",
+      "12:30 PM — 🎯 VA Sectional Test #11 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
       "1:30 PM — Write 3 improvements for Mock #16 (Foundation Day Full Throttle)",
       "2:30 PM — Celebrate midterm end + CAT momentum — short walk / reward",
       "3:30 PM — Plan Phase 3: mock-a-day sprint (Nov 16–26)"
@@ -859,7 +859,7 @@ const DAILY_PLAN = [
     eod: [
       "✅ Full Mock Test #15 (Midterm Last Day Mock) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ VA Sectional Test #11 completed (2 RC passages annotated)",
+      "✅ VA Sectional Test #11 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #16",
       "✅ Phase 3 plan ready — mock every single day from tomorrow 🚀"
     ],
@@ -888,16 +888,16 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: 5-step process — 'reset day' full audit of all sections"
     ],
     evening: [
-      "1:00 PM — VA Sectional Test #12 (40 min): 2 RC passages (Economist + Aeon) — timed 12 min each, annotate",
-      "2:00 PM — DILR Sectional Test #12 (40 min): 2 Quant-Based sets (cold — first-time sets, timed 25 min each)",
+      "1:00 PM — 🎯 VA Sectional Test #12 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "2:00 PM — 🎯 DILR Sectional Test #12 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
       "3:30 PM — Write 3 improvements for Mock #17 (VARC Annotation Drill)",
       "4:00 PM — Foundation Day — celebrate briefly 🇮🇳 then rest"
     ],
     eod: [
       "✅ Full Mock Test #16 (Foundation Day Full Throttle) completed",
       "✅ Mock reviewed (all 5 steps — full reset audit)",
-      "✅ VA Sectional Test #12 completed (2 RC passages annotated)",
-      "✅ DILR Sectional Test #12 completed (2 Quant-Based cold sets)",
+      "✅ VA Sectional Test #12 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #12 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #17 — Phase 3 launched 🚀"
     ],
     mock: 16,
@@ -1048,17 +1048,17 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: 5-step process (all 3 sections)"
     ],
     evening: [
-      "12:30 PM — VA Sectional Test #13 (40 min): 2 RC passages (Economist + The Hindu) — annotate with argument maps",
-      "1:30 PM — DILR Sectional Test #13 (40 min): 2 Tournament sets timed (one single-elim, one round-robin)",
-      "2:30 PM — QA Sectional Test #12 (40 min): All-chapter revision sprint (20 Qs mixed: Number Sys + TSD + Work + Eqns)",
+      "12:30 PM — 🎯 VA Sectional Test #13 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "1:30 PM — 🎯 DILR Sectional Test #13 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
+      "2:30 PM — 🎯 QA Sectional Test #12 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "4:00 PM — Write 3 improvements for Mock #22 — rest"
     ],
     eod: [
       "✅ Full Mock Test #21 (Peak Sprint 5 — Full Simulation) completed",
       "✅ Mock reviewed (all 5 steps done)",
-      "✅ VA Sectional Test #13 completed (2 RC passages annotated)",
-      "✅ DILR Sectional Test #13 completed (2 Tournament sets timed)",
-      "✅ QA Sectional Test #12 completed (20-Q all-chapter sprint)",
+      "✅ VA Sectional Test #13 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #13 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #12 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #22"
     ],
     mock: 21,
@@ -1081,17 +1081,17 @@ const DAILY_PLAN = [
       "10:30 AM — Deep mock review: evaluate strategy execution — did you follow the plan exactly?"
     ],
     evening: [
-      "12:30 PM — VA Sectional Test #14 (40 min): 2 RC passages (HBR + Aeon) — tone + argument structure annotation",
-      "1:30 PM — DILR Sectional Test #14 (40 min): 2 Quant-Based cold sets (grid-based + calculation-heavy, timed)",
-      "2:30 PM — QA Sectional Test #13 (40 min): Revision mode — Percentages + P&L + Ratio sprint (15 Qs, 18 min)",
+      "12:30 PM — 🎯 VA Sectional Test #14 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
+      "1:30 PM — 🎯 DILR Sectional Test #14 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets)",
+      "2:30 PM — 🎯 QA Sectional Test #13 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
       "4:00 PM — Write 3 improvements for Mock #23 — finalize clutch-accuracy strategy"
     ],
     eod: [
       "✅ Full Mock Test #22 (Peak Sprint 6 — Strategy Execution) completed",
       "✅ Mock reviewed (strategy execution audit done)",
-      "✅ VA Sectional Test #14 completed (2 RC passages annotated)",
-      "✅ DILR Sectional Test #14 completed (2 Quant-Based cold sets timed)",
-      "✅ QA Sectional Test #13 completed (all-chapter sprint)",
+      "✅ VA Sectional Test #14 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #14 completed (complete 40-min test) + analysis",
+      "✅ QA Sectional Test #13 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #23"
     ],
     mock: 22,
@@ -1116,13 +1116,13 @@ const DAILY_PLAN = [
     evening: [
       "6:00 PM — 🧪 Full Mock Test #23 (Clutch Accuracy Focus) — full 2h simulation",
       "8:00 PM — Accuracy audit: VARC wrong answers — how many were careless? How many conceptual?",
-      "8:30 PM — VA Sectional Test #15 (40 min): 2 RC passages (The Hindu + Economist) — final annotation drill",
+      "8:30 PM — 🎯 VA Sectional Test #15 (Complete 40-Min Timed Mock Section — 24 Qs: 16 RC + 8 VA)",
       "9:15 PM — Write 3 improvements for Mock #24 (Penultimate)"
     ],
     eod: [
       "✅ Full Mock Test #23 (Clutch Accuracy Focus) completed",
       "✅ Mock reviewed — accuracy audit done (careless vs. conceptual errors separated)",
-      "✅ VA Sectional Test #15 completed (2 RC passages annotated — VARC SECTIONALS COMPLETE ✅)",
+      "✅ VA Sectional Test #15 completed (complete 40-min test) + analysis",
       "✅ 3 improvements written for Mock #24",
       "✅ DILR cold re-solve done (Mock #22 hardest set)"
     ],
@@ -1141,27 +1141,27 @@ const DAILY_PLAN = [
     phase: "p3",
     phaseLabel: "Phase 3",
     morning: [
-      "5:45 AM — DILR cold re-solve from Mock #23 (hardest set, 25 min) — pure cold",
-      "6:15 AM — QA all-chapter speed round: 20 Qs mixed difficulty (25 min) — sub-75 sec each",
+      "5:45 AM — 🎯 QA Sectional Test #14 (Complete 40-Min Timed Mock Section — 22 Qs across domains)",
+      "6:30 AM — QA Sectional Test #14 In-Depth Review (25 min): Round 1 speed audit & formula traps",
       "7:00 AM — College"
     ],
     evening: [
-      "6:00 PM — 2 RC passages (HBR + Aeon) — full annotation + VA question drill",
-      "7:00 PM — QA: review all shortcut cards end to end (30 min read-through)",
-      "7:30 PM — Mock #24 strategy card: Penultimate — target 60+ attempts",
-      "8:00 PM — Sleep by 10 PM — rest for penultimate mock tomorrow"
+      "6:00 PM — 🎯 DILR Sectional Test #15 (Complete 40-Min Timed Mock Section — 20 Qs / 4 Sets — Final DILR Sectional)",
+      "6:45 PM — DILR Sectional Test #15 In-Depth Review (25 min): 4-min scan audit & set selection check",
+      "7:30 PM — 2 RC passages (HBR + Aeon) — final annotation check & VA question drill",
+      "8:15 PM — Mock #24 strategy card review: target 60+ attempts tomorrow"
     ],
     eod: [
-      "✅ DILR cold re-solve done (Mock #23 hardest set)",
-      "✅ QA all-chapter speed round completed (20 Qs)",
+      "✅ QA Sectional Test #14 completed (complete 40-min test) + analysis",
+      "✅ DILR Sectional Test #15 completed (complete 40-min test) — ALL 15 DILR SECTIONALS DONE 🏆",
       "✅ 2 RC passages annotated",
       "✅ All QA shortcut cards reviewed end-to-end",
       "✅ Full Mock Test #24 strategy card ready"
     ],
     mock: null,
-    sectional: null,
-    note: "Day 36 — No mock, no new sectional. DILR cold re-solve + QA full revision + 2 RC passages.",
-    tip: "💡 This is your consolidation day. No new content. Deep review and shortcut card mastery only."
+    sectional: ["qa_14", "dilr_15"],
+    note: "Day 36 — Final Sectional Push Day. QA #14 in morning + DILR #15 in evening. All 15 DILR sectionals complete tonight!",
+    tip: "💡 Each sectional test is a full 40-minute simulation. Treat it with the exact same focus as a mock."
   },
 
   {
@@ -1173,27 +1173,25 @@ const DAILY_PLAN = [
     phase: "p3",
     phaseLabel: "Phase 3",
     morning: [
-      "5:45 AM — DILR cold re-solve from a random Mock 18–22 set (25 min) — surprise cold",
-      "6:15 AM — QA chapter flash review: Averages + Equations + Inequalities (15 min)",
+      "5:45 AM — 🎯 QA Sectional Test #15 (Complete 40-Min Timed Mock Section — Final QA Sectional)",
+      "6:30 AM — QA Sectional Test #15 In-Depth Review (25 min): Final QA speed & accuracy audit — ALL 15 QA SECTIONALS DONE 🏆",
       "7:00 AM — College"
     ],
     evening: [
-      "6:00 PM — 🧪 Full Mock Test #24 (Penultimate Mock) — full 2h simulation — execution focus",
+      "6:00 PM — 🧪 Full Mock Test #24 (Penultimate Mock) — full 2h simulation at CAT slot timing",
       "8:00 PM — Deep mock review: 5-step process — note every pattern you'll carry to Mock #25",
-      "8:45 PM — QA Sectional Test #14 (40 min): Mixed revision sprint (15 Qs all chapters, timed 18 min)",
-      "9:15 PM — Write 3 improvements for Mock #25 (LAST MOCK 🎯)"
+      "9:30 PM — Write 3 improvements for Mock #25 (LAST MOCK 🎯 tomorrow)"
     ],
     eod: [
-      "✅ Full Mock Test #24 (Penultimate Mock) completed",
-      "✅ Mock reviewed (all 5 steps done)",
-      "✅ QA Sectional Test #14 completed (all-chapter mixed sprint)",
-      "✅ 3 improvements written for Mock #25 — the last one",
-      "✅ DILR cold re-solve done (surprise random set)"
+      "✅ QA Sectional Test #15 completed (complete 40-min test) — ALL 15 QA SECTIONALS DONE 🏆",
+      "✅ ALL 45 SECTIONALS COMPLETED (15 VA + 15 DILR + 15 QA) 🏆",
+      "✅ Full Mock Test #24 (Penultimate Mock) completed (2h exam) & reviewed (2h)",
+      "✅ 3 improvements written for Mock #25 — the last one"
     ],
     mock: 24,
-    sectional: "qa_14",
-    note: "Penultimate Mock. 24 done, 1 to go. Execute your best process — carry momentum.",
-    tip: "💡 Before Mock #25 tonight: re-read your top 3 improvements from Mock #1. See how far you've come."
+    sectional: "qa_15",
+    note: "Penultimate Mock. All 45 sectionals are officially complete! 24 mocks done, 1 to go.",
+    tip: "💡 Before Mock #25 tomorrow: re-read your top 3 improvements from Mock #1. See how far you've come."
   },
 
   {
@@ -1206,25 +1204,23 @@ const DAILY_PLAN = [
     phaseLabel: "Phase 3",
     morning: [
       "5:45 AM — DILR cold re-solve from Mock #24 (hardest set, 25 min) — final cold drill",
-      "6:15 AM — Read your CAT strategy card top to bottom (5 min) — print a copy",
-      "7:00 AM — College — arrive confident"
+      "6:15 AM — Read your CAT strategy card top to bottom (10 min) — commit it to memory",
+      "7:00 AM — College — arrive confident and calm"
     ],
     evening: [
-      "6:00 PM — 🧪 Full Mock Test #25 (LAST MOCK 🎯 — Confidence Builder) — full 2h simulation",
-      "8:00 PM — Comprehensive review: VARC annotation check, DILR set log, QA wrong Q audit",
-      "8:45 PM — QA Sectional Test #15 (40 min): Final all-chapter sprint (15 Qs, 18 min) — seal the chapter bank",
-      "9:15 PM — DILR Sectional Test #15 (40 min): 2 sets cold (any type, 25 min each) — final DILR sectional ✅"
+      "6:00 PM — 🧪 Full Mock Test #25 (LAST MOCK 🎯 — Confidence Builder) — full 2h simulation at 8:30 AM CAT slot conditions",
+      "8:00 PM — Comprehensive 5-step review: celebrate 25 full mocks completed!",
+      "9:30 PM — Finalize personal strategy sheet for Nov 29. Rest — the training is complete."
     ],
     eod: [
-      "✅ Full Mock Test #25 (LAST MOCK 🎯 Confidence Builder) completed — ALL 25 MOCKS DONE 🏆",
-      "✅ Mock reviewed (comprehensive — VARC + DILR + QA)",
-      "✅ QA Sectional Test #15 completed — ALL 15 QA SECTIONALS DONE ✅",
-      "✅ DILR Sectional Test #15 completed — ALL 15 DILR SECTIONALS DONE ✅",
-      "✅ 45 sectionals complete (15 VARC + 15 DILR + 15 QA) — SECTIONALS DONE 🏆"
+      "✅ Full Mock Test #25 completed — ALL 25 FULL MOCKS DONE 🏆",
+      "✅ Final mock review completed (all 5 steps)",
+      "✅ 25 Full Mocks + 45 Sectionals officially completed 🏆",
+      "✅ CAT Strategy Card finalized for exam day"
     ],
     mock: 25,
-    sectional: ["qa_15", "dilr_15"],
-    note: "THE LAST MOCK. 25 mocks, 45 sectionals, 40 days. Tomorrow: taper. Nov 29: glory.",
+    sectional: null,
+    note: "THE LAST MOCK. 25 mocks, 45 sectionals, 40 days of elite discipline. Tomorrow: taper. Nov 29: championship.",
     tip: "💡 After Mock #25: you've prepared more than 99% of CAT takers. Now trust the process. Rest."
   },
 

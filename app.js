@@ -415,15 +415,21 @@ function renderSectionals() {
     <p class="section-desc">VARC (15) + DILR (15) + QA (15) = 45 Total · 40 min each · <span id="sec-prog">0/45</span> done · Spaced across all 40 days</p>`;
 
   h += `<div class="alert-box" style="border-left-color:var(--green);margin-bottom:1.5rem">
-    <strong>🎯 Sectional Discipline:</strong> Each sectional is a <em>targeted problem</em>, not a score hunt. Before starting, write 1 specific thing you want to fix (e.g., "I will not pick extreme-tone options in RC"). After finishing, check if you fixed it.
+    <strong>⏱️ Real 40-Minute Sectional Mock Exams:</strong> Each sectional test is a complete 40-minute computer-based test from your test series portal (IMS / TIME / CL / Cracku) — equivalent to 1/3 of an actual CAT exam:
+    <ul style="font-size:.82rem;color:var(--text2);margin-top:.4rem;padding-left:1.2rem;line-height:1.8">
+      <li><strong>VA Sectionals (15 tests):</strong> Complete 40 mins · 24 Questions (16 RC in 4 passages + 8 VA). Target: 16+ correct via strict 3-pass elimination.</li>
+      <li><strong>DILR Sectionals (15 tests):</strong> Complete 40 mins · 20 Questions (4 sets of 5 Qs). Target: 2.5 sets complete (12+ correct) via 4-min scan rule.</li>
+      <li><strong>QA Sectionals (15 tests):</strong> Complete 40 mins · 22 Questions across all domains. Target: 20+ correct via 2-round execution (sub-90s easy Qs).</li>
+    </ul>
+    <div style="font-size:.78rem;color:var(--accent2);margin-top:.4rem">💡 <em>Always take each sectional with full 40-min continuous timer without pausing, followed immediately by 25–30 min error analysis.</em></div>
   </div>`;
 
   [
-    { name:"VARC Sectionals (15)", prefix:"sec_varc", count:15, color:"var(--varc)",
+    { name:"VA Sectional Tests (15 Tests · 40 Min Each)", prefix:"sec_varc", count:15, color:"var(--varc)",
       tips:["Tests 1–5: Focus on RC only. 2 passages, time-box each to 12 min. 3-pass elimination.", "Tests 6–10: Mix RC + VA (Para Jumbles & Odd Sentence). Aim for 80%+ accuracy.", "Tests 11–15: Full section simulation. Zero guesswork, ruthless option elimination."] },
-    { name:"DILR Sectionals (15)", prefix:"sec_dilr", count:15, color:"var(--lrdi)",
+    { name:"DILR Sectional Tests (15 Tests · 40 Min Each)", prefix:"sec_dilr", count:15, color:"var(--lrdi)",
       tips:["Tests 1–5: 4-min scan rule discipline. Pick 2 green sets only.", "Tests 6–10: Mix set types (Tournaments + Quant DILR + Scheduling). Complete 2 sets clean.", "Tests 11–15: Strict exam conditions. Attempt 2.5 sets with 85%+ accuracy."] },
-    { name:"QA Sectionals (15)", prefix:"sec_qa", count:15, color:"var(--qa)",
+    { name:"QA Sectional Tests (15 Tests · 40 Min Each)", prefix:"sec_qa", count:15, color:"var(--qa)",
       tips:["Tests 1–5: Speed drill on Easy+Medium Qs — sub-90s target for easy Qs.", "Tests 6–10: 2-round strategy execution (Round 1: 35 min easy, Round 2: 25 min medium).", "Tests 11–15: Full section simulation. Skip hard traps instantly. Target 20+ correct."] }
   ].forEach(s => {
     let done = 0; for (let i = 1; i <= s.count; i++) if (getP(s.prefix+"_"+i)) done++;
