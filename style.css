@@ -185,3 +185,31 @@ a, button, .card, .tab, .template-card, .mock-item, .est-card, .filter-btn, .che
   .section-title { font-size: 1.2rem; }
   .hero { padding: 2rem 1rem 1.5rem; }
 }
+
+/* ── Daily EOD Target Additions (v6.0) ── */
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 14px rgba(99,102,241,.25); }
+  50% { box-shadow: 0 0 28px rgba(99,102,241,.55); }
+}
+
+.eod-item {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: .28rem 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  font-size: .8rem;
+  line-height: 1.4;
+}
+.eod-item:last-child { border-bottom: none; }
+.eod-item span { flex: 1; }
+
+.day-card .card-body { display: none; }
+.day-card.open .card-body { display: block; }
+.day-card.open .chevron { transform: rotate(180deg); }
+.chevron { display: inline-block; transition: transform .2s; color: var(--text2); font-size: .85rem; }
+
+/* Progress bar fill */
+.progress-bar { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; flex-shrink: 0; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--cyan)); border-radius: 99px; transition: width .3s; }

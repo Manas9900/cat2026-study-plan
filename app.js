@@ -1,8 +1,9 @@
-// CAT 2026 War Room App v5.0 — 98+ Percentile | 20 Mocks | 30 Sectionals
+// CAT 2026 War Room App v6.0 — 98+ Percentile | Daily EOD Targets | 20 Mocks | 30 Sectionals
 document.addEventListener("DOMContentLoaded", () => {
   initDefaults();
   initCountdown();
   initTabs();
+  renderDaily();
   renderPlan();
   renderMocks();
   renderSectionals();
@@ -73,6 +74,146 @@ function initTabs() {
     b.classList.add("active");
     document.getElementById(b.dataset.tab).classList.add("active");
   }));
+}
+
+// ─── TAB: DAILY EOD TARGETS ─────────────────────────────────────────────────
+function renderDaily() {
+  const today = new Date().toISOString().split("T")[0];
+  const phaseColors = { p1:"var(--cyan)", p2:"var(--amber)", p3:"var(--green)", p4:"var(--pink)" };
+  const typeLabels  = {
+    college:"🏫 College Day", "college+mock":"🏫+🧪 College + Mock", "weekend":"☀️ Weekend",
+    "weekend+mock":"☀️+🧪 Weekend + Mock", holiday:"🏹 Holiday", deepawali:"🪔 Deepawali",
+    "deepawali+mock":"🪔+🧪 Deepawali + Mock", midterm:"🎓 Midterm", "midterm+mock":"🎓+🧪 Midterm + Mock",
+    midterm_end:"🎓 Midterm Last Day", "free+mock":"🏛️+🧪 Foundation Day + Mock", taper:"🧘 Taper Day"
+  };
+
+  // Find today's day
+  const todayEntry = DAILY_PLAN.find(d => d.date === today);
+  const todayNum   = todayEntry ? todayEntry.day : null;
+
+  let h = `<h2 class="section-title">📅 Daily EOD Targets — 40-Day War Room</h2>
+    <p class="section-desc">Specific tasks for every single day · Check off by End of Day · Auto-highlights today</p>`;
+
+  // Today's spotlight card (if in range)
+  if (todayEntry) {
+    const pc = phaseColors[todayEntry.phase];
+    h += `<div class="card" style="padding:1.2rem;border-color:${pc};box-shadow:0 0 20px ${pc}30;margin-bottom:1.5rem;animation:pulse-border 2s infinite">
+      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem">
+        <span style="font-size:1.5rem">🎯</span>
+        <div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:${pc}">TODAY — Day ${todayEntry.day} / 40</div>
+          <div style="font-size:1.1rem;font-weight:800">${todayEntry.label} (${todayEntry.weekday}) · ${typeLabels[todayEntry.type] || todayEntry.type}</div>
+        </div>
+      </div>
+      ${todayEntry.note ? `<div style="font-size:.82rem;background:var(--surface2);padding:.5rem .75rem;border-radius:8px;border-left:3px solid ${pc};margin-bottom:.8rem;color:var(--text)">${todayEntry.note}</div>` : ''}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem">
+        <div style="background:var(--surface2);border-radius:8px;padding:.7rem">
+          <div style="font-size:.7rem;font-weight:700;color:var(--amber);text-transform:uppercase;margin-bottom:.4rem">🌅 Morning</div>
+          ${todayEntry.morning.map(t=>`<div style="font-size:.8rem;padding:.2rem 0;border-bottom:1px solid var(--border);line-height:1.4">› ${t}</div>`).join('')}
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:.7rem">
+          <div style="font-size:.7rem;font-weight:700;color:var(--purple);text-transform:uppercase;margin-bottom:.4rem">🌙 Evening</div>
+          ${todayEntry.evening.map(t=>`<div style="font-size:.8rem;padding:.2rem 0;border-bottom:1px solid var(--border);line-height:1.4">› ${t}</div>`).join('')}
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:.7rem">
+        <div style="font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;margin-bottom:.5rem">✅ EOD Checklist — Complete before midnight</div>
+        ${todayEntry.eod.map((item,i)=>cb('eod_d'+todayEntry.day+'_'+i, item, 'eod-item')).join('')}
+      </div>
+      ${todayEntry.tip ? `<div style="font-size:.79rem;color:var(--accent2);margin-top:.6rem;padding:.4rem .6rem;background:var(--surface2);border-radius:6px">${todayEntry.tip}</div>` : ''}
+    </div>`;
+  } else if (today < "2026-10-20") {
+    h += `<div class="alert-box" style="border-left-color:var(--cyan)">⏳ War Room starts Oct 20, 2026. Get ready!</div>`;
+  } else {
+    h += `<div class="alert-box" style="border-left-color:var(--amber)">🏆 CAT 2026 complete! Review your performance and plan for IIM interviews.</div>`;
+  }
+
+  // Phase grouping
+  const phases = [
+    { id:"p1", label:"Phase 1: Pre-Midterm Power Surge", sub:"Oct 20 – Nov 8 · 5–6 hrs/day · Max output" },
+    { id:"p2", label:"Phase 2: Midterm Maintenance", sub:"Nov 9–15 · 1.5 hrs/day · Stay sharp" },
+    { id:"p3", label:"Phase 3: Peak Daily Mock Sprint", sub:"Nov 16–26 · 7–8 hrs/day · Daily mocks" },
+    { id:"p4", label:"Phase 4: Taper & Consolidation", sub:"Nov 27–28 · 2 hrs max · Rest & consolidate" }
+  ];
+
+  phases.forEach(phase => {
+    const days = DAILY_PLAN.filter(d => d.phase === phase.id);
+    const pc = phaseColors[phase.id];
+    const eodDoneCount = days.reduce((acc, d) => acc + d.eod.filter((_,i) => getP('eod_d'+d.day+'_'+i)).length, 0);
+    const eodTotal = days.reduce((acc, d) => acc + d.eod.length, 0);
+
+    h += `<div style="margin-bottom:2rem">
+      <div class="week-header">
+        <h3 style="color:${pc}">${phase.label}</h3>
+        <span style="font-size:.75rem;color:var(--text2)">${eodDoneCount}/${eodTotal} tasks done</span>
+        <div class="line"></div>
+      </div>
+      <p style="font-size:.76rem;color:var(--text2);margin-bottom:.7rem">${phase.sub}</p>
+      <div style="display:flex;flex-direction:column;gap:.5rem">`;
+
+    days.forEach(d => {
+      const isToday = d.date === today;
+      const isPast  = d.date < today;
+      const eodDone = d.eod.filter((_,i) => getP('eod_d'+d.day+'_'+i)).length;
+      const allDone = eodDone === d.eod.length;
+      const pct     = Math.round((eodDone / d.eod.length) * 100);
+
+      let borderColor = isToday ? pc : (allDone ? 'var(--green)' : (isPast ? 'var(--red)' : 'var(--border)'));
+      let glow = isToday ? `box-shadow:0 0 12px ${pc}40;` : '';
+
+      h += `<div class="card day-card" style="padding:0;border-color:${borderColor};${glow}">
+        <div class="card-header" onclick="this.parentElement.classList.toggle('open')"
+             style="display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem;cursor:pointer">
+          <span style="min-width:50px;font-size:.75rem;font-weight:800;color:${isToday?pc:(allDone?'var(--green)':(isPast?'var(--red)':'var(--text2)'))}">${isToday?'TODAY':('Day '+d.day)}</span>
+          <span style="font-size:.82rem;font-weight:700;flex:1">${d.label} (${d.weekday})
+            ${d.mock?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem">Mock #${d.mock}</span>`:''}
+            ${d.sectional?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--varc)20;color:var(--varc);margin-left:.3rem">Sectional</span>`:''}
+          </span>
+          <span style="font-size:.7rem;color:var(--text2)">${typeLabels[d.type]||d.type}</span>
+          <div style="display:flex;align-items:center;gap:.4rem">
+            <div class="progress-bar" style="width:50px"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+            <span style="font-size:.72rem;color:${allDone?'var(--green)':'var(--text2)'}">${eodDone}/${d.eod.length}</span>
+          </div>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding:.7rem 1rem;border-top:1px solid var(--border)">
+          ${d.note?`<div style="font-size:.78rem;color:var(--text2);background:var(--surface2);padding:.4rem .6rem;border-radius:6px;border-left:3px solid ${pc};margin-bottom:.7rem">${d.note}</div>`:''}
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.7rem">
+            <div>
+              <div style="font-size:.68rem;font-weight:700;color:var(--amber);text-transform:uppercase;margin-bottom:.3rem">🌅 Morning</div>
+              ${d.morning.map(t=>`<div style="font-size:.77rem;color:var(--text2);padding:.15rem 0;border-bottom:1px solid var(--border)">› ${t}</div>`).join('')}
+            </div>
+            <div>
+              <div style="font-size:.68rem;font-weight:700;color:var(--purple);text-transform:uppercase;margin-bottom:.3rem">🌙 Evening</div>
+              ${d.evening.map(t=>`<div style="font-size:.77rem;color:var(--text2);padding:.15rem 0;border-bottom:1px solid var(--border)">› ${t}</div>`).join('')}
+            </div>
+          </div>
+          <div style="background:var(--surface2);border-radius:7px;padding:.6rem">
+            <div style="font-size:.68rem;font-weight:700;color:var(--green);text-transform:uppercase;margin-bottom:.4rem">✅ EOD Checklist</div>
+            ${d.eod.map((item,i)=>cb('eod_d'+d.day+'_'+i, item, 'eod-item')).join('')}
+          </div>
+          ${d.tip?`<div style="font-size:.75rem;color:var(--accent2);margin-top:.5rem;padding:.3rem .5rem;background:var(--surface2);border-radius:5px">${d.tip}</div>`:''}
+        </div>
+      </div>`;
+    });
+
+    h += `</div></div>`;
+  });
+
+  // CAT Day card
+  h += `<div class="card" style="padding:1.2rem;border-color:var(--amber);box-shadow:0 0 24px rgba(245,158,11,.3);margin-top:1rem">
+    <div style="text-align:center;margin-bottom:.8rem">
+      <div style="font-size:1.8rem">🏆</div>
+      <div style="font-size:1.1rem;font-weight:800;color:var(--amber)">Nov 29 — CAT 2026 EXAM DAY</div>
+      <div style="font-size:.82rem;color:var(--text2);margin-top:.3rem">${CAT_DAY.note}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.3rem">
+      ${CAT_DAY.sections.map(s=>`<div style="font-size:.82rem;background:var(--surface2);padding:.4rem .7rem;border-radius:6px">🎯 ${s}</div>`).join('')}
+    </div>
+    <div style="font-size:.79rem;color:var(--accent2);margin-top:.7rem;text-align:center">${CAT_DAY.morning}</div>
+  </div>`;
+
+  document.getElementById("daily").innerHTML = h;
 }
 
 // ─── TAB 1: BATTLE PLAN ──────────────────────────────────────────────────────

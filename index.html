@@ -28,7 +28,8 @@
   </header>
 
   <nav class="tab-nav" id="tabNav">
-    <button class="tab active" data-tab="weekly">⚔️ Battle Plan</button>
+    <button class="tab active" data-tab="daily">📅 Daily Targets</button>
+    <button class="tab" data-tab="weekly">⚔️ Battle Plan</button>
     <button class="tab" data-tab="mocks">🧪 20 Mocks</button>
     <button class="tab" data-tab="qa">🎯 30 Sectionals</button>
     <button class="tab" data-tab="lrdi">📝 QA Short Notes</button>
@@ -38,7 +39,8 @@
   </nav>
 
   <main class="content">
-    <section id="weekly" class="tab-panel active"></section>
+    <section id="daily" class="tab-panel active"></section>
+    <section id="weekly" class="tab-panel"></section>
     <section id="mocks" class="tab-panel"></section>
     <section id="qa" class="tab-panel"></section>
     <section id="lrdi" class="tab-panel"></section>
@@ -47,6 +49,7 @@
     <section id="milestones" class="tab-panel"></section>
   </main>
 </div>
+<script src="daily.js"></script>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
