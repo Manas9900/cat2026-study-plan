@@ -1,429 +1,1316 @@
-// CAT 2026 — Daily EOD Target System | v6.0
-// 40 Days: Oct 20 – Nov 28 + CAT Day Nov 29
-// College: Mon–Sat 10:20–17:20 | Morning 5:45–8:00 AM | Evening 6:00–10:00 PM
+// CAT 2026 — 40-Day Prep Dashboard
+// daily.js — DAILY_PLAN array + CAT_DAY object
+// Generated for the period Oct 20 – Nov 28, 2026
+// CAT Exam Date: Nov 29, 2026
 
 const DAILY_PLAN = [
-  // ═══════════════════════════════════════════════════════
-  // PHASE 1: PRE-MIDTERM POWER SURGE (Oct 20 – Nov 8)
-  // ═══════════════════════════════════════════════════════
+
+  // ─────────────────────────────────────────────
+  // PHASE 1 — Foundation & Mock Calibration
+  // Oct 20 (Day 1) → Nov 8 (Day 20)
+  // ─────────────────────────────────────────────
+
   {
-    day:1, date:"2026-10-20", label:"Oct 20", weekday:"Tue", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Number System (formulas + 3 tricks)", "1 RC passage — Aeon.co (read actively, note main idea)"],
-    evening:["DILR: 3 sets timed (35 min) — Linear Arrangements only", "QA Speed Drill: 20 Number System Qs in 25 min", "2nd RC passage with FULL annotation (note why each wrong option is wrong)"],
-    eod:["✅ QA Short Notes: Number System written (1 page)", "✅ 3 DILR sets timed (35 min timer used)", "✅ 2 RC passages done (both annotated — main idea + wrong option reasons noted)", "✅ 20 QA Qs attempted with timer"],
-    mock:null, sectional:null,
-    note:"Day 1: Set your rhythm. Morning = QA Notes. Evening = DILR + VARC. This is the template for every college day.",
-    tip:"🔥 Start strong. Today's habits become next 40 days' habits."
-  },
-  {
-    day:2, date:"2026-10-21", label:"Oct 21", weekday:"Wed", type:"college+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #1 — Full 2h exam from 8:00 AM (benchmark test — no pressure, just measure)", "Note scores: QA ___ / DILR ___ / VARC ___"],
-    evening:["MOCK #1 Review (2.5h): VARC annotation → DILR re-solve → QA trap audit → Pattern analysis → Next-mock strategy note", "DILR: Re-solve all wrong sets cold (no solution peaking)"],
-    eod:["✅ Mock #1 completed (2h full exam)", "✅ Mock #1 reviewed — all 5 steps done (2.5h review)", "✅ Error log updated (VARC wrong reasons + QA error type noted)", "✅ 3 specific improvements written for Mock #2"],
-    mock:1, sectional:null,
-    note:"Benchmark Day. Don't worry about score — just identify where you stand in each section.",
-    tip:"📊 Mock #1 score is data, not judgment. Analyze, don't agonize."
-  },
-  {
-    day:3, date:"2026-10-22", label:"Oct 22", weekday:"Thu", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Percentages + P&L (successive change, faulty weights)", "Apply Mock #1 fix #1 in your head — what was your VARC mistake?"],
-    evening:["DILR: 3 sets timed (35 min) — Linear + Matrix Arrangements", "QA Speed Drill: 20 Percentages Qs in 25 min", "2 RC passages (Economist) — annotate tone: neutral / critical / cautious"],
-    eod:["✅ QA Short Notes: Percentages + P&L written", "✅ 3 DILR sets completed (35 min timer)", "✅ 2 RC passages annotated (tone identified for each)", "✅ Speed drill 20 Qs done"],
-    mock:null, sectional:"varc_1",
-    note:"VARC Sectional today — apply the 3-pass method. Before starting: write 'I will use elimination, not selection' on paper.",
-    tip:"📖 Sectional #1 VARC: Write your improvement target BEFORE you start."
-  },
-  {
-    day:4, date:"2026-10-23", label:"Oct 23", weekday:"Fri", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Ratio, Mixtures & Alligation (allegation cross method)", "Review yesterday's VARC sectional — count how many times you used elimination vs direct selection"],
-    evening:["DILR: 3 sets timed — Tournaments (your strength, build confidence)", "QA Speed Drill: 20 Ratio/Mixture Qs in 25 min", "2 RC passages (HBR) — annotation focus: author's argument structure"],
-    eod:["✅ QA Short Notes: Ratio & Mixtures written", "✅ 3 DILR sets completed (Tournaments practiced)", "✅ 2 RC passages annotated (argument structure noted)", "✅ VARC sectional error analysis done"],
-    mock:null, sectional:null,
-    note:"Ratio & Alligation is very high-frequency in CAT. Master the alligation cross — it solves 60% of mixture problems in seconds.",
-    tip:"⚡ Alligation cross trick: difference of concentrations crossed over = ratio of quantities."
-  },
-  {
-    day:5, date:"2026-10-24", label:"Oct 24", weekday:"Sat", type:"holiday",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #2 — Full 2h exam from 8:30 AM SHARP (Dussehra 8-Hour Power Day)", "Keep phone on DND. Full simulation — no breaks."],
-    evening:["MOCK #2 Deep Review (2.5h) — full 5-step protocol", "QA Short Notes: TSD — Relative Speed, Trains, Boats (2h)", "QA Speed Drill: 30 TSD Qs in 35 min", "DILR: 2 extra sets (bonus — free day energy)"],
-    eod:["✅ Mock #2 done (8:30 AM start)", "✅ Mock #2 reviewed — all 5 steps (2.5h)", "✅ QA Short Notes: TSD written", "✅ 30 TSD speed drill done", "✅ Dussehra 8h output: Mock + Review + Notes + Drill ✓"],
-    mock:2, sectional:null,
-    note:"🏹 DUSSEHRA POWER DAY — This is your biggest prep day in Phase 1. 8 hours of focused work. Treat it like CAT itself.",
-    tip:"🎯 Today's effort = extra 5 percentile. Most candidates waste holidays."
-  },
-  {
-    day:6, date:"2026-10-25", label:"Oct 25", weekday:"Sun", type:"weekend",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Time & Work + Pipes (efficiency method, LCM approach)", "Review yesterday's Mock #2 errors — cold re-solve 2 DILR sets from scratch"],
-    evening:["DILR Sectional #1 (40 min, timed) — 2 sets only, scan first 4 min", "QA Speed Drill: 20 Time & Work Qs in 25 min", "2 RC passages (Aeon) — annotation focus: identify conclusion in each passage"],
-    eod:["✅ QA Short Notes: Time & Work written", "✅ DILR Sectional #1 done (4-min scan rule followed)", "✅ 2 Mock #2 DILR sets cold re-solved", "✅ 2 RC passages annotated"],
-    mock:null, sectional:"dilr_1",
-    note:"DILR Sectional: Practice the 4-minute scan. Label sets 🟢🟡🔴 before writing anything.",
-    tip:"🧩 In DILR sectional, focus on COMPLETING 1 set fully before touching a 2nd."
-  },
-  {
-    day:7, date:"2026-10-26", label:"Oct 26", weekday:"Mon", type:"college+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #3 — Full 2h exam (VARC Elimination Drill Mock — focus on using elimination protocol)", "Before starting: write your 3 improvement targets from Mock #2"],
-    evening:["MOCK #3 Review (2.5h) — track: did elimination help in VARC? How many wrong options did you correctly eliminate?", "2 RC passages (Economist) with annotation"],
-    eod:["✅ Mock #3 done (elimination protocol used throughout VARC)", "✅ Mock #3 reviewed — VARC annotation step completed", "✅ Elimination success rate tracked (how many traps avoided?)", "✅ 3 improvements noted for Mock #4"],
-    mock:3, sectional:null,
-    note:"VARC Elimination Mock: Your one job in VARC today is to eliminate, not select. Cross out 3 options before committing.",
-    tip:"📖 Extreme tone words = automatic elimination: always, never, only, most, least."
-  },
-  {
-    day:8, date:"2026-10-27", label:"Oct 27", weekday:"Tue", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Averages + Weighted Average (deviation method)", "Review Mock #3 QA errors — classify: formula gap / calc error / mis-read"],
-    evening:["DILR: 3 sets timed (35 min) — Quant-Based DILR (Maxima/Minima)", "QA Speed Drill: 20 Averages Qs in 25 min", "2 RC passages (HBR) — annotation + identify the 'distortion' trap option"],
-    eod:["✅ QA Short Notes: Averages written", "✅ 3 DILR sets done (Quant-Based type practiced)", "✅ Mock #3 QA errors classified (formula gap / calc / mis-read)", "✅ 2 RC passages annotated (distortion trap identified)"],
-    mock:null, sectional:"varc_2",
-    note:"Quant-Based DILR is where your IPM math background gives you an edge. Maxima/Minima, Venn diagrams — these are just algebra in disguise.",
-    tip:"💡 Quant-DILR tip: Set up variables first. Don't trial-and-error. Solve algebraically."
-  },
-  {
-    day:9, date:"2026-10-28", label:"Oct 28", weekday:"Wed", type:"college+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #4 — Full 2h exam (DILR Set-Selection Speed Discipline — practice the 4-min scan)", "Use a separate timer for the 4-min scan phase"],
-    evening:["MOCK #4 Review (2.5h) — focus: did you complete 2 DILR sets fully? What was scan quality?", "DILR: Cold re-solve the worst DILR set from Mock #4"],
-    eod:["✅ Mock #4 done (4-min scan rule strictly followed)", "✅ How many sets scanned? Which did you pick? Was the pick correct?", "✅ Mock #4 DILR re-solved cold (evening)", "✅ Scan quality assessment noted"],
-    mock:4, sectional:null,
-    note:"DILR Discipline Mock: The scan quality in today's mock tells you everything. Did you correctly identify the 'trap' set and avoid it?",
-    tip:"🔴 A wrong DILR set choice costs 8–10 minutes. The 4-min scan saves more time than it costs."
-  },
-  {
-    day:10, date:"2026-10-29", label:"Oct 29", weekday:"Thu", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Linear & Quadratic Equations (Vieta's formulas, Descartes rule)", "Review Mock #4 improvement targets"],
-    evening:["DILR: 3 sets timed (35 min) — Scheduling & Selection sets", "QA Speed Drill: 20 Equations Qs in 25 min", "2 RC passages (Aeon) — focus: 'out of scope' trap identification"],
-    eod:["✅ QA Short Notes: Equations written", "✅ 3 DILR sets done (Scheduling type practiced)", "✅ 2 RC passages annotated (OOS traps identified)", "✅ Speed drill 20 Qs with timer"],
-    mock:null, sectional:"dilr_2",
-    note:"Scheduling DILR sets look scary but have a pattern: build a constraint table. Once you see the template, they become predictable.",
-    tip:"📋 Scheduling tip: List ALL constraints before solving. Never solve while reading constraints simultaneously."
-  },
-  {
-    day:11, date:"2026-10-30", label:"Oct 30", weekday:"Fri", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Inequalities + Modulus + Wavy Curve method", "Quickly revise: Number System + Percentages notes (5 min each)"],
-    evening:["DILR: 3 sets timed (35 min) — Mixed types (scan and pick)", "QA Speed Drill: 20 Inequalities Qs in 25 min", "2 RC passages — annotation + note: 'too narrow' trap spotting"],
-    eod:["✅ QA Short Notes: Inequalities + Wavy Curve written", "✅ 3 DILR sets done (mixed types — scan used)", "✅ 2 RC passages annotated ('too narrow' trap found)", "✅ Quick revision: Number System + Percentages notes (10 min each)"],
-    mock:null, sectional:"qa_1",
-    note:"QA Sectional today: 2-round strategy. Round 1 (35 min) = Easy only. Round 2 (25 min) = Medium. Skip all Hard.",
-    tip:"⏱️ QA Sectional: Use a watch or phone timer for the 35-min Round 1 cutoff. Be disciplined."
-  },
-  {
-    day:12, date:"2026-10-31", label:"Oct 31", weekday:"Sat", type:"weekend+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #5 — Full 2h exam from 8:30 AM (QA Sub-90 Sec Speed Execution Focus)", "In Round 1 of QA: skip if setup takes >90 sec. Count skips."],
-    evening:["MOCK #5 Review (2.5h) — full 5-step protocol", "QA Short Notes: Triangles — Cevians, Centers, Similarity (2h)", "QA Speed Drill: 20 Triangle Qs in 25 min"],
-    eod:["✅ Mock #5 done (sub-90 sec rule used in QA)", "✅ How many QA Qs solved in Round 1? Target: 14–16", "✅ Mock #5 full review done (2.5h)", "✅ QA Short Notes: Triangles written", "✅ Phase 1 Week 2 complete — all short notes on track?"],
-    mock:5, sectional:null,
-    note:"QA Speed Mock: Count how long you spend per question. Any question where setup takes >90 sec = skip in Round 1. Track this.",
-    tip:"⚡ IPM math base = your superpower in QA. You just need to execute fast, not think differently."
-  },
-  {
-    day:13, date:"2026-11-01", label:"Nov 1", weekday:"Sun", type:"weekend",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Circles — Tangents, Power of Point, Cyclic Quads", "Cold re-solve: 2 worst DILR sets from Mock #5"],
-    evening:["DILR Sectional #3 (40 min) — 2 complete sets, 4-min scan mandatory", "QA Speed Drill: 20 Circle Qs in 25 min", "2 RC passages (Economist) — full annotation"],
-    eod:["✅ QA Short Notes: Circles written", "✅ Mock #5 DILR cold re-solve done", "✅ DILR Sectional #3 completed (scan time noted)", "✅ 2 RC passages annotated"],
-    mock:null, sectional:"dilr_3",
-    note:"Circles geometry is very CAT-friendly. Tangent-radius perpendicularity, Power of a Point — these appear every year.",
-    tip:"📐 Circle shortcut: Any angle in semicircle = 90°. Inscribed angle = half central angle. Memorize these."
-  },
-  {
-    day:14, date:"2026-11-02", label:"Nov 2", weekday:"Mon", type:"college+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #6 — Full 2h exam (Full Attempt Discipline — target 55+ total attempts)", "Count attempts in each section: VARC ___ / DILR ___ / QA ___"],
-    evening:["MOCK #6 Review (2.5h) — full 5-step protocol", "2 RC passages with annotation"],
-    eod:["✅ Mock #6 done (attempt count tracked)", "✅ Total attempts ≥ 55? If not, note which section to increase", "✅ Mock #6 reviewed — all 5 review steps done", "✅ Attempt strategy calibrated for next mock"],
-    mock:6, sectional:null,
-    note:"Attempt Discipline Mock: 55+ attempts means ~20 QA + 18 DILR + 18 VARC. If you're below this, you're leaving marks on the table.",
-    tip:"🎯 98+ percentile = attempt quality AND quantity. Both matter. Don't be too conservative."
-  },
-  {
-    day:15, date:"2026-11-03", label:"Nov 3", weekday:"Tue", type:"college",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Mensuration 2D/3D + Coordinate Geometry (line equations, circle equations)", "Review Mock #6 QA errors — any formula gaps? Update short notes."],
-    evening:["DILR: 3 sets timed (35 min) — Mixed (you pick using scan)", "QA Speed Drill: 20 Mensuration Qs in 25 min", "2 RC passages — annotation focus: distinguish 'inference' from 'assumption' type questions"],
-    eod:["✅ QA Short Notes: Mensuration + CoordGeo written", "✅ 3 DILR sets done (scanned and selected)", "✅ 2 RC passages annotated (inference vs assumption noted)", "✅ Mock #6 formula gaps updated in short notes"],
-    mock:null, sectional:"varc_3",
-    note:"Mensuration: Know 2D areas by heart (triangle, quad, circle). 3D: cylinder, cone, sphere volumes. These are 2-mark freebies in QA.",
-    tip:"📏 Memorize: Cone volume = (1/3)πr²h. Sphere = (4/3)πr³. These save 45 seconds in exam."
-  },
-  {
-    day:16, date:"2026-11-04", label:"Nov 4", weekday:"Wed", type:"college+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #7 — Full 2h exam (Pre-Midterm Final Benchmark — this score = your real baseline)", "Write your 3 targets BEFORE starting (on paper, on your desk)"],
-    evening:["MOCK #7 Review (2.5h) — very thorough, this is your benchmark", "Identify: which section improved most since Mock #1? Which still weak?"],
-    eod:["✅ Mock #7 done — score noted (QA___ / DILR___ / VARC___)", "✅ Improvement vs Mock #1 tracked (section-wise)", "✅ Mock #7 fully reviewed (all 5 steps)", "✅ Pre-midterm status: 7 mocks done ✓"],
-    mock:7, sectional:null,
-    note:"🎯 BENCHMARK MOCK: Compare your Mock #7 score to Mock #1. This gap = your Phase 1 improvement. If QA improved but VARC hasn't, adjust Phase 2 allocation.",
-    tip:"📈 Plot your scores after every mock. The trendline is more important than any single score."
-  },
-  {
-    day:17, date:"2026-11-05", label:"Nov 5", weekday:"Thu", type:"deepawali",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: P&C — Derangements, Grouping, Partition (2h)", "Quick revision: ALL short notes written so far (5 min each — just scan)"],
-    evening:["VARC Sectional #4 (40 min) — application of elimination protocol", "QA Speed Drill: 20 P&C Qs in 25 min", "1 RC passage with annotation (Deepawali — lighter day is okay)"],
-    eod:["✅ QA Short Notes: P&C written", "✅ VARC Sectional #4 done (elimination used)", "✅ All previous short notes scanned (quick revision)", "✅ 1 RC passage annotated (minimum for today)"],
-    mock:null, sectional:"varc_4",
-    note:"🪔 Deepawali Day 1 — lighter load. But 1 sectional + notes = staying sharp. Don't go cold.",
-    tip:"🎆 Most CAT toppers say: 'I studied 2–3 hours on Deepawali. That's what separated me.'"
-  },
-  {
-    day:18, date:"2026-11-06", label:"Nov 6", weekday:"Fri", type:"deepawali+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #8 — Full 2h exam (Deepawali Light Mock — maintain rhythm)", "Even 60% output on a holiday = ahead of 90% of your competition"],
-    evening:["MOCK #8 Review (1.5h) — lighter review on holiday (focus only on DILR re-solve)", "1 RC passage annotation", "Family time — you deserve it 🎆"],
-    eod:["✅ Mock #8 done (holiday mock — rhythm maintained)", "✅ DILR sets from Mock #8 cold re-solved", "✅ 1 RC passage annotated", "✅ Deepawali celebrated + CAT prep maintained ✓"],
-    mock:8, sectional:null,
-    note:"🪔 Deepawali Mock — give yourself credit for showing up on a holiday. This discipline is what 98+ requires.",
-    tip:"🏆 Your competition is resting today. You're not. This is the edge."
-  },
-  {
-    day:19, date:"2026-11-07", label:"Nov 7", weekday:"Sat", type:"deepawali",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["QA Short Notes: Probability + Bayes Theorem (geometric probability)", "QA Speed Drill: 20 Probability Qs in 25 min"],
-    evening:["DILR Sectional #4 (40 min) — mixed sets, full scan+select protocol", "1 RC passage annotation", "Review all 16 QA short-notes checklist — how many done?"],
-    eod:["✅ QA Short Notes: Probability written", "✅ DILR Sectional #4 done", "✅ 1 RC passage annotated", "✅ Short notes status checked — how many of 16 complete?"],
-    mock:null, sectional:"dilr_4",
-    note:"🪔 Deepawali Day 3 — completing the 16th QA short note (Probability) means your entire short-notes system is now done! 🎉",
-    tip:"📝 After Probability notes: you have ALL 16 chapters covered. This is a massive milestone."
-  },
-  {
-    day:20, date:"2026-11-08", label:"Nov 8", weekday:"Sun", type:"weekend+mock",
-    phase:"p1", phaseLabel:"Phase 1",
-    morning:["MOCK #9 — Full 2h exam from 8:30 AM (Last big mock before midterms — treat it like CAT)", "Full simulation: phone off, single desk, water bottle, no breaks"],
-    evening:["MOCK #9 Deep Review (2.5h) — very thorough, this is pre-midterm final", "DILR: Cold re-solve 2 sets from Mock #9", "Prepare midterm maintenance plan: what 1 thing will you do each midterm day?"],
-    eod:["✅ Mock #9 done (full simulation conditions)", "✅ Mock #9 reviewed — all 5 steps", "✅ Phase 1 complete: 9 Mocks ✓ | 4 Sectionals ✓ | 16 Short Notes ✓ (check count)", "✅ Midterm maintenance plan ready (1 task/day for Nov 9–15)"],
-    mock:9, sectional:null,
-    note:"🚨 PHASE 1 COMPLETE. You've done 9 mocks, 4+ sectionals, and 16 QA short notes. Now protect the momentum during midterms.",
-    tip:"💪 Going into midterms with 9 mocks done = you're 2x ahead of most CAT aspirants."
+    day: 1,
+    date: "2026-10-20",
+    label: "Oct 20",
+    weekday: "Tue",
+    type: "college",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Number System quick notes: divisibility rules, HCF/LCM shortcuts (30 min)",
+      "6:15 AM — Read 1 RC passage (Aeon article) with timer — annotate main idea + tone",
+      "7:00 AM — Review yesterday's errors (if any) before leaving for college"
+    ],
+    evening: [
+      "6:00 PM — DILR_1: Arrangement sets × 2 (timed, 20 min each) — Linear & Circular seating",
+      "7:00 PM — Annotate 1 RC passage from The Hindu — practice elimination on VA questions",
+      "8:00 PM — Number System: factor-counting + unit-digit tricks (30 min)",
+      "8:30 PM — Log DILR performance: sets attempted, accuracy, time management"
+    ],
+    eod: [
+      "✅ DILR_1 completed (2 Arrangement sets timed)",
+      "✅ 2 RC passages annotated (Aeon + The Hindu)",
+      "✅ Number System notes page drafted",
+      "✅ Morning QA slot protected (5:45–7:00 AM done)"
+    ],
+    mock: null,
+    sectional: "dilr_1",
+    note: "Day 1 — Build the habit. The 5:45 AM slot is sacred. Treat it like a mock day.",
+    tip: "💡 For Arrangements: always draw the diagram first, never solve in your head."
   },
 
-  // ═══════════════════════════════════════════════════════
-  // PHASE 2: MIDTERM MAINTENANCE WINDOW (Nov 9–15)
-  // ═══════════════════════════════════════════════════════
   {
-    day:21, date:"2026-11-09", label:"Nov 9", weekday:"Mon", type:"midterm",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["VARC Sectional #5 (40 min) — 2 RC passages only, timed, full annotation after", "OR: 2 DILR sets timed (35 min) — if exam later today, do DILR (less mentally draining)"],
-    evening:["QA formula sheet review: Number System + Percentages + Ratio (10 min each)", "Error log: note top 3 mistakes from last 3 mocks in each section", "Sleep by 10:30 PM"],
-    eod:["✅ Morning study done (1.5h — sectional OR DILR drill)", "✅ QA formula review done (3 chapters, 10 min each)", "✅ Error log updated", "✅ In bed by 10:30 PM"],
-    mock:null, sectional:"varc_5",
-    note:"🎓 MIDTERM DAY 1 — IIM Rohtak exams start. Your CAT prep goes to maintenance mode. 1.5h/day is enough to stay sharp. Don't stop entirely.",
-    tip:"🧠 Studying 1.5h during midterms keeps neural pathways active. Going cold for 7 days = losing 10% sharpness."
-  },
-  {
-    day:22, date:"2026-11-10", label:"Nov 10", weekday:"Tue", type:"midterm",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["2 DILR sets timed (35 min) — Arrangements only (fast, mechanical, confidence-building)", "1 RC passage — quick read, 5-min annotation (just main idea + tone)"],
-    evening:["QA formula review: TSD + Time&Work + Averages (10 min each)", "1 QA chapter speed drill: 15 Qs in 18 min (whichever chapter feels weakest)", "Sleep by 10:30 PM"],
-    eod:["✅ 2 DILR sets done (35 min timer)", "✅ 1 RC passage annotated (quick version)", "✅ QA formula review: 3 chapters done", "✅ 15 QA Qs drilled"],
-    mock:null, sectional:null,
-    note:"🎓 Midterm Day 2 — Keep it simple: DILR + RC + formula review. 1.5h total. That's all.",
-    tip:"⚡ During midterms: DILR is the best to practice (mechanical, doesn't need mental ramp-up)."
-  },
-  {
-    day:23, date:"2026-11-11", label:"Nov 11", weekday:"Wed", type:"midterm+mock",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["MOCK #10 — Full 2h exam (Midterm Window Mock — morning maintenance mock)", "Start at 8:30 AM. Full conditions despite midterms."],
-    evening:["MOCK #10 Mini-Review (1h): VARC annotation + DILR re-solve only (skip QA trap audit — too tired)", "QA formula review: Equations + Inequalities (10 min each)", "Sleep by 10:30 PM"],
-    eod:["✅ Mock #10 done (midterm week — major achievement)", "✅ VARC annotation from Mock #10 done", "✅ 2 DILR sets from Mock #10 cold re-solved", "✅ QA formula review: 2 chapters"],
-    mock:10, sectional:null,
-    note:"🎓 MIDTERM MOCK — Giving a mock while studying for college exams is elite-level discipline. Your competition is only doing college prep right now.",
-    tip:"🔥 This is where 98+ candidates are made. Not in the easy times — in the hard times."
-  },
-  {
-    day:24, date:"2026-11-12", label:"Nov 12", weekday:"Thu", type:"midterm",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["VARC Sectional #6 (40 min) — VA questions focus (Para Jumbles + Odd Sentence Out)", "1 RC passage annotation"],
-    evening:["QA formula review: Triangles + Circles + Mensuration (10 min each)", "Review Mock #10 errors (only QA — what traps did you fall for?)", "Sleep by 10:30 PM"],
-    eod:["✅ VARC Sectional #6 done (VA focused)", "✅ 1 RC passage annotated", "✅ QA formula review: 3 chapters", "✅ Mock #10 QA errors reviewed"],
-    mock:null, sectional:"varc_6",
-    note:"🎓 VA Questions (Para Jumbles, Odd Sentence) are often ignored. But they're the most reliable marks in VARC — high accuracy potential.",
-    tip:"📝 Para Jumble trick: Find opener (no pronoun/article reference) and closer (thus/hence/therefore) first."
-  },
-  {
-    day:25, date:"2026-11-13", label:"Nov 13", weekday:"Fri", type:"midterm",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["2 DILR sets timed (35 min) — Quant-Based DILR (leverages your math background)", "1 RC passage — quick annotation"],
-    evening:["QA formula review: P&C + Probability + Sequences (10 min each)", "Write your Phase 3 plan: what will you do on Foundation Day (Nov 16)?", "Sleep by 10:30 PM"],
-    eod:["✅ 2 DILR sets done (Quant-Based)", "✅ 1 RC passage annotated", "✅ QA formula review: 3 chapters", "✅ Phase 3 launch plan written (Foundation Day schedule)"],
-    mock:null, sectional:null,
-    note:"🎓 Plan Foundation Day (Nov 16) TODAY. Write out the exact schedule for that day — it's your biggest free day in Phase 3.",
-    tip:"📋 Planning the day before = 30% more output. Decision fatigue kills study sessions."
-  },
-  {
-    day:26, date:"2026-11-14", label:"Nov 14", weekday:"Sat", type:"midterm+mock",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["MOCK #11 — Full 2h exam from 8:30 AM (Weekend Midterm Mock — CAT slot timing)", "Full conditions: single desk, water, no distractions"],
-    evening:["MOCK #11 Full Review (2.5h) — this is a weekend, you have time. Do all 5 steps.", "DILR: Cold re-solve worst 2 sets from Mock #11"],
-    eod:["✅ Mock #11 done (8:30 AM sharp)", "✅ Mock #11 full review done (all 5 steps, 2.5h)", "✅ DILR cold re-solve done", "✅ Trend: Scores improving since Mock #1? Note the trend."],
-    mock:11, sectional:null,
-    note:"📊 After Mock #11, compare scores vs Mock #1, #5, #9, #11. Plot the curve. This is your evidence of improvement.",
-    tip:"📈 Score trend > individual score. A rising trend going into Phase 3 = you're on track for 98+."
-  },
-  {
-    day:27, date:"2026-11-15", label:"Nov 15", weekday:"Sun", type:"midterm_end",
-    phase:"p2", phaseLabel:"Phase 2 (Midterms)",
-    morning:["QA Short Notes: Full revision run — all 16 chapters (5 min each = 80 min total)", "Identify: which 3 chapters still feel shaky? Mark them."],
-    evening:["DILR Sectional #5 (40 min) — full mixed sets, scan protocol", "2 RC passages with full annotation", "Celebrate: midterms done! 🎉 Phase 3 starts tomorrow."],
-    eod:["✅ All 16 QA short notes revised (80 min rapid run)", "✅ 3 shaky chapters identified and marked for Phase 3 focus", "✅ DILR Sectional #5 done", "✅ 2 RC passages annotated", "✅ MIDTERMS COMPLETE — Phase 3 launch tomorrow 🚀"],
-    mock:null, sectional:"dilr_5",
-    note:"🎓 MIDTERMS DONE. You survived 7 days while maintaining CAT prep. Most people fully stop. You didn't. That's the difference.",
-    tip:"🔥 Tomorrow is Foundation Day. Your biggest prep day in Phase 3. Prepare your study space tonight."
+    day: 2,
+    date: "2026-10-21",
+    label: "Oct 21",
+    weekday: "Wed",
+    type: "college+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Mock #1 pre-targets: aim 55+ attempts, -3 accuracy floor in DILR",
+      "6:00 AM — Number System speed drill: 10 Q in 15 min (unit digits + remainders)",
+      "7:00 AM — Read mock strategy card — section order, time splits, guess protocol"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #1 (Benchmark) — full 2h simulation, no pauses",
+      "8:00 PM — Immediate 20-min debrief: total score, section-wise attempts & accuracy",
+      "8:20 PM — Deep review: 5-step process (wrong → why → concept → redo → pattern)",
+      "9:30 PM — Write 3 improvements for Mock #2 (VARC elimination, DILR set selection)"
+    ],
+    eod: [
+      "✅ Mock #1 (Benchmark) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ 3 improvements written for Mock #2",
+      "✅ Score logged with date/time/section breakdown"
+    ],
+    mock: 1,
+    sectional: null,
+    note: "Mock #1 — Benchmark. Don't aim for a perfect score; aim for a perfect process.",
+    tip: "💡 Score baseline is just data. What matters is the pattern you identify today."
   },
 
-  // ═══════════════════════════════════════════════════════
-  // PHASE 3: PEAK DAILY MOCK SPRINT (Nov 16–26)
-  // ═══════════════════════════════════════════════════════
   {
-    day:28, date:"2026-11-16", label:"Nov 16", weekday:"Mon", type:"free+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["MOCK #12 — Full 2h exam from 8:30 AM SHARP (Foundation Day — Full Throttle Reset Mock)", "Phone off. Full simulation. CAT exam day conditions."],
-    evening:["MOCK #12 Deep Review (2.5h) — MOST THOROUGH REVIEW of all 12 mocks so far", "DILR: Cold re-solve worst 2 sets + 2 fresh sets (bonus free day)", "2 RC passages full annotation"],
-    eod:["✅ Mock #12 done (8:30 AM — Foundation Day launch)", "✅ Mock #12 review: all 5 steps, most detailed yet", "✅ 4 DILR sets done (2 re-solve + 2 fresh)", "✅ 2 RC passages annotated", "✅ PHASE 3 LAUNCHED 🔥"],
-    mock:12, sectional:null,
-    note:"🏛️ FOUNDATION DAY — No college. Full-day CAT sprint. Target: 8 hours of focused work. Mock + Review + DILR + VARC. This day alone = 3 college days worth.",
-    tip:"🚀 After today, you'll give mocks every 1–2 days until Nov 26. This is the final acceleration."
-  },
-  {
-    day:29, date:"2026-11-17", label:"Nov 17", weekday:"Tue", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["MOCK #13 — Full 2h exam from 8:00 AM (VARC annotation drill focus — 3-pass method mandatory)", "Track: Did you use 3-pass method? How many RC questions did you eliminate correctly?"],
-    evening:["MOCK #13 Review (2.5h) — VARC step is most important today", "QA Speed Round: 30 mixed questions, timer on (from short-notes chapters)", "2 RC passages annotation"],
-    eod:["✅ Mock #13 done (3-pass VARC method used)", "✅ VARC annotation: all RC passages annotated in review", "✅ 30 QA speed questions done", "✅ 2 RC passages annotated"],
-    mock:13, sectional:null,
-    note:"📖 VARC Focus Mock — After review, count: how many VARC questions were wrong due to not using 3-pass? If >2, you're still picking directly instead of eliminating.",
-    tip:"💡 3-Pass works ONLY if you practice it daily. Don't switch to it only in mocks."
-  },
-  {
-    day:30, date:"2026-11-18", label:"Nov 18", weekday:"Wed", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["MOCK #14 — Full 2h exam (DILR re-solve next day — set this mock's DILR aside for tomorrow morning review)", "Today: immediately after mock, only do VARC review step"],
-    evening:["MOCK #14 Review (2h) — VARC annotation + QA trap audit (skip DILR — save for tomorrow morning cold re-solve)", "2 RC passages full annotation"],
-    eod:["✅ Mock #14 done", "✅ VARC review: RC annotation complete", "✅ QA trap audit: errors classified", "✅ DILR sets from Mock #14 saved for tomorrow morning cold re-solve"],
-    mock:14, sectional:null,
-    note:"🧩 DILR Cold Re-Solve System: Keep today's DILR wrong sets for tomorrow morning. Fresh brain = better learning than reviewing when tired.",
-    tip:"🔬 Cold re-solve = the most powerful DILR learning technique. Memory consolidation happens overnight."
-  },
-  {
-    day:31, date:"2026-11-19", label:"Nov 19", weekday:"Thu", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["Cold re-solve: Mock #14's worst DILR sets (30 min, no solutions)", "MOCK #15 — Full 2h exam (QA Shortcut Speed Focus)", "QA goal: solve every easy Q in <90 sec. Count how many you beat this target on."],
-    evening:["MOCK #15 Review (2.5h) — QA step is most important today", "2 RC passages annotation", "Write: which QA shortcuts saved you the most time today?"],
-    eod:["✅ Mock #14 DILR cold re-solved (morning)", "✅ Mock #15 done (sub-90 sec counted for easy QA Qs)", "✅ Mock #15 QA review: shortcuts identified", "✅ 2 RC passages annotated"],
-    mock:15, sectional:null,
-    note:"⚡ QA Shortcut Mock — For every question you solve, ask: 'Is there a shorter way?' IPM training taught you methods, CAT needs you to shortcut them.",
-    tip:"🔥 If you solve correctly in 90 sec, great. If you solve correctly in 45 sec, you can attempt 2 more questions. That's 6+ marks."
-  },
-  {
-    day:32, date:"2026-11-20", label:"Nov 20", weekday:"Fri", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["Cold re-solve: Mock #15's worst DILR sets (30 min, fresh brain)", "MOCK #16 — Full 2h exam (Section Time Management — strict section timer)", "Track exactly how many minutes you spend in each section"],
-    evening:["MOCK #16 Review (2.5h) — full protocol", "QA Speed Round: 25 mixed questions (timer)", "2 RC passages annotation"],
-    eod:["✅ Mock #15 DILR cold re-solved (morning)", "✅ Mock #16 done (section time tracked)", "✅ Time allocation analysis: too long in X section?", "✅ Mock #16 full review done", "✅ 2 RC passages annotated"],
-    mock:16, sectional:null,
-    note:"⏱️ Time Management Mock — The biggest score killer in CAT is poor section time distribution. After this mock, you should know exactly where your minutes go.",
-    tip:"📊 Ideal time: VARC 40 min RC + 20 min VA. DILR 20 min scan+2sets. QA 35 min Round1 + 25 min Round2."
-  },
-  {
-    day:33, date:"2026-11-21", label:"Nov 21", weekday:"Sat", type:"weekend",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["Cold re-solve: Mock #16's worst 2 DILR sets (fresh brain, 30 min)", "Full revision: all 16 QA short-notes rapid scan (80 min = 5 min/chapter)", "Mark: which 2 chapters still have doubts?"],
-    evening:["VARC Sectional #7 (40 min) — RC only, strict 3-pass method", "DILR Sectional #6 (40 min) — 2 sets, 4-min scan mandatory", "2 RC passages full annotation"],
-    eod:["✅ Mock #16 DILR cold re-solved", "✅ All 16 QA short-notes rapid revision done", "✅ VARC Sectional #7 done (3-pass method)", "✅ DILR Sectional #6 done (scan used)", "✅ 2 RC passages annotated"],
-    mock:null, sectional:"varc_7",
-    note:"📚 Sectional Saturday — No mock today. Rest the 'mock brain'. Use sectionals to fix specific weaknesses identified in this week's mocks.",
-    tip:"🎯 Sectionals > Mocks for targeted skill fixes. A focused 40-min sectional teaches more than a rushed mock."
-  },
-  {
-    day:34, date:"2026-11-22", label:"Nov 22", weekday:"Sun", type:"weekend+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["MOCK #17 — Full 2h exam from 8:30 AM (Full Simulation + Strategy Review)", "Strategy goal: execute YOUR game plan, not react to the paper"],
-    evening:["MOCK #17 Deep Review (2.5h) — all 5 steps", "DILR: cold re-solve worst 2 sets", "2 RC passages annotation"],
-    eod:["✅ Mock #17 done (your strategy followed?)", "✅ Did you follow the pre-decided section strategy? Note deviations.", "✅ Mock #17 full review done", "✅ DILR cold re-solve done", "✅ 2 RC passages annotated"],
-    mock:17, sectional:null,
-    note:"🎯 Strategy Mock — After 17 mocks, you know your style. Today: commit to your optimal strategy before starting. Execute it. Review if it worked.",
-    tip:"🏆 The exam isn't won by brilliant improvisation. It's won by executing a well-practiced strategy."
-  },
-  {
-    day:35, date:"2026-11-23", label:"Nov 23", weekday:"Mon", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["Cold re-solve: Mock #17's DILR worst 2 sets", "MOCK #18 — Full 2h exam (Clutch Accuracy Focus — attempt fewer, get more right)", "Target: every question you attempt = correct. Skip anything doubtful."],
-    evening:["MOCK #18 Review (2.5h) — all 5 steps, focus on: did you skip the right questions?", "2 RC passages annotation", "Write: which question types should you NEVER attempt in CAT (your personal skip list)?"],
-    eod:["✅ Mock #17 DILR cold re-solved (morning)", "✅ Mock #18 done (accuracy-first strategy used)", "✅ Mock #18 review done", "✅ Personal 'skip list' written (question types to always skip in CAT)", "✅ 2 RC passages annotated"],
-    mock:18, sectional:null,
-    note:"🎯 CLUTCH ACCURACY MOCK — At 98+ percentile, wrong answers kill you more than unattempted ones. Today's goal: 85%+ accuracy even if attempts drop.",
-    tip:"❌ Negative marking in CAT = -⅓ mark. Getting 5 wrong = -1.67 marks. Better to skip than guess."
-  },
-  {
-    day:36, date:"2026-11-24", label:"Nov 24", weekday:"Tue", type:"college",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["Cold re-solve: Mock #18's DILR worst sets (30 min)", "VARC Sectional #8 (40 min) — RC + VA mixed, full elimination protocol"],
-    evening:["QA Sectional #2 (40 min) — 2-round strategy strictly applied", "DILR Sectional #7 (40 min) — 2 complete sets only", "2 RC passages annotation"],
-    eod:["✅ Mock #18 DILR cold re-solved (morning)", "✅ VARC Sectional #8 done", "✅ QA Sectional #2 done (2-round strategy logged)", "✅ DILR Sectional #7 done (2 sets completed)", "✅ 2 RC passages annotated"],
-    mock:null, sectional:"varc_8",
-    note:"🎯 Triple Sectional Day — All 3 sections tested today. This is a mini full-mock broken into 3 focused sessions. Equal weight to all sections.",
-    tip:"📊 After 3 sectionals, your raw scores tell you exactly where you'll score in CAT. Trust the data."
-  },
-  {
-    day:37, date:"2026-11-25", label:"Nov 25", weekday:"Wed", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["Cold re-solve: any remaining DILR sets from past week that you're still not sure about", "MOCK #19 — Full 2h exam (Penultimate Mock — Finalize your section strategy NOW)"],
-    evening:["MOCK #19 Review (2.5h) — all 5 steps. After review: write your FINAL CAT STRATEGY (section order, time split, skip criteria)", "2 RC passages annotation"],
-    eod:["✅ Mock #19 done (penultimate mock)", "✅ Mock #19 full review done", "✅ FINAL CAT STRATEGY WRITTEN (your definitive plan for Nov 29)", "✅ 2 RC passages annotated", "✅ 1 mock remaining: Mock #20 tomorrow"],
-    mock:19, sectional:null,
-    note:"🎯 PENULTIMATE MOCK — After this mock, write your FINAL exam strategy card. This card goes on your desk Nov 27–28 and you read it before sleeping.",
-    tip:"📋 Final strategy card: Section order + Time split + Skip criteria + 3 mindset reminders. Laminate it if possible."
-  },
-  {
-    day:38, date:"2026-11-26", label:"Nov 26", weekday:"Thu", type:"college+mock",
-    phase:"p3", phaseLabel:"Phase 3",
-    morning:["MOCK #20 — FINAL MOCK 🎯 Full 2h exam from 8:30 AM (Confidence Builder — simulate D-day exactly)", "The last practice match before the championship. Stay calm, execute."],
-    evening:["MOCK #20 Review (2.5h) — all 5 steps", "After review: read all your short-notes one final time (rapid, 3–4 min/chapter)", "2 RC passages annotation — last daily RC annotation session"],
-    eod:["✅ MOCK #20 DONE — 20 MOCKS COMPLETE 🏁", "✅ Mock #20 reviewed — all 5 steps", "✅ All 16 QA short-notes final read-through done", "✅ 2 RC passages annotated — VARC log complete", "✅ 20 MOCKS ✓ | 30 SECTIONALS ✓ | 16 SHORT NOTES ✓ — WAR ROOM COMPLETE 🏆"],
-    mock:20, sectional:null,
-    note:"🎯 FINAL MOCK — After 20 mocks, you know your score range. Don't overthink it. The training is done. Trust your system.",
-    tip:"🏆 Champions don't try new things in the final day. They execute what they've practiced 20 times."
+    day: 3,
+    date: "2026-10-22",
+    label: "Oct 22",
+    weekday: "Thu",
+    type: "college",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — VARC_1: 2 RC passages (Economist) timed 12 min each — full annotation",
+      "6:30 AM — Percentages quick notes: base change, successive % shortcuts",
+      "7:15 AM — QA_1: 10 Percentages + P&L problems (mixed difficulty)"
+    ],
+    evening: [
+      "6:00 PM — QA_1 continued: P&L advanced — CP/SP manipulation problems (30 min)",
+      "6:30 PM — DILR: 1 Tournament set timed (25 min) — log accuracy",
+      "7:30 PM — Review Mock #1 VARC section in depth — annotate eliminated wrong answers",
+      "8:30 PM — Percentages error log: write all wrong Q types with correct method"
+    ],
+    eod: [
+      "✅ VARC_1 completed (2 RC passages annotated, Economist)",
+      "✅ QA_1 completed (Percentages + P&L chapter)",
+      "✅ 2 RC passages annotated (morning session)",
+      "✅ Percentages shortcut sheet updated",
+      "✅ Mock #1 VARC errors reviewed"
+    ],
+    mock: null,
+    sectional: ["varc_1", "qa_1"],
+    note: "Day 3 — Double sectional day. VARC + QA. Keep DILR warm with 1 tournament set.",
+    tip: "💡 For Percentages: always fix the base. 'What % of what?' before solving."
   },
 
-  // ═══════════════════════════════════════════════════════
-  // PHASE 4: TAPER & CONSOLIDATION (Nov 27–28)
-  // ═══════════════════════════════════════════════════════
   {
-    day:39, date:"2026-11-27", label:"Nov 27", weekday:"Fri", type:"taper",
-    phase:"p4", phaseLabel:"Phase 4 (Taper)",
-    morning:["Read your FINAL CAT STRATEGY CARD twice (section order, time split, skip criteria)", "Read QA short-notes: P1 priority chapters only — Number System, Percentages, Ratios, TSD, Triangles, Circles (2 min each)"],
-    evening:["1 light RC passage (no pressure, just keep the reading brain warm)", "Mock score review: what's your score range across last 5 mocks? That's your CAT range.", "Sleep by 10 PM SHARP 🌙"],
-    eod:["✅ Strategy card read (morning + evening)", "✅ 6 priority QA short-notes revised", "✅ 1 RC passage read (light)", "✅ In bed by 10 PM"],
-    mock:null, sectional:null,
-    note:"🧘 TAPER DAY 1 — Zero mocks. Zero pressure. The engine is fully charged. Now you're just keeping it warm. No new information today.",
-    tip:"😴 Sleep quality Nov 27–28 directly impacts your cognitive performance on Nov 29. 10 PM bedtime is non-negotiable."
+    day: 4,
+    date: "2026-10-23",
+    label: "Oct 23",
+    weekday: "Fri",
+    type: "college+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Mock #2 pre-targets: VARC elimination — flag and skip on 1st read of dense RC",
+      "6:00 AM — P&L 10-Q speed drill: sub-60 sec per question",
+      "6:30 AM — Skim 1 RC passage (HBR) — practice headline extraction only"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #2 (VARC Elimination Focus) — full 2h simulation",
+      "8:00 PM — Debrief: focus on VARC — which options did you eliminate? Did it help?",
+      "8:30 PM — Deep review VARC: map each wrong answer to specific elimination failure",
+      "9:15 PM — Write 3 improvements for Mock #3 (Dussehra Power Day)"
+    ],
+    eod: [
+      "✅ Mock #2 (VARC Elimination Focus) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ 3 improvements written for Mock #3",
+      "✅ VARC elimination pattern identified and logged"
+    ],
+    mock: 2,
+    sectional: null,
+    note: "Mock #2 — VARC Elimination Focus. Consciously use elimination, even if slower.",
+    tip: "💡 In VARC: eliminate 2 options first, then choose between the remaining 2. Halves error."
   },
+
   {
-    day:40, date:"2026-11-28", label:"Nov 28", weekday:"Sat", type:"taper",
-    phase:"p4", phaseLabel:"Phase 4 (Taper)",
-    morning:["Read all 16 QA short-notes one final time (5 min each = 80 min) — just reinforce memory", "Read your strategy card one last time. Visualize executing it perfectly tomorrow."],
-    evening:["Pack your bag for CAT 2026 (admit card, ID proof, pens, watch)", "Light meal. NO screen time after 8 PM.", "Visualization: Close eyes, 10 min — imagine the 3-hour exam. Section by section. Calm, focused, executing.", "Sleep by 9:30 PM 🌙"],
-    eod:["✅ All 16 QA short-notes final revision done", "✅ CAT bag packed (admit card ✓, ID proof ✓, pens ✓)", "✅ Strategy card memorized", "✅ In bed by 9:30 PM"],
-    mock:null, sectional:null,
-    note:"🧘 CAT EVE — The battle is won or lost before it begins. You've done 20 mocks, 30 sectionals, 16 short-notes, and 40 days of discipline. Now rest and trust the work.",
-    tip:"🏆 Champions don't prepare the night before. They REST. Your preparation is DONE. Tomorrow, just execute."
+    day: 5,
+    date: "2026-10-24",
+    label: "Oct 24",
+    weekday: "Sat",
+    type: "holiday+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "8:00 AM — Mock #3 (Dussehra 8h Power Day) — full 2h simulation with exam conditions",
+      "10:00 AM — 30-min break + light breakfast",
+      "10:30 AM — Deep mock review: all 3 sections, 5-step process (1.5h)"
+    ],
+    evening: [
+      "12:30 PM — QA_2: Ratio + Mixtures chapter — alligation shortcut + ratio chain (1h)",
+      "2:00 PM — 10 Ratio/Mixtures problems timed — log wrong ones",
+      "3:00 PM — Free time (Dussehra) — light reading or family time",
+      "6:00 PM — Write 3 improvements for Mock #4 + review error log"
+    ],
+    eod: [
+      "✅ Mock #3 (Dussehra Power Day) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ QA_2 completed (Ratio + Mixtures)",
+      "✅ 3 improvements written for Mock #4",
+      "✅ Dussehra energy channeled — 2 mocks in 2 days 🔥"
+    ],
+    mock: 3,
+    sectional: "qa_2",
+    note: "Dussehra holiday = 8h prep window. Mock #3 + QA sectional + full review.",
+    tip: "💡 Alligation shortcut: draw the X diagram. Always. Never calculate inline."
+  },
+
+  {
+    day: 6,
+    date: "2026-10-25",
+    label: "Oct 25",
+    weekday: "Sun",
+    type: "weekend+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "8:00 AM — Mock #4 (Weekend Sprint) — full 2h simulation",
+      "10:00 AM — Break (30 min)",
+      "10:30 AM — Deep mock review: 5-step process, focus on DILR set selection"
+    ],
+    evening: [
+      "1:00 PM — VARC_2: 2 RC passages (Aeon + HBR) — annotate with timer",
+      "2:00 PM — DILR_2: Quant-Based sets × 2 (Profit-Sharing / Grid puzzles) — timed",
+      "3:30 PM — Consolidate: 3 improvements for Mock #5 (DILR Scan Discipline)",
+      "4:30 PM — Rest — prep for college week ahead"
+    ],
+    eod: [
+      "✅ Mock #4 (Weekend Sprint) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ VARC_2 completed (2 RC passages annotated)",
+      "✅ DILR_2 completed (2 Quant-Based sets timed)",
+      "✅ 3 improvements written for Mock #5"
+    ],
+    mock: 4,
+    sectional: ["varc_2", "dilr_2"],
+    note: "Day 6 — 4 mocks in 5 days. Weekend sprint continues. DILR focus after review.",
+    tip: "💡 DILR set selection: spend exactly 4 min scanning all sets before picking. Never skip the scan."
+  },
+
+  {
+    day: 7,
+    date: "2026-10-26",
+    label: "Oct 26",
+    weekday: "Mon",
+    type: "college+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Mock #5 pre-targets: DILR scan discipline — 4 min hard scan, pick 2 green sets",
+      "6:00 AM — TSD (Time-Speed-Distance) chapter intro: relative speed + train problems (30 min)",
+      "6:30 AM — Read 1 RC passage (The Hindu) — annotation practice"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #5 (DILR Scan Discipline) — full 2h simulation",
+      "8:00 PM — Debrief: did you scan all sets for 4 min? Which 2 did you pick and why?",
+      "8:30 PM — Review DILR section in depth — log set type and difficulty",
+      "9:15 PM — Write 3 improvements for Mock #6 (QA sub-90 sec)"
+    ],
+    eod: [
+      "✅ Mock #5 (DILR Scan Discipline) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ 3 improvements written for Mock #6",
+      "✅ TSD intro notes done",
+      "✅ 2 RC passages annotated"
+    ],
+    mock: 5,
+    sectional: null,
+    note: "Mock #5 — DILR scan discipline. Execute 4-min scan consciously. No impulsive picks.",
+    tip: "💡 Rate sets: Green (confident), Yellow (risky), Red (skip). Never touch Red."
+  },
+
+  {
+    day: 8,
+    date: "2026-10-27",
+    label: "Oct 27",
+    weekday: "Tue",
+    type: "college",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — VARC_3: 2 RC passages (Economist) — annotation + inference question focus",
+      "6:30 AM — TSD: boat & stream problems + circular track (30 min)",
+      "7:15 AM — Quick review of Mock #5 VARC errors (15 min)"
+    ],
+    evening: [
+      "6:00 PM — DILR_3: Scheduling sets × 2 (timed 20 min each) — Class timetable / Shift roster",
+      "7:00 PM — TSD: relative speed + races — 10 problems timed",
+      "8:00 PM — Annotate 1 additional RC passage (Aeon) — tone + structure map",
+      "8:30 PM — Log DILR_3 performance: accuracy + time"
+    ],
+    eod: [
+      "✅ VARC_3 completed (2 RC passages, Economist)",
+      "✅ DILR_3 completed (2 Scheduling sets timed)",
+      "✅ 2 RC passages annotated (morning + evening)",
+      "✅ TSD chapter notes updated (boat/stream + races)",
+      "✅ 3 DILR sets timed this week — momentum building"
+    ],
+    mock: null,
+    sectional: ["varc_3", "dilr_3"],
+    note: "Day 8 — Double sectional. VARC inference focus + DILR Scheduling type.",
+    tip: "💡 Scheduling DILR: build a column-based table. Label columns first, never rows-first."
+  },
+
+  {
+    day: 9,
+    date: "2026-10-28",
+    label: "Oct 28",
+    weekday: "Wed",
+    type: "college+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Mock #6 pre-targets: QA sub-90 sec per question — easy ones first, flag rest",
+      "6:00 AM — TSD: speed drill — 10 Q in 12 min (mixed: trains + boats + races)",
+      "6:30 AM — Read 1 RC passage (HBR) — identify 3 wrong answer traps"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #6 (QA Sub-90 Sec Speed) — full 2h simulation",
+      "8:00 PM — Debrief: in QA, how many Qs exceeded 90 sec? Why? Flag and log",
+      "8:30 PM — QA section review: every wrong Q → find the 60-sec approach",
+      "9:15 PM — Write 3 improvements for Mock #7 (Full Simulation)"
+    ],
+    eod: [
+      "✅ Mock #6 (QA Sub-90 Sec Speed) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ 3 improvements written for Mock #7",
+      "✅ QA slow-Q log created (time-over Qs catalogued)"
+    ],
+    mock: 6,
+    sectional: null,
+    note: "Mock #6 — sub-90 sec QA discipline. Slow questions cost you easy ones. Move on fast.",
+    tip: "💡 In QA: if you haven't cracked it in 90 sec, mark and move. Return only if time permits."
+  },
+
+  {
+    day: 10,
+    date: "2026-10-29",
+    label: "Oct 29",
+    weekday: "Thu",
+    type: "college",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — QA_3: Time & Work — work equivalence + pipe & cistern (30 min)",
+      "6:15 AM — DILR_4: Tournament bracket sets × 1 timed (25 min) — single-elimination format",
+      "7:00 AM — Read 1 RC passage (The Hindu) — 5-min timer, then answer questions"
+    ],
+    evening: [
+      "6:00 PM — QA_3 continued: Time & Work advanced — efficiency ratios + variable workforce",
+      "7:00 PM — DILR_4 continued: 1 more Tournament set (round-robin format, 25 min timed)",
+      "8:00 PM — Annotate 1 RC passage (Economist) — underline contrast markers",
+      "8:30 PM — QA error log: re-do all wrong Time & Work Qs using correct method"
+    ],
+    eod: [
+      "✅ QA_3 completed (Time & Work — both basic and advanced)",
+      "✅ DILR_4 completed (2 Tournament sets timed: single-elim + round-robin)",
+      "✅ 2 RC passages annotated",
+      "✅ QA error log updated",
+      "✅ Work efficiency shortcut sheet created"
+    ],
+    mock: null,
+    sectional: ["qa_3", "dilr_4"],
+    note: "Day 10 — Time & Work + Tournament DILR. Double sectional on a college day — stay disciplined.",
+    tip: "💡 Time & Work: convert everything to 'work done per day'. Never work with 'days to complete' inline."
+  },
+
+  {
+    day: 11,
+    date: "2026-10-30",
+    label: "Oct 30",
+    weekday: "Fri",
+    type: "college",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — VARC_4: 2 RC passages (Aeon + HBR) — paraphrase main idea after each",
+      "6:30 AM — Time & Work: 10 quick Qs (pipe & cistern) — sub-60 sec each",
+      "7:10 AM — VA: 1 para-jumble set (5 sentences) — practice fixed point method"
+    ],
+    evening: [
+      "6:00 PM — DILR_5: Arrangement + Quant hybrid set × 2 (25 min each) — mixed constraint",
+      "7:00 PM — VARC: 2 more RC passages (The Hindu editorial) with full annotation",
+      "8:00 PM — Time & Work revision: redo all errors from Day 10",
+      "8:30 PM — Prep mock #7 strategy card: Full Simulation targets"
+    ],
+    eod: [
+      "✅ VARC_4 completed (2 RC passages annotated, Aeon + HBR)",
+      "✅ DILR_5 completed (2 Arrangement-Quant hybrid sets timed)",
+      "✅ 2 RC passages annotated (evening)",
+      "✅ Para-jumble fixed-point method practiced",
+      "✅ Mock #7 strategy card ready"
+    ],
+    mock: null,
+    sectional: ["varc_4", "dilr_5"],
+    note: "Day 11 — Last weekday before weekend mock marathon. Build momentum.",
+    tip: "💡 Para-jumbles: find the sentence that CANNOT be first (usually has 'it/this/that/he'). Work backwards."
+  },
+
+  {
+    day: 12,
+    date: "2026-10-31",
+    label: "Oct 31",
+    weekday: "Sat",
+    type: "weekend+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "8:00 AM — Mock #7 (Full Simulation) — full 2h exam with strict conditions, no interruptions",
+      "10:00 AM — 30-min break",
+      "10:30 AM — Full mock review: all 3 sections, 5-step process (1.5h)"
+    ],
+    evening: [
+      "12:30 PM — QA_4: Time & Work + TSD revision sprint (mix of both chapters, 20 Qs timed)",
+      "1:30 PM — Write 3 improvements for Mock #8 (VARC Focus)",
+      "2:30 PM — Review cumulative mock score trend (Mocks 1–7) — spot pattern",
+      "3:30 PM — Rest / family time"
+    ],
+    eod: [
+      "✅ Mock #7 (Full Simulation) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ QA_4 completed (TSD + Time & Work combined sprint)",
+      "✅ 3 improvements written for Mock #8",
+      "✅ Cumulative score trend logged (Mocks 1–7)"
+    ],
+    mock: 7,
+    sectional: "qa_4",
+    note: "Mock #7 — Full Simulation. Execute like it's the real exam. No self-grading mid-exam.",
+    tip: "💡 After every mock: before looking at answers, estimate your score. Calibration gap = learning."
+  },
+
+  {
+    day: 13,
+    date: "2026-11-01",
+    label: "Nov 1",
+    weekday: "Sun",
+    type: "weekend+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "8:00 AM — Mock #8 (VARC Focus Mock) — full 2h simulation, mental VARC checkpoints",
+      "10:00 AM — Break",
+      "10:30 AM — VARC section deep review (90 min): passage-by-passage elimination analysis"
+    ],
+    evening: [
+      "12:30 PM — VARC_5: 2 RC passages (Economist + Aeon) — annotation + 3-wrong-option map",
+      "1:30 PM — DILR_6: Scheduling sets × 2 (exam seating + event scheduling, timed)",
+      "2:30 PM — Write 3 improvements for Mock #9 (Attempt Discipline 55+)",
+      "3:30 PM — Rest — back to college week tomorrow"
+    ],
+    eod: [
+      "✅ Mock #8 (VARC Focus Mock) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ VARC_5 completed (2 RC passages annotated)",
+      "✅ DILR_6 completed (2 Scheduling sets timed)",
+      "✅ 3 improvements written for Mock #9"
+    ],
+    mock: 8,
+    sectional: ["varc_5", "dilr_6"],
+    note: "Weekend double-mock: Mocks #7 and #8. VARC elimination sharpens. Stay calm.",
+    tip: "💡 VARC: read the question stem BEFORE re-reading the passage for specific Qs. Saves 2 min."
+  },
+
+  {
+    day: 14,
+    date: "2026-11-02",
+    label: "Nov 2",
+    weekday: "Mon",
+    type: "college+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Mock #9 pre-targets: 55+ total attempts — set mini-targets per section",
+      "6:00 AM — Averages intro: weighted average + mean deviation (20 min)",
+      "6:30 AM — Read 1 RC passage (HBR) + answer all Qs in 12 min"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #9 (Attempt Discipline — 55+ attempts) — full 2h simulation",
+      "8:00 PM — Debrief: count actual attempts. Did you hit 55+? What stopped you?",
+      "8:30 PM — Review: focus on DILR — which sets did you attempt vs. skip?",
+      "9:15 PM — Write 3 improvements for Mock #10 (Pre-Midterm Benchmark)"
+    ],
+    eod: [
+      "✅ Mock #9 (Attempt Discipline 55+) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ 3 improvements written for Mock #10",
+      "✅ Attempt count logged: VARC / DILR / QA",
+      "✅ 2 RC passages annotated"
+    ],
+    mock: 9,
+    sectional: null,
+    note: "Mock #9 — Attempt Discipline. 55 attempts minimum. Being conservative costs percentile.",
+    tip: "💡 Attempt target breakdown: VARC 22+, DILR 12–14, QA 18–22. Track per section."
+  },
+
+  {
+    day: 15,
+    date: "2026-11-03",
+    label: "Nov 3",
+    weekday: "Tue",
+    type: "college",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — VARC_6: 2 RC passages (The Hindu + Aeon) — full annotation, no shortcuts",
+      "6:30 AM — QA_5: Averages + Weighted Mean — 15 problems timed (sub-75 sec each)",
+      "7:15 AM — DILR_7: 1 Quant-Based set (data table, timed 20 min)"
+    ],
+    evening: [
+      "6:00 PM — QA_5 continued: Averages error drill — redo all wrong Qs",
+      "7:00 PM — DILR_7 continued: 1 Linear Arrangement timed (25 min)",
+      "8:00 PM — Annotate 1 RC passage (Economist) — author's argument structure",
+      "8:30 PM — Write Mock #10 strategy: Pre-Midterm — target a personal best"
+    ],
+    eod: [
+      "✅ VARC_6 completed (2 RC passages annotated)",
+      "✅ DILR_7 completed (Quant-Based + Linear Arrangement sets)",
+      "✅ QA_5 completed (Averages + Weighted Mean)",
+      "✅ 2 RC passages annotated (evening)",
+      "✅ Mock #10 strategy card written"
+    ],
+    mock: null,
+    sectional: ["varc_6", "dilr_7", "qa_5"],
+    note: "Day 15 — Triple sectional. Hardest college day. Morning + evening both count.",
+    tip: "💡 Averages shortcut: use deviation from assumed mean. Dramatically faster on weighted Qs."
+  },
+
+  {
+    day: 16,
+    date: "2026-11-04",
+    label: "Nov 4",
+    weekday: "Wed",
+    type: "college+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "5:45 AM — Mock #10 pre-targets: Pre-Midterm Benchmark — aim personal best score",
+      "6:00 AM — Averages + Equations preview: connect chapter themes",
+      "6:30 AM — Read 1 RC passage (HBR) — practice pacing"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #10 (Pre-Midterm Final Benchmark) — full 2h simulation",
+      "8:00 PM — Debrief: are all 3 sections improving vs. Mock #1? Create mini progress graph",
+      "8:30 PM — Deep mock review: 5-step process, focus on QA accuracy",
+      "9:15 PM — Write 3 improvements for Mock #11 (Deepawali Light Mock)"
+    ],
+    eod: [
+      "✅ Mock #10 (Pre-Midterm Benchmark) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ 3 improvements written for Mock #11",
+      "✅ Progress graph updated (Mocks 1–10)",
+      "✅ Deepawali break strategy set"
+    ],
+    mock: 10,
+    sectional: null,
+    note: "Mock #10 — Pre-Midterm Benchmark. 10 mocks in 16 days. Check your trajectory.",
+    tip: "💡 Benchmark check: VARC improving on RC accuracy? DILR sets fully solved? QA crossing 18?"
+  },
+
+  {
+    day: 17,
+    date: "2026-11-05",
+    label: "Nov 5",
+    weekday: "Thu",
+    type: "deepawali",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "8:00 AM — VARC_7: 2 RC passages (Aeon + Economist) — annotation with emotion/tone mapping",
+      "9:00 AM — QA_6: Linear Equations + Quadratics — formula sheet + 15 Qs timed",
+      "10:00 AM — Review error log from Mock #10 QA section (30 min)"
+    ],
+    evening: [
+      "4:00 PM — Equations: simultaneous equations + special cases (20 min)",
+      "4:30 PM — 1 RC passage (The Hindu) — practice identifying 'purpose of paragraph' Qs",
+      "6:00 PM — Deepawali family time 🪔 — total study break from 6 PM onwards"
+    ],
+    eod: [
+      "✅ VARC_7 completed (2 RC passages annotated)",
+      "✅ QA_6 completed (Equations chapter — formula sheet ready)",
+      "✅ Mock #10 QA errors reviewed",
+      "✅ 2 RC passages annotated",
+      "✅ Deepawali observed — balance maintained 🪔"
+    ],
+    mock: null,
+    sectional: ["varc_7", "qa_6"],
+    note: "Deepawali Day 1 — Light load, preserve energy. Morning study, evening family.",
+    tip: "💡 Equations shortcut: for 2-var systems, always eliminate the variable with larger coefficient first."
+  },
+
+  {
+    day: 18,
+    date: "2026-11-06",
+    label: "Nov 6",
+    weekday: "Fri",
+    type: "deepawali+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "9:00 AM — Mock #11 (Deepawali Light Mock) — full 2h simulation, slightly relaxed mindset",
+      "11:00 AM — Break (30 min)",
+      "11:30 AM — Quick debrief: score + 3 primary takeaways (30 min)"
+    ],
+    evening: [
+      "3:00 PM — Equations: review Mock #11 QA errors (focus on Q-type patterns, 30 min)",
+      "3:30 PM — 1 RC passage annotation (HBR) + 2 VA questions",
+      "4:30 PM — Write 3 improvements for Mock #12 (Final Pre-Midterm)",
+      "6:00 PM — Deepawali evening — rest 🪔"
+    ],
+    eod: [
+      "✅ Mock #11 (Deepawali Light Mock) completed",
+      "✅ Mock reviewed (3 key takeaways minimum)",
+      "✅ 3 improvements written for Mock #12",
+      "✅ 2 RC passages annotated",
+      "✅ QA Equations errors catalogued"
+    ],
+    mock: 11,
+    sectional: null,
+    note: "Mock #11 — Light Deepawali mock. Full effort, lighter review. Rest is productive too.",
+    tip: "💡 Deepawali mindset: a rested brain performs 15–20% better. Sleep 8h tonight."
+  },
+
+  {
+    day: 19,
+    date: "2026-11-07",
+    label: "Nov 7",
+    weekday: "Sat",
+    type: "deepawali",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "9:00 AM — DILR_8: Arrangement sets × 2 (Circular + Linear hybrid, timed 25 min each)",
+      "10:00 AM — QA_7: Inequalities — sign reversal rules + modulus equations (30 min)",
+      "10:30 AM — 10 Inequalities Qs timed (sub-75 sec each)"
+    ],
+    evening: [
+      "3:00 PM — Inequalities error drill: redo all wrong Qs from morning",
+      "3:30 PM — 1 RC passage (Aeon) — annotation practice",
+      "4:30 PM — Review DILR_8 sets: note which constraints slowed you down",
+      "6:00 PM — Deepawali family time 🪔"
+    ],
+    eod: [
+      "✅ DILR_8 completed (2 Arrangement sets — circular + linear hybrid)",
+      "✅ QA_7 completed (Inequalities chapter)",
+      "✅ 2 RC passages annotated",
+      "✅ Inequalities shortcut card updated",
+      "✅ Pre-midterm content coverage confirmed"
+    ],
+    mock: null,
+    sectional: ["dilr_8", "qa_7"],
+    note: "Deepawali Day 3 — DILR + QA sectionals. Last day before Sunday mock.",
+    tip: "💡 Inequalities: whenever you multiply/divide by a negative, flip the sign. Make this instinct."
+  },
+
+  {
+    day: 20,
+    date: "2026-11-08",
+    label: "Nov 8",
+    weekday: "Sun",
+    type: "weekend+mock",
+    phase: "p1",
+    phaseLabel: "Phase 1",
+    morning: [
+      "8:00 AM — Mock #12 (Final Pre-Midterm Mock) — full 2h simulation, exam-day mindset",
+      "10:00 AM — Break",
+      "10:30 AM — Deep mock review: 5-step process for all 3 sections (1.5h)"
+    ],
+    evening: [
+      "12:30 PM — QA_8: Comprehensive QA review — all chapters Day 1–20 (speed round, 20 Qs mixed)",
+      "1:30 PM — Write 3 improvements for Mock #13 (Midterm Window Mock)",
+      "2:00 PM — Prep midterm study schedule: lighter load, 1.5h max per day",
+      "3:00 PM — Rest and mental reset before midterms"
+    ],
+    eod: [
+      "✅ Mock #12 (Final Pre-Midterm Mock) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ QA_8 completed (all-chapter speed round)",
+      "✅ 3 improvements written for Mock #13",
+      "✅ Midterm schedule confirmed — lighter load ahead"
+    ],
+    mock: 12,
+    sectional: "qa_8",
+    note: "Mock #12 — Final pre-midterm. After this, midterm mode: lighter but consistent.",
+    tip: "💡 Phase 1 done: 12 mocks in 20 days. You're ahead of 95% of CAT takers. Stay consistent."
+  },
+
+  // ─────────────────────────────────────────────
+  // PHASE 2 — Midterm Consolidation
+  // Nov 9 (Day 21) → Nov 15 (Day 27)
+  // ─────────────────────────────────────────────
+
+  {
+    day: 21,
+    date: "2026-11-09",
+    label: "Nov 9",
+    weekday: "Mon",
+    type: "midterm",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "6:00 AM — VARC_8: 1 RC passage (Economist) — gentle start, annotation only (30 min)",
+      "6:30 AM — QA: skim Equations + Inequalities notes (15 min)",
+      "7:00 AM — College midterm prep"
+    ],
+    evening: [
+      "7:00 PM — DILR_9: 1 Scheduling set (timed, 20 min) — low intensity",
+      "7:30 PM — VARC_8 continued: 1 more RC passage (HBR) + 3 VA questions",
+      "8:30 PM — Light review: Mock #12 patterns + error log (30 min)"
+    ],
+    eod: [
+      "✅ VARC_8 completed (2 RC passages — midterm-mode pacing)",
+      "✅ DILR_9 completed (1 Scheduling set timed)",
+      "✅ QA notes skimmed (Equations + Inequalities)",
+      "✅ Midterm exam handled",
+      "✅ Max 1.5h CAT study — quality over quantity today"
+    ],
+    mock: null,
+    sectional: ["varc_8", "dilr_9"],
+    note: "Midterm Day 1 — Max 1.5h CAT prep. Keep the engine warm, don't burn out.",
+    tip: "💡 Midterm mode: 1 RC + 1 DILR set per day minimum. Never go dark for 7 days."
+  },
+
+  {
+    day: 22,
+    date: "2026-11-10",
+    label: "Nov 10",
+    weekday: "Tue",
+    type: "midterm",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "6:00 AM — QA_9: Number System + Percentages revision (20 Q speed round, 20 min)",
+      "6:30 AM — 1 RC passage (Aeon) — 10 min read + answer all Qs",
+      "7:00 AM — Midterm exam prep"
+    ],
+    evening: [
+      "7:00 PM — VARC_9: 1 RC passage (The Hindu) + 2 para-jumble questions",
+      "7:45 PM — QA_9 continued: TSD + Time & Work speed drill (10 Qs)",
+      "8:30 PM — Error log review: top 3 QA mistakes from Mocks 9–12"
+    ],
+    eod: [
+      "✅ QA_9 completed (Number System + Percentages revision)",
+      "✅ VARC_9 completed (2 RC passages + para-jumble)",
+      "✅ 2 RC passages annotated",
+      "✅ QA error log reviewed (Mocks 9–12)",
+      "✅ Midterm handled — CAT rhythm preserved ✅"
+    ],
+    mock: null,
+    sectional: ["qa_9", "varc_9"],
+    note: "Midterm Day 2 — QA + VARC sectionals. Keep sessions under 1.5h total.",
+    tip: "💡 Revision > new content during midterms. Speed-drill chapters already done."
+  },
+
+  {
+    day: 23,
+    date: "2026-11-11",
+    label: "Nov 11",
+    weekday: "Wed",
+    type: "midterm+mock",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "6:00 AM — Mock #13 pre-targets: Midterm Window — keep composure, hit 50+ attempts",
+      "6:15 AM — Read 1 RC passage (Economist) — quick annotation",
+      "7:00 AM — Midterm exam"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #13 (Midterm Window Mock) — full 2h simulation post-midterm",
+      "8:00 PM — Quick debrief only (30 min): score + 3 errors identified",
+      "8:30 PM — Write 3 improvements for Mock #14",
+      "9:00 PM — Rest — midterm + mock is a demanding day"
+    ],
+    eod: [
+      "✅ Mock #13 (Midterm Window Mock) completed",
+      "✅ Quick debrief done (3 errors identified)",
+      "✅ 3 improvements written for Mock #14",
+      "✅ Midterm exam handled",
+      "✅ Resilience demonstrated — mock after exam 💪"
+    ],
+    mock: 13,
+    sectional: null,
+    note: "Midterm + Mock on the same day. Full debrief tomorrow — just log 3 errors tonight.",
+    tip: "💡 Mock after a midterm: lower your score expectation, NOT your process quality."
+  },
+
+  {
+    day: 24,
+    date: "2026-11-12",
+    label: "Nov 12",
+    weekday: "Thu",
+    type: "midterm",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "6:00 AM — DILR_10: 1 Quant-Based set timed (data sufficiency style, 20 min)",
+      "6:30 AM — QA_10: Ratio + Averages combined drill (15 Qs, 20 min)",
+      "7:00 AM — Midterm exam prep"
+    ],
+    evening: [
+      "7:00 PM — Complete Mock #13 deep review (all 5 steps — postponed from yesterday)",
+      "8:00 PM — DILR_10 log: accuracy + time for this morning's set",
+      "8:30 PM — QA_10: redo all wrong Qs from morning drill"
+    ],
+    eod: [
+      "✅ DILR_10 completed (Quant-Based set timed)",
+      "✅ QA_10 completed (Ratio + Averages combined drill)",
+      "✅ Mock #13 fully reviewed (5-step process complete)",
+      "✅ Midterm exam handled",
+      "✅ DILR + QA sectionals done in midterm crunch week 💪"
+    ],
+    mock: null,
+    sectional: ["dilr_10", "qa_10"],
+    note: "Day 24 — Full Mock #13 review deferred from yesterday. DILR + QA sectionals too.",
+    tip: "💡 DILR Quant-Based: treat numbers as approximate first — check if units/scale matter."
+  },
+
+  {
+    day: 25,
+    date: "2026-11-13",
+    label: "Nov 13",
+    weekday: "Fri",
+    type: "midterm",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "6:00 AM — VARC_10: 2 RC passages (Aeon + Economist) — full annotation",
+      "6:45 AM — QA_11: Equations + Inequalities combined sprint (15 Qs, 20 min)",
+      "7:15 AM — Midterm exam prep"
+    ],
+    evening: [
+      "7:00 PM — QA_11 continued: redo wrong Qs + add to shortcut sheet",
+      "7:30 PM — 1 RC passage (HBR) — VA question focus",
+      "8:15 PM — Mock #14 strategy card: Weekend Midterm Mock targets"
+    ],
+    eod: [
+      "✅ VARC_10 completed (2 RC passages annotated)",
+      "✅ QA_11 completed (Equations + Inequalities sprint)",
+      "✅ 2 RC passages annotated",
+      "✅ Shortcut sheet updated (Equations + Inequalities)",
+      "✅ Mock #14 strategy ready for tomorrow"
+    ],
+    mock: null,
+    sectional: ["varc_10", "qa_11"],
+    note: "Day 25 — Last midterm day before weekend. Finish strong. Mock #14 tomorrow.",
+    tip: "💡 Pre-mock ritual tonight: read strategy card + get 7–8h sleep. Ritual = confidence."
+  },
+
+  {
+    day: 26,
+    date: "2026-11-14",
+    label: "Nov 14",
+    weekday: "Sat",
+    type: "midterm+mock",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "8:00 AM — Mock #14 (Weekend Midterm Mock) — full 2h simulation",
+      "10:00 AM — Break (30 min)",
+      "10:30 AM — Deep mock review: 5-step process (1.5h)"
+    ],
+    evening: [
+      "12:30 PM — DILR_11: 2 Arrangement sets timed (Circular seating, 25 min each)",
+      "1:30 PM — Write 3 improvements for Mock #15 (Midterm Last Day)",
+      "2:30 PM — Rest — midterms almost over"
+    ],
+    eod: [
+      "✅ Mock #14 (Weekend Midterm Mock) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ DILR_11 completed (2 Circular Arrangement sets)",
+      "✅ 3 improvements written for Mock #15",
+      "✅ 14 mocks in 26 days — extraordinary consistency 🔥"
+    ],
+    mock: 14,
+    sectional: "dilr_11",
+    note: "Mock #14 — Weekend during midterms. After this, Phase 3 is just around the corner.",
+    tip: "💡 14 mocks in: your gut instinct on DILR set-picking should now be reliable. Trust it."
+  },
+
+  {
+    day: 27,
+    date: "2026-11-15",
+    label: "Nov 15",
+    weekday: "Sun",
+    type: "midterm_end+mock",
+    phase: "p2",
+    phaseLabel: "Phase 2",
+    morning: [
+      "8:00 AM — Mock #15 (Midterm Last Day Mock) — full 2h simulation",
+      "10:00 AM — Break (30 min)",
+      "10:30 AM — Deep mock review: 5-step process (1.5h)"
+    ],
+    evening: [
+      "12:30 PM — VARC_11: 2 RC passages (The Hindu + HBR) — post-mock annotation drill",
+      "1:30 PM — Write 3 improvements for Mock #16 (Foundation Day Full Throttle)",
+      "2:30 PM — Celebrate midterm end + CAT momentum — short walk / reward",
+      "3:30 PM — Plan Phase 3: mock-a-day sprint (Nov 16–26)"
+    ],
+    eod: [
+      "✅ Mock #15 (Midterm Last Day Mock) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ VARC_11 completed (2 RC passages annotated)",
+      "✅ 3 improvements written for Mock #16",
+      "✅ Phase 3 plan ready — mock every single day from tomorrow 🚀"
+    ],
+    mock: 15,
+    sectional: "varc_11",
+    note: "Midterms DONE. Mock #15 done. Phase 3 starts tomorrow — full throttle mode.",
+    tip: "💡 Phase 3 mindset: each mock is a dry run for Nov 29. Execute, not explore."
+  },
+
+  // ─────────────────────────────────────────────
+  // PHASE 3 — Peak Sprint (Mock Every Day)
+  // Nov 16 (Day 28) → Nov 26 (Day 38)
+  // ─────────────────────────────────────────────
+
+  {
+    day: 28,
+    date: "2026-11-16",
+    label: "Nov 16",
+    weekday: "Mon",
+    type: "free+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "8:00 AM — Mock #16 (Foundation Day Full Throttle Reset) — full 2h exam simulation",
+      "10:00 AM — Break",
+      "10:30 AM — Deep mock review: 5-step process — 'reset day' full audit of all sections"
+    ],
+    evening: [
+      "1:00 PM — VARC_12: 2 RC passages (Economist + Aeon) — timed 12 min each, annotate",
+      "2:00 PM — DILR_12: 2 Quant-Based sets (cold — first-time sets, timed 25 min each)",
+      "3:30 PM — Write 3 improvements for Mock #17 (VARC Annotation Drill)",
+      "4:00 PM — Foundation Day — celebrate briefly 🇮🇳 then rest"
+    ],
+    eod: [
+      "✅ Mock #16 (Foundation Day Full Throttle) completed",
+      "✅ Mock reviewed (all 5 steps — full reset audit)",
+      "✅ VARC_12 completed (2 RC passages annotated)",
+      "✅ DILR_12 completed (2 Quant-Based cold sets)",
+      "✅ 3 improvements written for Mock #17 — Phase 3 launched 🚀"
+    ],
+    mock: 16,
+    sectional: ["varc_12", "dilr_12"],
+    note: "Foundation Day + Phase 3 Launch. Full reset. New mindset: execute daily mocks.",
+    tip: "💡 Phase 3 rule: DILR cold re-solve = solve sets you've never seen before. No repeats."
+  },
+
+  {
+    day: 29,
+    date: "2026-11-17",
+    label: "Nov 17",
+    weekday: "Tue",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from Mock #16: pick hardest DILR set, redo cold (25 min)",
+      "6:15 AM — Read 1 RC passage (HBR) — VARC annotation drill focus",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #17 (Peak Sprint 1 — VARC Annotation Drill) — full 2h simulation",
+      "8:00 PM — VARC section review: annotate every RC passage from mock (reconstruction drill)",
+      "8:45 PM — Write 3 improvements for Mock #18",
+      "9:15 PM — Prep Mock #18 DILR cold re-solve set for tomorrow morning"
+    ],
+    eod: [
+      "✅ Mock #17 (Peak Sprint 1 — VARC Annotation Drill) completed",
+      "✅ Mock reviewed — VARC annotation reconstruction done",
+      "✅ 3 improvements written for Mock #18",
+      "✅ DILR cold re-solve set identified for tomorrow",
+      "✅ 2 RC passages annotated"
+    ],
+    mock: 17,
+    sectional: null,
+    note: "Peak Sprint 1 — VARC annotation deep drill. Every RC passage post-mock gets annotated.",
+    tip: "💡 VARC annotation drill: after the mock, reconstruct the passage outline from memory. Then check."
+  },
+
+  {
+    day: 30,
+    date: "2026-11-18",
+    label: "Nov 18",
+    weekday: "Wed",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve: hardest set from Mock #17 (25 min, fresh attempt)",
+      "6:15 AM — QA revision: Percentages + Ratio (10 Qs speed drill, 12 min)",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #18 (Peak Sprint 2 — DILR Cold Re-solve) — full 2h simulation",
+      "8:00 PM — DILR section review: map each set — type, difficulty, time taken, accuracy",
+      "8:45 PM — Write 3 improvements for Mock #19",
+      "9:15 PM — Mark hardest DILR set for tomorrow morning cold re-solve"
+    ],
+    eod: [
+      "✅ Mock #18 (Peak Sprint 2 — DILR Cold Re-solve) completed",
+      "✅ Mock reviewed — DILR set map completed",
+      "✅ 3 improvements written for Mock #19",
+      "✅ DILR cold re-solve done (Mock #17 hardest set)",
+      "✅ 2 RC passages annotated"
+    ],
+    mock: 18,
+    sectional: null,
+    note: "Peak Sprint 2 — DILR Cold Re-solve. Morning re-solve builds intuition. Trust the process.",
+    tip: "💡 Cold re-solve rule: if you couldn't solve it in 25 min cold, it's a Red set — mark it as Skip."
+  },
+
+  {
+    day: 31,
+    date: "2026-11-19",
+    label: "Nov 19",
+    weekday: "Thu",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from Mock #18 (hardest set, 25 min)",
+      "6:15 AM — QA shortcut speed drill: TSD + Time & Work (10 Qs, 12 min)",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #19 (Peak Sprint 3 — QA Shortcut Speed) — full 2h simulation",
+      "8:00 PM — QA section review: identify every Q where you used long method instead of shortcut",
+      "8:45 PM — Write 3 improvements for Mock #20",
+      "9:15 PM — Update QA shortcut card with any new patterns from Mock #19"
+    ],
+    eod: [
+      "✅ Mock #19 (Peak Sprint 3 — QA Shortcut Speed) completed",
+      "✅ Mock reviewed — QA shortcut audit done",
+      "✅ 3 improvements written for Mock #20",
+      "✅ DILR cold re-solve done (Mock #18 hardest set)",
+      "✅ QA shortcut card updated"
+    ],
+    mock: 19,
+    sectional: null,
+    note: "Peak Sprint 3 — QA Shortcut Speed. Identify sub-90-sec methods for every Q type.",
+    tip: "💡 QA shortcut audit: if you took 2 min on a Q, there is a 60-sec method. Find it during review."
+  },
+
+  {
+    day: 32,
+    date: "2026-11-20",
+    label: "Nov 20",
+    weekday: "Fri",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from Mock #19 (hardest set, 25 min)",
+      "6:15 AM — VARC: 1 RC passage (Aeon) — section time management focus (10 min max)",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #20 (Peak Sprint 4 — Section Time Management) — full 2h simulation",
+      "8:00 PM — Time log review: exact minutes spent in each section — was time split optimal?",
+      "8:45 PM — Write 3 improvements for Mock #21",
+      "9:15 PM — Finalize section time-split strategy card for Mocks 21–25"
+    ],
+    eod: [
+      "✅ Mock #20 (Peak Sprint 4 — Section Time Management) completed",
+      "✅ Mock reviewed — section time-split audit done",
+      "✅ 3 improvements written for Mock #21",
+      "✅ DILR cold re-solve done (Mock #19 hardest set)",
+      "✅ Final time-split strategy card created"
+    ],
+    mock: 20,
+    sectional: null,
+    note: "Peak Sprint 4 — Time Management. 5 consecutive daily mocks incoming. Lock in your time splits.",
+    tip: "💡 Recommended splits: VARC 38 min, DILR 38 min, QA 44 min. Adjust 2 min based on your pattern."
+  },
+
+  {
+    day: 33,
+    date: "2026-11-21",
+    label: "Nov 21",
+    weekday: "Sat",
+    type: "weekend+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "8:00 AM — Mock #21 (Peak Sprint 5 — Full Simulation) — full 2h exam, exam-day protocol",
+      "10:00 AM — Break",
+      "10:30 AM — Deep mock review: 5-step process (all 3 sections)"
+    ],
+    evening: [
+      "12:30 PM — VARC_13: 2 RC passages (Economist + The Hindu) — annotate with argument maps",
+      "1:30 PM — DILR_13: 2 Tournament sets timed (one single-elim, one round-robin)",
+      "2:30 PM — QA_12: All-chapter revision sprint (20 Qs mixed: Number Sys + TSD + Work + Eqns)",
+      "4:00 PM — Write 3 improvements for Mock #22 — rest"
+    ],
+    eod: [
+      "✅ Mock #21 (Peak Sprint 5 — Full Simulation) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ VARC_13 completed (2 RC passages annotated)",
+      "✅ DILR_13 completed (2 Tournament sets timed)",
+      "✅ QA_12 completed (20-Q all-chapter sprint)",
+      "✅ 3 improvements written for Mock #22"
+    ],
+    mock: 21,
+    sectional: ["varc_13", "dilr_13", "qa_12"],
+    note: "Day 33 — Saturday: Mock + 3 sectionals. Biggest single-day effort. You can do this.",
+    tip: "💡 Saturday power day: mock in morning, sectionals in afternoon. By evening, you've done a week's work."
+  },
+
+  {
+    day: 34,
+    date: "2026-11-22",
+    label: "Nov 22",
+    weekday: "Sun",
+    type: "weekend+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "8:00 AM — Mock #22 (Peak Sprint 6 — Strategy Execution) — full 2h simulation",
+      "10:00 AM — Break",
+      "10:30 AM — Deep mock review: evaluate strategy execution — did you follow the plan exactly?"
+    ],
+    evening: [
+      "12:30 PM — VARC_14: 2 RC passages (HBR + Aeon) — tone + argument structure annotation",
+      "1:30 PM — DILR_14: 2 Quant-Based cold sets (grid-based + calculation-heavy, timed)",
+      "2:30 PM — QA_13: Revision mode — Percentages + P&L + Ratio sprint (15 Qs, 18 min)",
+      "4:00 PM — Write 3 improvements for Mock #23 — finalize clutch-accuracy strategy"
+    ],
+    eod: [
+      "✅ Mock #22 (Peak Sprint 6 — Strategy Execution) completed",
+      "✅ Mock reviewed (strategy execution audit done)",
+      "✅ VARC_14 completed (2 RC passages annotated)",
+      "✅ DILR_14 completed (2 Quant-Based cold sets timed)",
+      "✅ QA_13 completed (all-chapter sprint)",
+      "✅ 3 improvements written for Mock #23"
+    ],
+    mock: 22,
+    sectional: ["varc_14", "dilr_14", "qa_13"],
+    note: "Day 34 — Sunday: Mock + 3 sectionals. Strategy execution audit. 3 mocks left after today.",
+    tip: "💡 Strategy execution: did you scan DILR 4 min? Did you skip hard QA Qs? Grade your process, not just score."
+  },
+
+  {
+    day: 35,
+    date: "2026-11-23",
+    label: "Nov 23",
+    weekday: "Mon",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from Mock #22 (hardest set, 25 min)",
+      "6:15 AM — QA: Number System + Percentages revision (10 Qs speed drill, 12 min)",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #23 (Clutch Accuracy Focus) — full 2h simulation",
+      "8:00 PM — Accuracy audit: VARC wrong answers — how many were careless? How many conceptual?",
+      "8:30 PM — VARC_15: 2 RC passages (The Hindu + Economist) — final annotation drill",
+      "9:15 PM — Write 3 improvements for Mock #24 (Penultimate)"
+    ],
+    eod: [
+      "✅ Mock #23 (Clutch Accuracy Focus) completed",
+      "✅ Mock reviewed — accuracy audit done (careless vs. conceptual errors separated)",
+      "✅ VARC_15 completed (2 RC passages annotated — VARC SECTIONALS COMPLETE ✅)",
+      "✅ 3 improvements written for Mock #24",
+      "✅ DILR cold re-solve done (Mock #22 hardest set)"
+    ],
+    mock: 23,
+    sectional: "varc_15",
+    note: "Mock #23 — Clutch Accuracy. VARC_15 = all 15 VARC sectionals done. 2 mocks to go.",
+    tip: "💡 Clutch accuracy: on the real exam, 1 wrong answer costs ~3 percentile. Careless errors are unacceptable."
+  },
+
+  {
+    day: 36,
+    date: "2026-11-24",
+    label: "Nov 24",
+    weekday: "Tue",
+    type: "college",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from Mock #23 (hardest set, 25 min) — pure cold",
+      "6:15 AM — QA all-chapter speed round: 20 Qs mixed difficulty (25 min) — sub-75 sec each",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 2 RC passages (HBR + Aeon) — full annotation + VA question drill",
+      "7:00 PM — QA: review all shortcut cards end to end (30 min read-through)",
+      "7:30 PM — Mock #24 strategy card: Penultimate — target 60+ attempts",
+      "8:00 PM — Sleep by 10 PM — rest for penultimate mock tomorrow"
+    ],
+    eod: [
+      "✅ DILR cold re-solve done (Mock #23 hardest set)",
+      "✅ QA all-chapter speed round completed (20 Qs)",
+      "✅ 2 RC passages annotated",
+      "✅ All QA shortcut cards reviewed end-to-end",
+      "✅ Mock #24 strategy card ready"
+    ],
+    mock: null,
+    sectional: null,
+    note: "Day 36 — No mock, no new sectional. DILR cold re-solve + QA full revision + 2 RC passages.",
+    tip: "💡 This is your consolidation day. No new content. Deep review and shortcut card mastery only."
+  },
+
+  {
+    day: 37,
+    date: "2026-11-25",
+    label: "Nov 25",
+    weekday: "Wed",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from a random Mock 18–22 set (25 min) — surprise cold",
+      "6:15 AM — QA chapter flash review: Averages + Equations + Inequalities (15 min)",
+      "7:00 AM — College"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #24 (Penultimate Mock) — full 2h simulation — execution focus",
+      "8:00 PM — Deep mock review: 5-step process — note every pattern you'll carry to Mock #25",
+      "8:45 PM — QA_14: Mixed revision sprint (15 Qs all chapters, timed 18 min)",
+      "9:15 PM — Write 3 improvements for Mock #25 (LAST MOCK 🎯)"
+    ],
+    eod: [
+      "✅ Mock #24 (Penultimate Mock) completed",
+      "✅ Mock reviewed (all 5 steps done)",
+      "✅ QA_14 completed (all-chapter mixed sprint)",
+      "✅ 3 improvements written for Mock #25 — the last one",
+      "✅ DILR cold re-solve done (surprise random set)"
+    ],
+    mock: 24,
+    sectional: "qa_14",
+    note: "Penultimate Mock. 24 done, 1 to go. Execute your best process — carry momentum.",
+    tip: "💡 Before Mock #25 tonight: re-read your top 3 improvements from Mock #1. See how far you've come."
+  },
+
+  {
+    day: 38,
+    date: "2026-11-26",
+    label: "Nov 26",
+    weekday: "Thu",
+    type: "college+mock",
+    phase: "p3",
+    phaseLabel: "Phase 3",
+    morning: [
+      "5:45 AM — DILR cold re-solve from Mock #24 (hardest set, 25 min) — final cold drill",
+      "6:15 AM — Read your CAT strategy card top to bottom (5 min) — print a copy",
+      "7:00 AM — College — arrive confident"
+    ],
+    evening: [
+      "6:00 PM — 🎯 Mock #25 (LAST MOCK 🎯 — Confidence Builder) — full 2h simulation",
+      "8:00 PM — Comprehensive review: VARC annotation check, DILR set log, QA wrong Q audit",
+      "8:45 PM — QA_15: Final all-chapter sprint (15 Qs, 18 min) — seal the chapter bank",
+      "9:15 PM — DILR_15: 2 sets cold (any type, 25 min each) — final DILR sectional ✅"
+    ],
+    eod: [
+      "✅ Mock #25 (LAST MOCK 🎯 Confidence Builder) completed — ALL 25 MOCKS DONE 🏆",
+      "✅ Mock reviewed (comprehensive — VARC + DILR + QA)",
+      "✅ QA_15 completed — ALL 15 QA SECTIONALS DONE ✅",
+      "✅ DILR_15 completed — ALL 15 DILR SECTIONALS DONE ✅",
+      "✅ 45 sectionals complete (15 VARC + 15 DILR + 15 QA) — SECTIONALS DONE 🏆"
+    ],
+    mock: 25,
+    sectional: ["qa_15", "dilr_15"],
+    note: "THE LAST MOCK. 25 mocks, 45 sectionals, 40 days. Tomorrow: taper. Nov 29: glory.",
+    tip: "💡 After Mock #25: you've prepared more than 99% of CAT takers. Now trust the process. Rest."
+  },
+
+  // ─────────────────────────────────────────────
+  // PHASE 4 — Taper (Zero Mocks, Revision + Rest)
+  // Nov 27 (Day 39) → Nov 28 (Day 40)
+  // ─────────────────────────────────────────────
+
+  {
+    day: 39,
+    date: "2026-11-27",
+    label: "Nov 27",
+    weekday: "Fri",
+    type: "taper",
+    phase: "p4",
+    phaseLabel: "Phase 4",
+    morning: [
+      "8:00 AM — Read all QA shortcut cards leisurely — no solving, only reading (30 min)",
+      "8:30 AM — Read 1 RC passage (Economist) — annotations, no timer pressure",
+      "9:00 AM — Pack exam essentials: admit card, ID, pencils, water, snacks"
+    ],
+    evening: [
+      "4:00 PM — Review your personal strategy card: VARC plan, DILR scan protocol, QA approach",
+      "4:30 PM — Light DILR: re-read 2 fully solved sets (no resolving, just reading solutions)",
+      "5:00 PM — Write your 'Day of Exam' note to yourself: what to remember on Nov 29",
+      "8:00 PM — Sleep by 10 PM. 8h sleep tonight is non-negotiable."
+    ],
+    eod: [
+      "✅ All exam essentials packed and ready",
+      "✅ QA shortcut cards reviewed (read-only)",
+      "✅ Personal strategy card finalized",
+      "✅ 'Day of Exam' note written",
+      "✅ Zero new content — pure consolidation and rest"
+    ],
+    mock: null,
+    sectional: null,
+    note: "Taper Day 1 — No mocks, no new content. Rest is preparation. Calm is power.",
+    tip: "💡 Taper rule: your performance on Nov 29 is 70% preparation + 30% execution on the day. Rest for that 30%."
+  },
+
+  {
+    day: 40,
+    date: "2026-11-28",
+    label: "Nov 28",
+    weekday: "Sat",
+    type: "taper",
+    phase: "p4",
+    phaseLabel: "Phase 4",
+    morning: [
+      "8:00 AM — Light breakfast. No studying before 9 AM.",
+      "9:00 AM — Read your 'Day of Exam' note from yesterday — internalize it",
+      "9:30 AM — Skim your personal strategy card one last time (5 min max)"
+    ],
+    evening: [
+      "12:00 PM — Gentle walk or light activity — reduce anxiety, sharpen focus",
+      "2:00 PM — Visit exam center if possible: check location, route, parking/metro",
+      "4:00 PM — Light meal. Hydrate well. No heavy food tonight.",
+      "9:00 PM — Sleep by 9:30 PM. Tomorrow is your championship. 🏆"
+    ],
+    eod: [
+      "✅ Exam center location confirmed",
+      "✅ Admit card + ID physically in bag",
+      "✅ Strategy card read one last time",
+      "✅ 8–9h sleep secured",
+      "✅ 40 days of preparation complete. The rest is execution. 🏆"
+    ],
+    mock: null,
+    sectional: null,
+    note: "Eve of CAT 2026. Your work is done. Sleep is the last preparation.",
+    tip: "💡 On exam eve: no new mock, no new concept, no panic revision. You are ready. Trust 40 days."
   }
+
 ];
 
-// CAT DAY reference (not a study day)
+// ─────────────────────────────────────────────────────────────────────────────
+// CAT EXAM DAY — Nov 29, 2026
+// ─────────────────────────────────────────────────────────────────────────────
+
 const CAT_DAY = {
-  date:"2026-11-29", label:"Nov 29",
-  note:"🏆 CAT 2026 — The championship. Execute your strategy. Trust 40 days of preparation. IIM A / B / C / FMS awaits.",
-  morning:"Arrive 45 min early. Read your strategy card at the center. Deep breaths.",
-  sections:["VARC: 3-pass method + elimination. 2 RC complete. 6 VA accurate.", "DILR: 4-min scan. Pick 2 green sets. Complete fully.", "QA: 2 rounds. Sub-90 sec per easy Q. Skip all hard."]
+  date: "2026-11-29",
+  label: "Nov 29",
+  note: "🏆 CAT 2026 — The championship. Execute your strategy. Trust 40 days of preparation. IIM A / B / C / FMS awaits.",
+  morning: "Arrive 45 min early. Read your strategy card at the exam center. Deep breaths. You've done this 25 times.",
+  sections: [
+    "VARC: 3-pass method + elimination protocol. 2 RC complete + 6 VA accurate = 16+ correct.",
+    "DILR: 4-min scan. Pick 2 green sets ONLY. Complete both sets fully = 12+ correct.",
+    "QA: 2-round execution. Sub-90 sec per easy Q. Skip all hard. 20+ correct."
+  ]
 };

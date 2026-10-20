@@ -1,4 +1,4 @@
-// CAT 2026 War Room App v6.0 — 98+ Percentile | Daily EOD Targets | 20 Mocks | 30 Sectionals
+// CAT 2026 War Room App v6.0 — 98+ Percentile | Daily EOD Targets | 25 Mocks | 45 Sectionals
 document.addEventListener("DOMContentLoaded", () => {
   initDefaults();
   initCountdown();
@@ -76,6 +76,18 @@ function initTabs() {
   }));
 }
 
+function formatSecBadges(sec) {
+  if (!sec) return '';
+  const arr = Array.isArray(sec) ? sec : [sec];
+  return arr.map(s => {
+    const isVarc = s.toLowerCase().startsWith('varc');
+    const isDilr = s.toLowerCase().startsWith('dilr');
+    const color = isVarc ? 'var(--varc)' : (isDilr ? 'var(--lrdi)' : 'var(--qa)');
+    const label = s.toUpperCase().replace('_', ' ');
+    return `<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:${color}20;color:${color};margin-left:.3rem;font-weight:700">${label}</span>`;
+  }).join('');
+}
+
 // ─── TAB: DAILY EOD TARGETS ─────────────────────────────────────────────────
 function renderDaily() {
   const today = new Date().toISOString().split("T")[0];
@@ -102,7 +114,10 @@ function renderDaily() {
         <span style="font-size:1.5rem">🎯</span>
         <div>
           <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:${pc}">TODAY — Day ${todayEntry.day} / 40</div>
-          <div style="font-size:1.1rem;font-weight:800">${todayEntry.label} (${todayEntry.weekday}) · ${typeLabels[todayEntry.type] || todayEntry.type}</div>
+          <div style="font-size:1.1rem;font-weight:800">${todayEntry.label} (${todayEntry.weekday}) · ${typeLabels[todayEntry.type] || todayEntry.type}
+            ${todayEntry.mock ? `<span style="font-size:.7rem;padding:2px 8px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem;font-weight:700">Mock #${todayEntry.mock}</span>` : ''}
+            ${formatSecBadges(todayEntry.sectional)}
+          </div>
         </div>
       </div>
       ${todayEntry.note ? `<div style="font-size:.82rem;background:var(--surface2);padding:.5rem .75rem;border-radius:8px;border-left:3px solid ${pc};margin-bottom:.8rem;color:var(--text)">${todayEntry.note}</div>` : ''}
@@ -166,8 +181,8 @@ function renderDaily() {
              style="display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem;cursor:pointer">
           <span style="min-width:50px;font-size:.75rem;font-weight:800;color:${isToday?pc:(allDone?'var(--green)':(isPast?'var(--red)':'var(--text2)'))}">${isToday?'TODAY':('Day '+d.day)}</span>
           <span style="font-size:.82rem;font-weight:700;flex:1">${d.label} (${d.weekday})
-            ${d.mock?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem">Mock #${d.mock}</span>`:''}
-            ${d.sectional?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--varc)20;color:var(--varc);margin-left:.3rem">Sectional</span>`:''}
+            ${d.mock?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem;font-weight:700">Mock #${d.mock}</span>`:''}
+            ${formatSecBadges(d.sectional)}
           </span>
           <span style="font-size:.7rem;color:var(--text2)">${typeLabels[d.type]||d.type}</span>
           <div style="display:flex;align-items:center;gap:.4rem">
@@ -329,11 +344,11 @@ function renderPlan() {
   document.getElementById("weekly").innerHTML = h;
 }
 
-// ─── TAB 2: 20 MOCKS ─────────────────────────────────────────────────────────
+// ─── TAB 2: 25 MOCKS ─────────────────────────────────────────────────────────
 function renderMocks() {
   const pColors = { p1:"var(--cyan)", p2:"var(--amber)", p3:"var(--green)" };
-  let h = `<h2 class="section-title">20 Full-Length Mocks Calendar</h2>
-    <p class="section-desc">Quality > Quantity · 2h exam + 2.5h deep review = 4.5h total per mock · Completed: <strong id="mock-prog">0/20</strong></p>`;
+  let h = `<h2 class="section-title">25 Full-Length Mocks Calendar</h2>
+    <p class="section-desc">Quality > Quantity · 2h exam + 2.5h deep review = 4.5h total per mock · Completed: <strong id="mock-prog">0/25</strong></p>`;
 
   h += `<div class="alert-box" style="border-left-color:var(--red);margin-bottom:1.5rem">
     <strong>🛑 The 5-Step Review Protocol (mandatory after EVERY mock):</strong>
@@ -368,22 +383,22 @@ function renderMocks() {
   document.getElementById("mocks").innerHTML = h;
 }
 
-// ─── TAB 3: 30 SECTIONALS ────────────────────────────────────────────────────
+// ─── TAB 3: 45 SECTIONALS ────────────────────────────────────────────────────
 function renderSectionals() {
-  let h = `<h2 class="section-title">30 Sectional Tests Tracker</h2>
-    <p class="section-desc">VARC (12) + DILR (10) + QA (8) · 40 min each · <span id="sec-prog">0/30</span> done · On non-mock days only</p>`;
+  let h = `<h2 class="section-title">45 Sectional Tests Tracker</h2>
+    <p class="section-desc">VARC (15) + DILR (15) + QA (15) = 45 Total · 40 min each · <span id="sec-prog">0/45</span> done · Spaced across all 40 days</p>`;
 
   h += `<div class="alert-box" style="border-left-color:var(--green);margin-bottom:1.5rem">
     <strong>🎯 Sectional Discipline:</strong> Each sectional is a <em>targeted problem</em>, not a score hunt. Before starting, write 1 specific thing you want to fix (e.g., "I will not pick extreme-tone options in RC"). After finishing, check if you fixed it.
   </div>`;
 
   [
-    { name:"VARC Sectionals (12)", prefix:"sec_varc", count:12, color:"var(--varc)",
-      tips:["Tests 1–4: Focus on RC only. 2 passages, time-box each to 12 min.", "Tests 5–8: Mix RC + VA. Aim for 78%+ accuracy.", "Tests 9–12: Full simulation. Check option elimination discipline."] },
-    { name:"DILR Sectionals (10)", prefix:"sec_dilr", count:10, color:"var(--lrdi)",
-      tips:["Tests 1–3: Scan + pick 2 sets. Do NOT touch a 3rd set.", "Tests 4–7: Mix set types. Aim for 1 full set (5 Qs) completed perfectly.", "Tests 8–10: Full simulation. Track scan-time (must be ≤4 min)."] },
-    { name:"QA Sectionals (8)", prefix:"sec_qa", count:8, color:"var(--qa)",
-      tips:["Tests 1–3: Easy+Medium only. Speed drill – sub-90s per easy Q.", "Tests 4–6: Mixed difficulty. 2-round strategy.", "Tests 7–8: Full simulation. Track question skipping discipline."] }
+    { name:"VARC Sectionals (15)", prefix:"sec_varc", count:15, color:"var(--varc)",
+      tips:["Tests 1–5: Focus on RC only. 2 passages, time-box each to 12 min. 3-pass elimination.", "Tests 6–10: Mix RC + VA (Para Jumbles & Odd Sentence). Aim for 80%+ accuracy.", "Tests 11–15: Full section simulation. Zero guesswork, ruthless option elimination."] },
+    { name:"DILR Sectionals (15)", prefix:"sec_dilr", count:15, color:"var(--lrdi)",
+      tips:["Tests 1–5: 4-min scan rule discipline. Pick 2 green sets only.", "Tests 6–10: Mix set types (Tournaments + Quant DILR + Scheduling). Complete 2 sets clean.", "Tests 11–15: Strict exam conditions. Attempt 2.5 sets with 85%+ accuracy."] },
+    { name:"QA Sectionals (15)", prefix:"sec_qa", count:15, color:"var(--qa)",
+      tips:["Tests 1–5: Speed drill on Easy+Medium Qs — sub-90s target for easy Qs.", "Tests 6–10: 2-round strategy execution (Round 1: 35 min easy, Round 2: 25 min medium).", "Tests 11–15: Full section simulation. Skip hard traps instantly. Target 20+ correct."] }
   ].forEach(s => {
     let done = 0; for (let i = 1; i <= s.count; i++) if (getP(s.prefix+"_"+i)) done++;
     const pct = Math.round((done/s.count)*100);

@@ -53,38 +53,43 @@ const BLOCKED = [
   { start: "2026-11-29", end: "2026-11-29", label: "CAT 2026 D-DAY 🏆", color: "var(--accent)" }
 ];
 
-// ── 20 FULL MOCKS (Minimum Viable — Quality > Quantity) ────────────────────
+// ── 25 FULL MOCKS (Quality > Quantity — Every mock = data, not judgment) ─────
 // Each mock = 2h exam + 2.5h review. Review IS the practice.
 const MOCKS = [
-  { num:1,  date:"2026-10-21", day:"Wed", phase:"p1", focus:"Benchmark — Identify exact weak question types" },
-  { num:2,  date:"2026-10-24", day:"Sat", phase:"p1", focus:"Dussehra 8h Day — Mock + Full Re-solve session" },
-  { num:3,  date:"2026-10-26", day:"Mon", phase:"p1", focus:"VARC Elimination Drill Mock" },
-  { num:4,  date:"2026-10-28", day:"Wed", phase:"p1", focus:"DILR Set-Selection Speed Discipline" },
-  { num:5,  date:"2026-10-31", day:"Sat", phase:"p1", focus:"QA Sub-90 Sec Speed Execution" },
-  { num:6,  date:"2026-11-02", day:"Mon", phase:"p1", focus:"Full Attempt Discipline (55+ attempts)" },
-  { num:7,  date:"2026-11-04", day:"Wed", phase:"p1", focus:"Pre-Midterm Final Benchmark Mock" },
-  { num:8,  date:"2026-11-06", day:"Fri", phase:"p2", focus:"Deepawali Light Mock — Maintain rhythm" },
-  { num:9,  date:"2026-11-08", day:"Sun", phase:"p2", focus:"Last Free-Day Mock before midterms" },
-  { num:10, date:"2026-11-11", day:"Wed", phase:"p2", focus:"Midterm Window — Morning maintenance mock" },
-  { num:11, date:"2026-11-14", day:"Sat", phase:"p2", focus:"Weekend Midterm Mock — CAT slot timing" },
-  { num:12, date:"2026-11-16", day:"Mon", phase:"p3", focus:"Foundation Day — Full Throttle Reset Mock" },
-  { num:13, date:"2026-11-17", day:"Tue", phase:"p3", focus:"Peak Sprint Day 1 — VARC annotation drill" },
-  { num:14, date:"2026-11-18", day:"Wed", phase:"p3", focus:"Peak Sprint Day 2 — DILR re-solve next day" },
-  { num:15, date:"2026-11-19", day:"Thu", phase:"p3", focus:"Peak Sprint Day 3 — QA shortcut speed" },
-  { num:16, date:"2026-11-20", day:"Fri", phase:"p3", focus:"Peak Sprint Day 4 — Section-time management" },
-  { num:17, date:"2026-11-22", day:"Sun", phase:"p3", focus:"Peak Sprint Day 6 — Full simulation + strategy" },
-  { num:18, date:"2026-11-23", day:"Mon", phase:"p3", focus:"Peak Sprint Day 7 — Clutch accuracy focus" },
-  { num:19, date:"2026-11-25", day:"Wed", phase:"p3", focus:"Penultimate Mock — Finalize section strategy" },
-  { num:20, date:"2026-11-26", day:"Thu", phase:"p3", focus:"LAST MOCK 🎯 — Confidence builder. Simulate D-day." }
+  { num:1,  date:"2026-10-21", day:"Wed", phase:"p1", focus:"Benchmark — Identify exact weak question types in each section" },
+  { num:2,  date:"2026-10-23", day:"Fri", phase:"p1", focus:"VARC Elimination Drill — cross out 3 options before committing" },
+  { num:3,  date:"2026-10-24", day:"Sat", phase:"p1", focus:"Dussehra 8h Day — Mock + Full Re-solve + Short Notes" },
+  { num:4,  date:"2026-10-25", day:"Sun", phase:"p1", focus:"Weekend Sprint — DILR 4-min scan rule practice" },
+  { num:5,  date:"2026-10-26", day:"Mon", phase:"p1", focus:"DILR Set-Selection Discipline — never touch a trap set" },
+  { num:6,  date:"2026-10-28", day:"Wed", phase:"p1", focus:"QA Sub-90 Sec Speed Execution — count easy Qs in Round 1" },
+  { num:7,  date:"2026-10-31", day:"Sat", phase:"p1", focus:"Full Simulation — 55+ total attempts, track section-wise count" },
+  { num:8,  date:"2026-11-01", day:"Sun", phase:"p1", focus:"VARC Focus Mock — 3-pass method mandatory for every RC" },
+  { num:9,  date:"2026-11-02", day:"Mon", phase:"p1", focus:"Attempt Discipline — 55+ attempts, 80%+ accuracy goal" },
+  { num:10, date:"2026-11-04", day:"Wed", phase:"p1", focus:"Pre-Midterm Final Benchmark — track vs Mock #1 progress" },
+  { num:11, date:"2026-11-06", day:"Fri", phase:"p1", focus:"Deepawali Light Mock — maintain exam rhythm on holiday" },
+  { num:12, date:"2026-11-08", day:"Sun", phase:"p1", focus:"Final Pre-Midterm Mock — full simulation before exam week" },
+  { num:13, date:"2026-11-11", day:"Wed", phase:"p2", focus:"Midterm Window Mock — morning maintenance, keep brain warm" },
+  { num:14, date:"2026-11-14", day:"Sat", phase:"p2", focus:"Weekend Midterm Mock — CAT slot timing (8:30 AM start)" },
+  { num:15, date:"2026-11-15", day:"Sun", phase:"p2", focus:"Midterm Last Day Mock — final warmup before Phase 3 sprint" },
+  { num:16, date:"2026-11-16", day:"Mon", phase:"p3", focus:"Foundation Day — Full Throttle Reset Mock (8:30 AM sharp)" },
+  { num:17, date:"2026-11-17", day:"Tue", phase:"p3", focus:"Peak Sprint 1 — VARC 3-pass + elimination rate tracking" },
+  { num:18, date:"2026-11-18", day:"Wed", phase:"p3", focus:"Peak Sprint 2 — DILR next-day cold re-solve protocol" },
+  { num:19, date:"2026-11-19", day:"Thu", phase:"p3", focus:"Peak Sprint 3 — QA shortcut speed (IPM tricks → CAT speed)" },
+  { num:20, date:"2026-11-20", day:"Fri", phase:"p3", focus:"Peak Sprint 4 — Section time management (track per-section min)" },
+  { num:21, date:"2026-11-21", day:"Sat", phase:"p3", focus:"Peak Sprint 5 — Full D-day simulation at 8:30 AM" },
+  { num:22, date:"2026-11-22", day:"Sun", phase:"p3", focus:"Peak Sprint 6 — Execute pre-planned strategy, no deviations" },
+  { num:23, date:"2026-11-23", day:"Mon", phase:"p3", focus:"Clutch Accuracy Mock — 85%+ accuracy even if attempts drop" },
+  { num:24, date:"2026-11-25", day:"Wed", phase:"p3", focus:"Penultimate Mock — finalize section strategy, write exam card" },
+  { num:25, date:"2026-11-26", day:"Thu", phase:"p3", focus:"LAST MOCK 🎯 — Confidence builder. Simulate D-day exactly." }
 ];
 
-// ── 30 SECTIONALS (Minimum Viable for 98+) ─────────────────────────────────
-// On non-mock days. Targeted at specific weak patterns — not just volume.
+// ── 45 SECTIONALS (15 per section — Maximum Coverage for 98+) ──────────────
+// Mixed on mock AND non-mock days. 15 VARC + 15 DILR + 15 QA.
 const SECTIONAL_TESTS = {
-  varc: 12,  // Focus: RC accuracy + VA non-RC
-  dilr: 10,  // Focus: Timed 2-set completion
-  qa: 8,     // Focus: Speed drills (easy-medium accuracy)
-  total: 30
+  varc: 15,  // Focus: RC 3-pass method, VA accuracy (Para Jumbles + Odd Sentence)
+  dilr: 15,  // Focus: Timed 2-set completion, 4-min scan discipline
+  qa: 15,    // Focus: Speed drills — sub-90 sec per easy Q, 2-round strategy
+  total: 45
 };
 
 // ── QA SHORT NOTES (Formula + Shortcut + Trap Alert) ───────────────────────
@@ -133,7 +138,7 @@ const DILR_BATCHES = [
   { id:"db5", label:"Nov 16–26 (11 days × 2 sets = 22 sets — post mock)", sets:22 }
 ];
 
-// ── MOCK REVIEW PROTOCOL STEPS (For each of the 20 mocks) ─────────────────
+// ── MOCK REVIEW PROTOCOL STEPS (For each of the 25 mocks) ─────────────────
 const REVIEW_PROTOCOL = [
   { step:"Step 1 (45 min): VARC Annotation", detail:"Re-read every RC passage. For each wrong/skipped question, write ONE sentence: 'I chose [X] because [reason]. The trap was [Y]. Correct reasoning is [Z].' This is non-negotiable." },
   { step:"Step 2 (30 min): DILR Cold Re-solve", detail:"Do NOT read solutions first. Re-attempt all wrong DILR sets from scratch with fresh eyes. If still stuck after 15 min, THEN read solution. Next morning, solve the set again cold." },
@@ -238,8 +243,8 @@ const MILESTONES = [
   { date:"5–8 Nov", event:"Deepawali — 1 sectional/day. Rest. Stay sharp.", icon:"🪔" },
   { date:"9–15 Nov", event:"IIM Rohtak Midterm Exams — Morning mock (40 min). Evening log.", icon:"🎓" },
   { date:"16 Nov", event:"Foundation Day — Full Throttle Launch. Daily mock sprint begins.", icon:"🔥" },
-  { date:"21 Nov", event:"20 Mocks + 30 Sectionals milestone. Review all error logs.", icon:"⭐" },
-  { date:"26 Nov", event:"Final Mock #20 — Lock strategy. No surprises on exam day.", icon:"🏁" },
+  { date:"21 Nov", event:"21 Mocks + 35+ Sectionals milestone. Review all error logs.", icon:"⭐" },
+  { date:"26 Nov", event:"Final Mock #25 — Lock strategy. No surprises on exam day.", icon:"🏁" },
   { date:"27–28 Nov", event:"Taper: Read QA short-notes + mock strategy. Sleep 10 PM sharp.", icon:"🧘" },
   { date:"29 Nov", event:"CAT 2026 — Execute, don't improvise. Trust the system. 🏆", icon:"🏆" }
 ];
