@@ -83,9 +83,33 @@ function formatSecBadges(sec) {
     const isVarc = s.toLowerCase().startsWith('varc');
     const isDilr = s.toLowerCase().startsWith('dilr');
     const color = isVarc ? 'var(--varc)' : (isDilr ? 'var(--lrdi)' : 'var(--qa)');
-    const label = s.toUpperCase().replace('_', ' ');
-    return `<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:${color}20;color:${color};margin-left:.3rem;font-weight:700">${label}</span>`;
+    const num = s.split('_')[1];
+    const name = isVarc ? 'VA Sectional' : (isDilr ? 'DILR Sectional' : 'QA Sectional');
+    return `<span style="font-size:.65rem;padding:2px 7px;border-radius:99px;background:${color}20;color:${color};margin-left:.3rem;font-weight:700">${name} #${num}</span>`;
   }).join('');
+}
+
+function renderScheduledTestsBanner(mock, sec) {
+  if (!mock && !sec) return '';
+  const items = [];
+  if (mock) {
+    items.push(`<span style="background:var(--accent)25;color:var(--accent2);padding:4px 10px;border-radius:6px;font-weight:700;font-size:.78rem;border:1px solid var(--accent)50">🧪 Full Mock Test #${mock} (2 Hours · CAT Slot)</span>`);
+  }
+  if (sec) {
+    const arr = Array.isArray(sec) ? sec : [sec];
+    arr.forEach(s => {
+      const isVarc = s.toLowerCase().startsWith('varc');
+      const isDilr = s.toLowerCase().startsWith('dilr');
+      const color = isVarc ? 'var(--varc)' : (isDilr ? 'var(--lrdi)' : 'var(--qa)');
+      const name = isVarc ? 'VA Sectional Test' : (isDilr ? 'DILR Sectional Test' : 'QA Sectional Test');
+      const num = s.split('_')[1];
+      items.push(`<span style="background:${color}20;color:${color};padding:4px 10px;border-radius:6px;font-weight:700;font-size:.78rem;border:1px solid ${color}40">🎯 ${name} #${num} (40 Mins)</span>`);
+    });
+  }
+  return `<div style="background:var(--surface2);border-radius:8px;padding:.5rem .75rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+    <span style="font-size:.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em">⚡ Scheduled Tests:</span>
+    ${items.join(' ')}
+  </div>`;
 }
 
 // ─── TAB: DAILY EOD TARGETS ─────────────────────────────────────────────────
@@ -115,11 +139,12 @@ function renderDaily() {
         <div>
           <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:${pc}">TODAY — Day ${todayEntry.day} / 40</div>
           <div style="font-size:1.1rem;font-weight:800">${todayEntry.label} (${todayEntry.weekday}) · ${typeLabels[todayEntry.type] || todayEntry.type}
-            ${todayEntry.mock ? `<span style="font-size:.7rem;padding:2px 8px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem;font-weight:700">Mock #${todayEntry.mock}</span>` : ''}
+            ${todayEntry.mock ? `<span style="font-size:.7rem;padding:2px 8px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem;font-weight:700">Full Mock #${todayEntry.mock}</span>` : ''}
             ${formatSecBadges(todayEntry.sectional)}
           </div>
         </div>
       </div>
+      ${renderScheduledTestsBanner(todayEntry.mock, todayEntry.sectional)}
       ${todayEntry.note ? `<div style="font-size:.82rem;background:var(--surface2);padding:.5rem .75rem;border-radius:8px;border-left:3px solid ${pc};margin-bottom:.8rem;color:var(--text)">${todayEntry.note}</div>` : ''}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem">
         <div style="background:var(--surface2);border-radius:8px;padding:.7rem">
@@ -181,7 +206,7 @@ function renderDaily() {
              style="display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem;cursor:pointer">
           <span style="min-width:50px;font-size:.75rem;font-weight:800;color:${isToday?pc:(allDone?'var(--green)':(isPast?'var(--red)':'var(--text2)'))}">${isToday?'TODAY':('Day '+d.day)}</span>
           <span style="font-size:.82rem;font-weight:700;flex:1">${d.label} (${d.weekday})
-            ${d.mock?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem;font-weight:700">Mock #${d.mock}</span>`:''}
+            ${d.mock?`<span style="font-size:.65rem;padding:2px 6px;border-radius:99px;background:var(--accent)20;color:var(--accent);margin-left:.4rem;font-weight:700">Full Mock #${d.mock}</span>`:''}
             ${formatSecBadges(d.sectional)}
           </span>
           <span style="font-size:.7rem;color:var(--text2)">${typeLabels[d.type]||d.type}</span>
@@ -192,6 +217,7 @@ function renderDaily() {
           <span class="chevron">▾</span>
         </div>
         <div class="card-body" style="padding:.7rem 1rem;border-top:1px solid var(--border)">
+          ${renderScheduledTestsBanner(d.mock, d.sectional)}
           ${d.note?`<div style="font-size:.78rem;color:var(--text2);background:var(--surface2);padding:.4rem .6rem;border-radius:6px;border-left:3px solid ${pc};margin-bottom:.7rem">${d.note}</div>`:''}
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.7rem">
             <div>
